@@ -1,7 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Urbanist">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verticular Ltd - Coming Soon</title>
+    <link rel="icon" type="image/x-icon" href="imgs/favicon.ico">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-family: Urbanist, Arial, sans-serif;
+            background-color: #009373;
+        }
+
+        .container {
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            max-width: 800px;
+            height: auto;
+            margin: 0 auto 20px auto;
+            display: block;
+        }
+
+        .coming-soon {
+            font-size: 2.5em;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-weight: lighter;
+        }
+
+        .contact-link {
+            font-size: 1.2em;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #001b1566;
+            color: #A8E6CF;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>Cya!</p>
+    <div class="container">
+        <img src="imgs/logo.png" alt="Verticular Ltd Logo" class="logo">
+        <div class="coming-soon">Coming Soon</div>
+        <a href="mailto:info@verticular.uk" class="contact-link">info@verticular.uk</a>
+    </div>
+    <footer>
+        &copy; 2025 Verticular Ltd. All rights reserved.
+    </footer>
 </body>
 </html>
