@@ -1,73 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Urbanist">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verticular Ltd - Coming Soon</title>
-    <link rel="icon" type="image/x-icon" href="imgs/favicon.ico">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            font-family: Urbanist, Arial, sans-serif;
-            background-color: #009373;
-        }
-
-        .container {
-            text-align: center;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .logo {
-            max-width: 800px;
-            height: auto;
-            margin: 0 auto 20px auto;
-            display: block;
-        }
-
-        .coming-soon {
-            font-size: 2.5em;
-            color: #ffffff;
-            margin-bottom: 20px;
-            font-weight: lighter;
-        }
-
-        .contact-link {
-            font-size: 1.2em;
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        .contact-link:hover {
-            color: #ffffff;
-            text-decoration: underline;
-        }
-
-        footer {
-            background-color: #001b1566;
-            color: #A8E6CF;
-            text-align: center;
-            padding: 10px 0;
-            font-size: 0.9em;
-        }
-    </style>
+    <link rel="icon" type="image/png" href="imgs/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="imgs/favicon.svg" />
+    <link rel="shortcut icon" href="imgs/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="imgs/apple-touch-icon.png" />
+    <title>Verticular - Your Cloud, Optimised</title>
+    <link rel="stylesheet" href="style_m.css">
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <img src="imgs/logo.png" alt="Verticular Ltd Logo" class="logo">
-        <div class="coming-soon">Coming Soon</div>
-        <a href="mailto:info@verticular.uk" class="contact-link">info@verticular.uk</a>
-    </div>
-    <footer>
-        &copy; 2025 Verticular Ltd. All rights reserved.
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto flex justify-between items-center py-4 px-6 md:px-12">
+            <!-- Logo -->
+            <a href="#" class="flex-shrink-0">
+                <img class="h-10 w-auto" src="imgs/Verticular_v1-24.png" alt="Verticular Logo">
+            </a>
+            <!-- Desktop Navigation Links -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#solution" class="text-gray-600 hover:text-verticular-green font-medium">Our Solution</a>
+                <a href="#about" class="text-gray-600 hover:text-verticular-green font-medium">About Us</a>
+                <a href="#contact" class="text-gray-600 hover:text-verticular-green font-medium">Contact</a>
+                <a href="#contact" class="bg-verticular-green hover:bg-verticular-green-dark text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
+                    Get in Touch
+                </a>
+            </div>
+            <!-- Mobile Menu Button (Hamburger Icon) -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-verticular-green focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu (Initially hidden) -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
+            <a href="#solution" class="block text-gray-600 hover:text-verticular-green font-medium py-2">Our Solution</a>
+            <a href="#about" class="block text-gray-600 hover:text-verticular-green font-medium py-2">About Us</a>
+            <a href="#contact" class="block text-gray-600 hover:text-verticular-green font-medium py-2">Contact</a>
+            <a href="#contact" class="block bg-verticular-green hover:bg-verticular-green-dark text-white font-semibold py-2 px-4 rounded-lg shadow-md text-center mt-2">
+                Get in Touch
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-[#005F55] to-[#009373] text-white justify-center py-3 px-6 lg:pt-2 lg:pb-27 lg:px-12 rounded-b-3xl shadow-lg">
+        <div class="container mx-auto max-w-4xl h-1/5">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+                Your Cloud, <span class="text-verticular-green-accent"> Optimised</span>
+            </h1>
+            <p class="text-lg md:text-2xl lg:mb-5 mb-10 opacity-90">
+                By applying AI, we understand the relationship between <span class="text-verticular-green-accent">chip performance</span> and <span class="text-verticular-green-accent">critical SLAs</span>, and optimise your Cloud-native implementation. 
+                With <span class="text-verticular-green-accent">no change to your existing software and hardware</span>, we make your network greener, lower your OpEx, extend the time-in-service of your platform, and ensure your SLAs are met.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 lg:mb-10 mb-5">
+                <a href="#contact" class="bg-white text-verticular-green font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Request a Demo
+                </a>
+                <a href="#solution" class="border-2 border-white text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Learn More
+                </a>
+            </div>
+            <div class="hidden lg:block h-10 text-left">
+            <code id="terminal-code" class="terminal-code"></code><span class="cursor"></span>
+        </div>
+        </div>
+    </section>
+
+    <!-- Our Solution / Features Section -->
+    <section id="solution" class="py-16 px-6 md:py-14 md:px-12 bg-white">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
+                The Product: vert-agent and vert-expert
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Feature 1: AI-Driven Optimization -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                    <div class="text-verticular-green mb-4">
+                        <img class="w-10 h-10" src="imgs/1.svg"/>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Explainable AI-Driven Optimisation</h3>
+                    <p class="text-gray-700">
+                        Intelligent AI understands chip performance and SLAs to optimise your cloud-native implementation.
+                    </p>
+                </div>
+                <!-- Feature 2: Green & Cost-Efficient -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                    <div class="text-verticular-green mb-4">
+                        <img class="w-10 h-10" src="imgs/2.svg"/>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Green & Cost-Efficient</h3>
+                    <p class="text-gray-700">
+                        Reduce OpEx, extend platform lifespan, and make your network greener without hardware changes.
+                    </p>
+                </div>
+                <!-- Feature 3: Seamless Integration -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                    <div class="text-verticular-green mb-4">
+                        <img class="w-10 h-10" src="imgs/3.svg"/>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Seamless Integration</h3>
+                    <p class="text-gray-700">
+                        One binary, no K8S operators, scheduler extensions, or YAML modifications needed.
+                    </p>
+                </div>
+                <!-- Feature 4: Deep Monitoring with eBPF -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                    <div class="text-verticular-green mb-4">
+                        <img class="w-10 h-10" src="imgs/4.svg"/>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Deep Monitoring with eBPF</h3>
+                    <p class="text-gray-700">
+                        Leverage eBPF for seamless deep monitoring, ensuring minimum operational disruption and immediate savings.
+                    </p>
+                </div>
+                <!-- Feature 5: Automated SLA Assurance -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                    <div class="text-verticular-green mb-4">
+                        <img class="w-10 h-10" src="imgs/5.svg"/>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Automated SLA Assurance</h3>
+                    <p class="text-gray-700">
+                        Automatically identify intra-container process structures and optimise pod instances for maximum performance and SLA delivery.
+                    </p>
+                </div>
+                <!-- Feature 6: Cross-Platform & Explainable -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                    <div class="text-verticular-green mb-4">
+                        <img class="w-10 h-10" src="imgs/6.svg"/>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Cross-Platform & Cross-Distribution</h3>
+                    <p class="text-gray-700">
+                        Cross-platform and cross-Linux/K8S distribution, with explainable behaviors for full transparency.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="about" class="bg-gray-100 py-14 px-6 md:py-16 md:px-12">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gray-900">
+                About Verticular
+            </h2>
+            <div class="bg-white p-8 md:p-12 rounded-xl shadow-lg">
+                <p class="text-xl md:text-2xl italic text-gray-700 mb-6 leading-relaxed">
+                    "Verticular is dedicated to optimising your cloud infrastructure, ensuring peak performance and efficiency with our innovative AI-driven solutions."
+                </p>
+                <div class="flex items-center justify-center">
+                    <img src="imgs/Verticular_v1-24.png" alt="Verticular Logo" class="h-9 mr-5 object-cover">
+                    <div>
+                        <p class="font-semibold text-gray-900 text-lg">The Verticular Team</p>
+                        <p class="text-gray-600 text-sm">Innovators in Cloud Optimisation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Call to Action / Contact Form Section -->
+    <section id="contact" class="bg-verticular-green-dark py-16 px-6 md:py-10 md:px-12 text-white text-center rounded-t-3xl shadow-lg">
+        <div class="container mx-auto max-w-2xl">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
+                Ready to Optimise Your Cloud?
+            </h2>
+            <p class="text-lg md:text-xl mb-10 opacity-90">
+                Have a question or want a demo? Fill out the form below and we'll get back to you.
+            </p>
+            
+            <form action="https://api.web3forms.com/submit" method="POST" class="text-left" id="contact_us">
+                <!-- IMPORTANT: Replace with your Access Key -->
+                <input type="hidden" name="access_key" value="04aae826-131f-4c1e-8c46-ca4955d26829">
+
+                <!-- Form Fields -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="name" class="block mb-2 text-sm font-medium">Full Name</label>
+                        <input type="text" name="name" id="name" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium">Email Address</label>
+                        <input type="email" name="email" id="email" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green" required>
+                    </div>
+                </div>
+                <div class="mb-6">
+                     <label for="phone" class="block mb-2 text-sm font-medium">Phone Number</label>
+                     <input type="tel" name="phone" id="phone" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green">
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block mb-2 text-sm font-medium">Message</label>
+                    <textarea name="message" id="message" rows="4" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green" required></textarea>
+                </div>
+
+                <!-- h-captcha - Optional, but recommended -->
+                <div class="h-captcha mb-5" data-captcha="true"></div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="bg-white text-verticular-green hover:bg-gray-100 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                        Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-5 px-12 lg:px-12">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Company Info -->
+            <div>
+                <a href="#" class="block mb-2">
+                    <img class="h-10 w-auto" src="imgs/Verticular_v1-25.png" alt="Verticular">
+                </a>
+                <p class="text-sm font-semibold text-verticular-green text-justify">
+                    Your Cloud, Optimised
+                </p>
+            </div>
+            <!-- Quick Links -->
+            <div>
+                <h3 class="text-white font-semibold mb-1">Quick Links</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#solution" class="hover:text-white transition duration-200">Our Solution</a></li>
+                    <li><a href="#about" class="hover:text-white transition duration-200">About Us</a></li>
+                    <li><a href="#contact" class="hover:text-white transition duration-200">Contact</a></li>
+                </ul>
+            </div>
+            <!-- Contact Info -->
+            <div>
+                <h3 class="text-white font-semibold mb-1">Contact</h3>
+                <ul class="space-y-2 text-sm">
+                    <li>Email: <a href="mailto:info@verticular.uk" class="hover:text-white transition duration-200">info@verticular.uk</a></li>
+                    <li>Address: The Old Bakehouse Downs Park East, Westbury Park, Bristol, UK, BS6 7QD</li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-1 pt-5 text-center text-sm">
+            Copyright &copy; 2025 Verticular Ltd. All rights reserved.
+        </div>
     </footer>
+
+    <!-- JavaScript for Mobile Menu Toggle -->
+    <script>
+        // Get the button and the mobile menu element
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Add a click event listener to the button
+        mobileMenuButton.addEventListener('click', () => {
+            // Toggle the 'hidden' class on the mobile menu
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+    <script src="https://web3forms.com/client/script.js" async defer></script>
+    <script>
+        const form = document.getElementById('contact_us');
+
+        form.addEventListener('submit', function (e) {
+
+            const hCaptcha = form.querySelector('textarea[name=h-captcha-response]').value;
+
+            if (!hCaptcha) {
+                e.preventDefault();
+                alert("Please fill out captcha field")
+                return
+            }
+        });
+    </script>
+    <!-- JavaScript for Terminal Animation -->
+    <script>
+        const terminalCode = document.getElementById('terminal-code');
+        const commands = [
+            { text: '$ vert-expert --optimise-energy --sla-target=p99_latency<50ms', delay: 500 },
+            { text: 'INFO: vert-expert activated. Connecting to the vert-agents in the cluster...', delay: 500 },
+            { text: 'INFO: Optimising bare metal resources and k8s replicas across namespaces...', delay: 1000 },
+            { text: 'SUCCESS: Power consumption reduced by 30%', delay: 1000 },
+            { text: 'SUCCESS: All SLAs met', delay: 5000 }
+        ];
+
+        let commandIndex = 0;
+        let charIndex = 0;
+
+        function typeCommand() {
+            if (commandIndex >= commands.length) {
+                // Optional: Loop the animation
+                commandIndex = 0;
+                terminalCode.innerHTML = '';
+                setTimeout(typeCommand, 1000);
+                return;
+            }
+
+            const currentCommand = commands[commandIndex];
+            if (charIndex < currentCommand.text.length) {
+                terminalCode.innerHTML += currentCommand.text.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeCommand, 25); // Typing speed
+            } else {
+                terminalCode.innerHTML += '\n';
+                charIndex = 0;
+                commandIndex++;
+                setTimeout(typeCommand, currentCommand.delay); // Delay before next command
+            }
+        }
+
+        window.addEventListener('load', () => {
+             setTimeout(typeCommand, 1000); // Initial delay
+        });
+    </script>
+
 </body>
 </html>
