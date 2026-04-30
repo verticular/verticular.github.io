@@ -424,6 +424,27 @@
         .model-bench.bench-hidden {
             display: none;
         }
+
+        /* ── ROI bar chart ── */
+        .roi-scale-header { display: flex; gap: 1rem; margin-bottom: 0.6rem; }
+        .roi-scale-header .roi-label-col { width: 148px; flex-shrink: 0; }
+        .roi-scale-header .roi-bar-col   { flex: 1; position: relative; height: 1.1rem; }
+        .roi-scale-header .roi-val-col   { width: 110px; flex-shrink: 0; }
+        .roi-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .roi-row:last-of-type { margin-bottom: 0; }
+        .roi-label-col { width: 148px; flex-shrink: 0; }
+        .roi-bar-col   { flex: 1; position: relative; height: 32px; }
+        .roi-val-col   { width: 110px; flex-shrink: 0; text-align: right; }
+        .roi-legend    { display: flex; gap: 1.5rem; margin-top: 1.4rem; padding-left: 164px; flex-wrap: wrap; }
+
+        @media (max-width: 600px) {
+            .roi-scale-header { display: none; }
+            .roi-row { flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+            .roi-label-col { width: auto; flex: 1; min-width: 0; }
+            .roi-bar-col   { order: 3; flex: 0 0 100%; height: 28px; }
+            .roi-val-col   { width: auto; flex-shrink: 0; text-align: right; }
+            .roi-legend    { padding-left: 0; }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -1360,9 +1381,9 @@
                 <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:2rem 2rem 1.5rem;">
 
                     <!-- Scale header -->
-                    <div style="display:flex;gap:1rem;margin-bottom:0.6rem;">
-                        <div style="width:148px;flex-shrink:0;"></div>
-                        <div style="flex:1;position:relative;height:1.1rem;">
+                    <div class="roi-scale-header">
+                        <div class="roi-label-col"></div>
+                        <div class="roi-bar-col">
                             <span style="position:absolute;left:0;font-size:0.62rem;color:rgba(255,255,255,0.65);">£0</span>
                             <span style="position:absolute;left:20%;transform:translateX(-50%);font-size:0.62rem;color:rgba(255,255,255,0.65);">£5K</span>
                             <span style="position:absolute;left:40%;transform:translateX(-50%);font-size:0.62rem;color:rgba(255,255,255,0.65);">£10K</span>
@@ -1370,17 +1391,16 @@
                             <span style="position:absolute;left:80%;transform:translateX(-50%);font-size:0.62rem;color:rgba(255,255,255,0.65);">£20K</span>
                             <span style="position:absolute;right:0;font-size:0.62rem;color:rgba(255,255,255,0.65);">£23K</span>
                         </div>
-                        <div style="width:110px;flex-shrink:0;"></div>
+                        <div class="roi-val-col"></div>
                     </div>
 
                     <!-- Entry-Level GPU: £5,585/yr, bar = 24.28% of £23K -->
-                    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;">
-                        <div style="width:148px;flex-shrink:0;">
+                    <div class="roi-row">
+                        <div class="roi-label-col">
                             <div style="font-size:0.8rem;font-weight:600;color:#fff;">Workstation</div>
                             <div style="font-size:0.67rem;color:rgba(255,255,255,0.65);">2.5 kW · £5,585/yr</div>
                         </div>
-                        <div style="flex:1;position:relative;height:32px;">
-                            <!-- grid lines -->
+                        <div class="roi-bar-col">
                             <div style="position:absolute;inset:0;display:flex;pointer-events:none;">
                                 <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
                                 <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
@@ -1390,19 +1410,19 @@
                             </div>
                             <div class="result-bar-fill" data-width="24.28%" style="position:absolute;top:0;left:0;height:100%;border-radius:0 5px 5px 0;background:linear-gradient(90deg,rgba(248,113,113,0.2) 0%,rgba(248,113,113,0.2) 70%,#009373 70%,#9ef8a2 100%);"></div>
                         </div>
-                        <div style="width:110px;flex-shrink:0;text-align:right;">
+                        <div class="roi-val-col">
                             <div style="font-size:0.88rem;font-weight:700;color:#9ef8a2;">saves £1,675</div>
                             <div style="font-size:0.65rem;color:rgba(255,255,255,0.65);">per year</div>
                         </div>
                     </div>
 
                     <!-- Mid-Range GPU: £13,961/yr, bar = 60.70% of £23K -->
-                    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;">
-                        <div style="width:148px;flex-shrink:0;">
+                    <div class="roi-row">
+                        <div class="roi-label-col">
                             <div style="font-size:0.8rem;font-weight:600;color:#fff;">Mid-Range Server</div>
                             <div style="font-size:0.67rem;color:rgba(255,255,255,0.65);">6.25 kW · £13,961/yr</div>
                         </div>
-                        <div style="flex:1;position:relative;height:32px;">
+                        <div class="roi-bar-col">
                             <div style="position:absolute;inset:0;display:flex;pointer-events:none;">
                                 <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
                                 <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
@@ -1412,19 +1432,19 @@
                             </div>
                             <div class="result-bar-fill" data-width="60.70%" style="position:absolute;top:0;left:0;height:100%;border-radius:0 5px 5px 0;background:linear-gradient(90deg,rgba(248,113,113,0.2) 0%,rgba(248,113,113,0.2) 70%,#009373 70%,#9ef8a2 100%);"></div>
                         </div>
-                        <div style="width:110px;flex-shrink:0;text-align:right;">
+                        <div class="roi-val-col">
                             <div style="font-size:0.88rem;font-weight:700;color:#9ef8a2;">saves £4,188</div>
                             <div style="font-size:0.65rem;color:rgba(255,255,255,0.65);">per year</div>
                         </div>
                     </div>
 
                     <!-- Enterprise GPU: £22,338/yr, bar = 97.12% of £23K -->
-                    <div style="display:flex;align-items:center;gap:1rem;">
-                        <div style="width:148px;flex-shrink:0;">
+                    <div class="roi-row">
+                        <div class="roi-label-col">
                             <div style="font-size:0.8rem;font-weight:600;color:#fff;">Enterprise Server</div>
                             <div style="font-size:0.67rem;color:rgba(255,255,255,0.65);">10 kW · £22,338/yr</div>
                         </div>
-                        <div style="flex:1;position:relative;height:32px;">
+                        <div class="roi-bar-col">
                             <div style="position:absolute;inset:0;display:flex;pointer-events:none;">
                                 <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
                                 <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
@@ -1434,14 +1454,14 @@
                             </div>
                             <div class="result-bar-fill" data-width="97.12%" style="position:absolute;top:0;left:0;height:100%;border-radius:0 5px 5px 0;background:linear-gradient(90deg,rgba(248,113,113,0.2) 0%,rgba(248,113,113,0.2) 70%,#009373 70%,#9ef8a2 100%);"></div>
                         </div>
-                        <div style="width:110px;flex-shrink:0;text-align:right;">
+                        <div class="roi-val-col">
                             <div style="font-size:0.88rem;font-weight:700;color:#9ef8a2;">saves £6,701</div>
                             <div style="font-size:0.65rem;color:rgba(255,255,255,0.65);">per year</div>
                         </div>
                     </div>
 
                     <!-- Legend -->
-                    <div style="display:flex;gap:1.5rem;margin-top:1.4rem;padding-left:164px;flex-wrap:wrap;">
+                    <div class="roi-legend">
                         <div style="display:flex;align-items:center;gap:0.4rem;">
                             <div style="width:14px;height:10px;border-radius:2px;background:rgba(248,113,113,0.2);border:1px solid rgba(248,113,113,0.35);"></div>
                             <span style="font-size:0.82rem;color:rgba(255,255,255,0.65);">Annual cost after savings</span>
