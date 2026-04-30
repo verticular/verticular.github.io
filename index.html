@@ -3,13 +3,11 @@
 <head>
     <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="0430179b-d5d7-446d-9dd2-86cd971376ef" type="text/javascript" async></script>
     <script data-cookieconsent="ignore">    window.dataLayer = window.dataLayer || [];    function gtag() {        dataLayer.push(arguments);    }    gtag("consent", "default", {        ad_personalization: "denied",        ad_storage: "denied",        ad_user_data: "denied",        analytics_storage: "denied",        functionality_storage: "denied",        personalization_storage: "denied",        security_storage: "granted",        wait_for_update: 500,    });    gtag("set", "ads_data_redaction", true);    gtag("set", "url_passthrough", false);</script>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZ1BQQDCQS"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
       gtag('config', 'G-TZ1BQQDCQS');
     </script>
     <meta charset="UTF-8">
@@ -18,377 +16,1813 @@
     <link rel="icon" type="image/svg+xml" href="imgs/favicon.svg" />
     <link rel="shortcut icon" href="imgs/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="imgs/apple-touch-icon.png" />
-    <title>Verticular - Your Cloud, Optimised</title>
+    <title>Verticular – Your Cloud, Optimised</title>
     <link rel="stylesheet" href="style_m.css">
-    <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ── Global dark base ── */
+        html {
+            background-color: #030a09; /* Matches footer to hide bottom bounce color difference */
+        }
+        html, body {
+            overscroll-behavior: none;
+            overscroll-behavior-y: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #060e0d;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Scroll progress */
+        #scroll-progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: #009373;
+            z-index: 9999;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* ── Badges ── */
+        .chapter-badge {
+            display: inline-block;
+            background: rgba(0,147,115,0.15);
+            border: 1px solid rgba(0,147,115,0.4);
+            color: #9ef8a2;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.9rem;
+            border-radius: 9999px;
+            margin-bottom: 1.2rem;
+        }
+
+        .chapter-number {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            color: rgba(0,147,115,0.12);
+            position: absolute;
+            top: 2rem; right: 2rem;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* ── Reveal animations ── */
+        .scrolly-reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .scrolly-reveal.visible { opacity: 1; transform: translateY(0); }
+        .scrolly-reveal.delay-1 { transition-delay: 0.1s; }
+        .scrolly-reveal.delay-2 { transition-delay: 0.2s; }
+        .scrolly-reveal.delay-3 { transition-delay: 0.3s; }
+        .scrolly-reveal.delay-4 { transition-delay: 0.4s; }
+        .scrolly-reveal.delay-5 { transition-delay: 0.5s; }
+
+        /* ── Cards ── */
+        .dark-card {
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .dark-card.accent {
+            border-color: #009373;
+            background: rgba(0,147,115,0.1);
+        }
+        .dark-card:hover {
+            border-color: rgba(0,147,115,0.5);
+            background: rgba(0,147,115,0.07);
+        }
+
+        /* Overview stat cards */
+        .stat-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .stat-card.accent { border-color: rgba(0,147,115,0.4); background: rgba(0,147,115,0.1); }
+        .stat-val {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #9ef8a2;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+        .stat-lbl {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.65);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* ── Section divider ── */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,147,115,0.35), transparent);
+            margin: 0 2rem;
+        }
+
+        /* ── Chapter separator bar ── */
+        .chapter-sep {
+            width: 48px;
+            height: 3px;
+            background: #009373;
+            border-radius: 2px;
+            margin: 1.25rem 0;
+        }
+
+        /* ── Stat bars ── */
+        .result-bar-track {
+            background: rgba(255,255,255,0.08);
+            border-radius: 6px;
+            height: 10px;
+            overflow: hidden;
+            margin: 0.35rem 0 0.2rem;
+        }
+        .result-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            width: 0%;
+            transition: width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .result-bar-fill.energy { background: linear-gradient(90deg, #009373, #9ef8a2); }
+
+        /* ── Challenge comparison cards ── */
+        .challenge-model-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .challenge-model-card .card-header {
+            background: rgba(255,255,255,0.04);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .challenge-model-card .card-row { display: grid; grid-template-columns: 1fr 1fr; }
+        .challenge-model-card .col-before { padding: 1.25rem 1.5rem; border-right: 1px solid rgba(255,255,255,0.06); }
+        .challenge-model-card .col-after  { padding: 1.25rem 1.5rem; background: rgba(0,147,115,0.05); }
+        .challenge-model-card .col-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+        .col-before .col-label { color: rgba(248,113,113,0.7); }
+        .col-after  .col-label { color: rgba(158,248,162,0.7); }
+        .challenge-model-card .metric-val { font-size: 1.6rem; font-weight: 800; line-height: 1; margin-bottom: 0.25rem; }
+        .col-before .metric-val { color: #f87171; }
+        .col-after  .metric-val { color: #9ef8a2; }
+        .challenge-model-card .metric-sub   { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
+        .challenge-model-card .metric-delta { font-size: 0.75rem; font-weight: 600; margin-top: 0.4rem; }
+        .col-after .metric-delta { color: #9ef8a2; }
+
+        /* ── Benchmark table rows ── */
+        .model-bench {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        .model-bench-header {
+            padding: 1.25rem 1.5rem;
+            background: rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .model-bench-baseline { font-size: 0.78rem; color: rgba(255,255,255,0.4); margin-top: 0.25rem; }
+        .bench-profile-row {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            display: grid;
+            grid-template-columns: 130px 1fr 140px;
+            gap: 1rem;
+            align-items: center;
+        }
+        .bench-profile-row:last-child { border-bottom: none; }
+        .bench-profile-row.p10 { border-left: 3px solid #60a5fa; }
+        .bench-profile-row.p15 { border-left: 3px solid #009373; background: rgba(0,147,115,0.04); }
+        .bench-profile-row.p20 { border-left: 3px solid #fb923c; }
+        .bench-profile-label { font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.7); }
+        .bench-profile-label small { display: block; font-size: 0.68rem; font-weight: 400; color: rgba(255,255,255,0.35); margin-top: 0.15rem; }
+        .bench-ws-reduction { font-size: 1rem; font-weight: 700; color: #9ef8a2; white-space: nowrap; }
+        .bench-ws-opt       { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+        .bench-tps-col      { text-align: right; }
+        .bench-tps-val      { font-size: 0.85rem; color: rgba(255,255,255,0.65); white-space: nowrap; }
+        .bench-tps-delta    { font-size: 0.72rem; color: rgba(251,146,60,0.7); }
+
+        /* ── SLA spectrum bar ── */
+        .spectrum-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, #60a5fa, #009373, #fb923c);
+            position: relative;
+            margin: 1.5rem 0 2.5rem;
+        }
+        .spectrum-tick {
+            position: absolute; top: -6px;
+            transform: translateX(-50%);
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            border: 3px solid #060e0d;
+        }
+        .spectrum-tick-label {
+            position: absolute; top: 20px;
+            transform: translateX(-50%);
+            font-size: 0.68rem;
+            color: rgba(255,255,255,0.65);
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        /* ── Case study Ws meter ── */
+        .ws-meter-track {
+            height: 28px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+        .ws-meter-fill {
+            height: 100%;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 0.75rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .ws-meter-fill.before { background: linear-gradient(90deg, #991b1b, #ef4444); color: #fff; }
+        .ws-meter-fill.after  { background: linear-gradient(90deg, #009373, #9ef8a2); color: #060e0d; }
+
+        /* ── Stack pills ── */
+        .stack-pill {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0,147,115,0.12);
+            border: 1px solid rgba(0,147,115,0.3);
+            border-radius: 9999px;
+            padding: 0.35rem 0.9rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #9ef8a2;
+            margin: 0.25rem;
+        }
+
+        /* ── Terminal ── */
+        .terminal-code { white-space: pre-wrap; word-wrap: break-word; }
+
+        /* ── Logo scroller (overrides style_m.css) ── */
+        @keyframes scroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .scroller .scroller-inner {
+            display: flex;
+            flex-wrap: nowrap;
+            width: max-content;
+            animation: scroll 20s linear infinite;
+        }
+        .scroller:hover .scroller-inner { animation-play-state: paused; }
+
+        /* ── How it works steps ── */
+        .how-steps-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .how-steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 26px;
+            left: calc(100% / 6);
+            right: calc(100% / 6);
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0,147,115,0.6), rgba(0,147,115,0.25), rgba(0,147,115,0.6));
+        }
+        .how-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem 1rem;
+        }
+        .how-step-num {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: #060e0d;
+            border: 1px solid rgba(0,147,115,0.5);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; font-weight: 800; color: #9ef8a2;
+            margin: 0 auto 1.25rem;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 0 4px #060e0d;
+        }
+        @media (max-width: 767px) {
+            .how-steps-grid { grid-template-columns: 1fr; }
+            .how-steps-grid::before {
+                top: calc(100% / 6);
+                bottom: calc(100% / 6);
+                left: 26px;
+                right: auto;
+                width: 1px;
+                height: auto;
+                background: linear-gradient(180deg, rgba(0,147,115,0.6), rgba(0,147,115,0.25), rgba(0,147,115,0.6));
+            }
+            .how-step { flex-direction: row; text-align: left; align-items: flex-start; gap: 1rem; padding: 0; }
+            .how-step-num { margin: 0; flex-shrink: 0; box-shadow: 0 0 0 4px #060e0d; }
+        }
+
+        /* ── Proof strip ── */
+        .proof-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            margin-bottom: 2.5rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .proof-strip-item {
+            flex: 1;
+            min-width: 140px;
+            padding: 1.1rem 1.5rem;
+            border-right: 1px solid rgba(255,255,255,0.07);
+        }
+        .proof-strip-item:last-child { border-right: none; }
+        .proof-strip-val { font-size: 1.5rem; font-weight: 800; color: #9ef8a2; line-height: 1.1; margin-bottom: 0.25rem; }
+        .proof-strip-lbl { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.65); }
+
+        /* ── Methodology callout ── */
+        .methodology-box {
+            background: rgba(0,147,115,0.06);
+            border: 1px solid rgba(0,147,115,0.2);
+            border-radius: 14px;
+            padding: 1.5rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 3rem;
+        }
+        .method-item { display: flex; gap: 0.75rem; align-items: flex-start; }
+        .method-icon { color: #9ef8a2; flex-shrink: 0; margin-top: 2px; }
+        .method-title { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+        .method-desc { font-size: 0.75rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+        /* ── Pulse animation ── */
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .bench-profile-row { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+            .bench-tps-col { grid-column: 1 / -1; text-align: left; }
+            .chapter-number { font-size: 3rem; }
+            .proof-strip-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+            .proof-strip-item:last-child { border-bottom: none; }
+        }
+        .bench-filter-btn {
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.35rem 1rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(255,255,255,0.18);
+            background: transparent;
+            color: rgba(255,255,255,0.55);
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+        }
+        .bench-filter-btn:hover {
+            background: rgba(255,255,255,0.07);
+            color: rgba(255,255,255,0.85);
+        }
+        .bench-filter-btn.active {
+            background: rgba(0,147,115,0.2);
+            border-color: #009373;
+            color: #9ef8a2;
+        }
+        .model-bench.bench-hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body class="antialiased">
 
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto flex justify-between items-center py-4 px-6 md:px-12">
-            <!-- Logo -->
-            <a href="#" class="flex-shrink-0">
-                <img class="h-10 w-auto" src="imgs/Verticular_v1-24.png" alt="Verticular Logo">
+<div id="scroll-progress-bar"></div>
+
+<!-- ── Header ─────────────────────────────────────────── -->
+<header style="background:rgba(6,14,13,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.07);" class="sticky top-0 z-50">
+    <nav class="container mx-auto flex justify-between items-center py-4 px-6 md:px-12">
+        <a href="#" class="shrink-0">
+            <img class="h-9 w-auto" src="imgs/Verticular_v1-25.png" alt="Verticular Logo">
+        </a>
+        <div class="hidden md:flex items-center space-x-7">
+            <a href="#results"    style="color:rgba(255,255,255,0.65);font-size:0.875rem;" class="font-medium transition-all duration-200 hover:text-white relative group">
+                Results
+                <span style="position:absolute;bottom:-2px;left:0;width:0;height:1px;background:#9ef8a2;transition:width 0.2s;" class="group-hover:w-full"></span>
             </a>
-            <!-- Desktop Navigation Links -->
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#solution" class="text-gray-600 hover:text-verticular-green font-medium">Our Solution</a>
-                <a href="#about" class="text-gray-600 hover:text-verticular-green font-medium">About Us</a>
-                <a href="#contact" class="text-gray-600 hover:text-verticular-green font-medium">Contact</a>
-                <a href="#contact" class="bg-verticular-green hover:bg-verticular-green-dark text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
-                    Get in Touch
-                </a>
-            </div>
-            <!-- Mobile Menu Button (Hamburger Icon) -->
-            <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-verticular-green focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </nav>
-        <!-- Mobile Menu (Initially hidden) -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
-            <a href="#solution" class="block text-gray-600 hover:text-verticular-green font-medium py-2">Our Solution</a>
-            <a href="#about" class="block text-gray-600 hover:text-verticular-green font-medium py-2">About Us</a>
-            <a href="#contact" class="block text-gray-600 hover:text-verticular-green font-medium py-2">Contact</a>
-            <a href="#contact" class="block bg-verticular-green hover:bg-verticular-green-dark text-white font-semibold py-2 px-4 rounded-lg shadow-md text-center mt-2">
-                Get in Touch
+            <a href="#solution"   style="color:rgba(255,255,255,0.65);font-size:0.875rem;" class="font-medium transition-all duration-200 hover:text-white relative group">
+                The Solution
+                <span style="position:absolute;bottom:-2px;left:0;width:0;height:1px;background:#9ef8a2;transition:width 0.2s;" class="group-hover:w-full"></span>
+            </a>
+            <a href="#milestones" style="color:rgba(255,255,255,0.65);font-size:0.875rem;" class="font-medium transition-all duration-200 hover:text-white relative group">
+                News
+                <span style="position:absolute;bottom:-2px;left:0;width:0;height:1px;background:#9ef8a2;transition:width 0.2s;" class="group-hover:w-full"></span>
+            </a>
+            <a href="#about"      style="color:rgba(255,255,255,0.65);font-size:0.875rem;" class="font-medium transition-all duration-200 hover:text-white relative group">
+                The Team
+                <span style="position:absolute;bottom:-2px;left:0;width:0;height:1px;background:#9ef8a2;transition:width 0.2s;" class="group-hover:w-full"></span>
+            </a>
+            <a href="#contact" style="background:#9ef8a2;color:#003d33;font-size:0.875rem;" class="font-bold py-2 px-5 rounded-full shadow transition duration-300 hover:opacity-90 hover:scale-105 transform">
+                Request Demo
             </a>
         </div>
-    </header>
+        <button id="mobile-menu-button" style="color:rgba(255,255,255,0.65);" class="md:hidden focus:outline-none transition-colors hover:text-white">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+        </button>
+    </nav>
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-5 space-y-1" style="border-top:1px solid rgba(255,255,255,0.06);">
+        <a href="#results"    style="color:rgba(255,255,255,0.7);" class="block font-medium py-2.5 border-b hover:text-white transition-colors" style="border-color:rgba(255,255,255,0.05);">Results</a>
+        <a href="#solution"   style="color:rgba(255,255,255,0.7);" class="block font-medium py-2.5 border-b hover:text-white transition-colors" style="border-color:rgba(255,255,255,0.05);">The Solution</a>
+        <a href="#milestones" style="color:rgba(255,255,255,0.7);" class="block font-medium py-2.5 border-b hover:text-white transition-colors" style="border-color:rgba(255,255,255,0.05);">News</a>
+        <a href="#about"      style="color:rgba(255,255,255,0.7);" class="block font-medium py-2.5 border-b hover:text-white transition-colors" style="border-color:rgba(255,255,255,0.05);">The Team</a>
+        <a href="#contact" style="background:#9ef8a2;color:#003d33;" class="block font-bold py-2.5 px-5 rounded-full text-center mt-3 hover:opacity-90 transition-opacity">Request Demo</a>
+    </div>
+</header>
 
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-[#005F55] to-[#009373] text-white justify-center py-3 px-6 lg:pt-2 md:pb-23 lg:pb-30 lg:px-12 rounded-b-3xl shadow-lg">
-        <div class="container mx-auto max-w-4xl h-1/5">
-            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-                Your Cloud, <span class="text-verticular-green-accent"> Optimised</span>
-            </h1>
-            <p class="text-lg md:text-2xl md:mb-5 mb-10 opacity-90">
-                By applying AI, we understand the relationship between <span class="text-verticular-green-accent">CPU and GPU performance</span> and <span class="text-verticular-green-accent">critical SLAs</span>, and optimise your Cloud-native implementation. 
-                We also specialise in sustainable AI, tackling the energy cost of <span class="text-verticular-green-accent">AI and LLM workloads</span>.
-                With <span class="text-verticular-green-accent">no change to your existing software and hardware</span>, we make your network greener, lower your OpEx, extend the time-in-service of your platform, and ensure your SLAs are met.
+<!-- ── Hero ───────────────────────────────────────────── -->
+<section class="text-white px-6 lg:px-12" style="padding-top:4rem;padding-bottom:4.5rem;">
+    <div class="container mx-auto max-w-5xl">
+
+        <!-- Production-ready eyebrow -->
+        <div style="display:inline-flex;align-items:center;gap:0.6rem;background:rgba(0,147,115,0.12);border:1px solid rgba(0,147,115,0.3);border-radius:9999px;padding:0.35rem 1rem;margin-bottom:1.75rem;margin-top:1rem;">
+            <span class="pulse-dot" style="width:7px;height:7px;background:#9ef8a2;border-radius:50%;flex-shrink:0;"></span>
+            <span style="font-size:0.72rem;font-weight:600;color:#9ef8a2;letter-spacing:0.12em;text-transform:uppercase;">Production Ready · Deployable in Minutes</span>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+            AI Inference,<br><span style="color:#9ef8a2;">30–36% Greener.</span>
+        </h1>
+        <p class="text-lg md:text-xl mb-10" style="color:rgba(255,255,255,0.75);max-width:640px;line-height:1.85;">
+            vert-suite autonomously co-optimises CPU <em>and</em> GPU power on bare-metal AI servers — achieving <strong style="color:#fff;">energy savings</strong> with no changes to your software, inference stack, or hardware.
+        </p>
+
+        <!-- Proof strip -->
+        <div class="proof-strip" style="margin-bottom:2.5rem;">
+            <div class="proof-strip-item">
+                <div class="proof-strip-val">30–36%</div>
+                <div class="proof-strip-lbl">Energy per token saved</div>
+            </div>
+            <div class="proof-strip-item">
+                <div class="proof-strip-val">Over 40%</div>
+                <div class="proof-strip-lbl">GPU server power reduction</div>
+            </div>
+            <div class="proof-strip-item">
+                <div class="proof-strip-val">Wall-Socket</div>
+                <div class="proof-strip-lbl">Auditable measurement</div>
+            </div>
+            <div class="proof-strip-item">
+                <div class="proof-strip-val">Zero</div>
+                <div class="proof-strip-lbl">App changes required</div>
+            </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#contact" style="background:#9ef8a2;color:#003d33;" class="font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 hover:opacity-90 hover:scale-105 transform text-center">
+                Request a Demo
+            </a>
+            <a href="#results" class="border-2 border-white text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 hover:scale-105 transform text-center" style="border-color:rgba(255,255,255,0.5);">
+                View Benchmark Data
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     SCROLLYTELLING: GPU RESULTS
+     ═══════════════════════════════════════════════════ -->
+<section id="results">
+
+    <!-- Overview -->
+    <div class="py-24 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5" style="background-image:radial-gradient(circle at 50% 50%,#009373 1px,transparent 1px);background-size:48px 48px;pointer-events:none;"></div>
+        <div class="container mx-auto max-w-5xl relative">
+            <span class="chapter-badge scrolly-reveal">GPU+CPU Efficiency · Empirical Benchmarks</span>
+            <h2 class="text-4xl md:text-6xl font-extrabold mb-6 scrolly-reveal delay-1">
+                Proven Savings<br><span style="color:#9ef8a2;">at Scale</span>
+            </h2>
+            <p class="text-lg md:text-xl mb-16 scrolly-reveal delay-2" style="color:rgba(255,255,255,0.6);max-width:680px;">
+                Every number below is verified at the server plug using a state-of-the-art power analyser — not estimated, not simulated.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4 md:mb-10 mb-5">
-                <a href="#contact" class="bg-white text-verticular-green font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-                    Request a Demo
-                </a>
-                <a href="#solution" class="border-2 border-white text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-                    Learn More
-                </a>
-            </div>
-            <div class="hidden md:block h-10 text-left md:text-sm lg:text-lg">
-            <code id="terminal-code" class="terminal-code"></code><span class="cursor"></span>
-        </div>
-        </div>
-    </section>
-
-    <section id="milestones" class="py-16 px-6 md:py-14 md:px-12 bg-gray-50">
-        <div class="container mx-auto max-w-6xl">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
-                Powering Sustainable AI: Our Latest Milestones
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
-                    <img class="h-12 mb-4" src="imgs/ukri.png" alt="UKRI Logo">
-                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Awarded Innovate UK 'New Innovators' Grant</h3>
-                    <p class="text-gray-700">
-                        Verticular has secured the prestigious 'Growth Catalyst Early Stage' grant. Our new project, <strong>EPIC (Energy-efficient Processing for Intensive Computing)</strong>, will use AI to dynamically manage GPU power, cutting energy costs for AI data centres without performance trade-offs.
-                    </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 scrolly-reveal delay-3">
+                <div class="stat-card">
+                    <div class="stat-val"><span class="counter" data-target="41" data-suffix="%" data-decimals="0">0%</span></div>
+                    <div class="stat-lbl">Peak Server Power Reduction (case study, measured at wall-socket)</div>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
-                    <img class="h-19 mb-4" src="imgs/nvidia-inception-program-badge-rgb-for-screen.png" alt="NVIDIA Inception Logo">
-                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Member of NVIDIA Inception</h3>
-                    <p class="text-gray-700">
-                        We have joined the NVIDIA Inception program, gaining access to a critical ecosystem to accelerate our mission. This is key to interfacing with the latest hardware and optimising GPU workloads at the deepest level.
-                    </p>
+                <div class="stat-card accent">
+                    <div class="stat-val"><span class="counter" data-target="31" data-suffix="%" data-decimals="0">0%</span></div>
+                    <div class="stat-lbl">Typical Energy per Token Reduction · NVIDIA Blackwell</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val" style="font-size:1.1rem;line-height:1.5;">vLLM<br>llama.cpp</div>
+                    <div class="stat-lbl">Validated inference engines</div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Our Solution / Features Section -->
-    <section id="solution" class="py-16 px-6 md:py-14 md:px-12 bg-white">
-        <div class="container mx-auto max-w-6xl">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
-                The Product: vert-agent and vert-expert
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 lg:col-span-1 md:col-span-2">
-                    <div class="text-verticular-green mb-4">
-                        <img class="w-10 h-10" src="imgs/1.svg"/>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-900">NEW: AI-Driven GPU Optimisation</h3>
-                    <p class="text-gray-700">
-                        Extending our proven CPU technology to GPUs. We use our federated AI models to slash energy use for AI/LLM workloads.
-                    </p>
-                </div>
-
-                <!-- Feature 2: Green & Cost-Efficient -->
-                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
-                    <div class="text-verticular-green mb-4">
-                        <img class="w-10 h-10" src="imgs/2.svg"/>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Green & Cost-Efficient</h3>
-                    <p class="text-gray-700">
-                        Reduce OpEx, extend platform lifespan, and make your network greener without hardware changes.
-                    </p>
-                </div>
-                <!-- Feature 3: Seamless Integration -->
-                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
-                    <div class="text-verticular-green mb-4">
-                        <img class="w-10 h-10" src="imgs/3.svg"/>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Seamless Integration</h3>
-                    <p class="text-gray-700">
-                        One binary, no K8S operators, scheduler extensions, or YAML modifications needed.
-                    </p>
-                </div>
-                <!-- Feature 4: Deep Monitoring with eBPF -->
-                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
-                    <div class="text-verticular-green mb-4">
-                        <img class="w-10 h-10" src="imgs/4.svg"/>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Deep Monitoring with eBPF</h3>
-                    <p class="text-gray-700">
-                        Leverage eBPF for seamless deep monitoring, ensuring minimum operational disruption and immediate savings.
-                    </p>
-                </div>
-                <!-- Feature 5: Automated SLA Assurance -->
-                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
-                    <div class="text-verticular-green mb-4">
-                        <img class="w-10 h-10" src="imgs/5.svg"/>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Automated SLA Assurance</h3>
-                    <p class="text-gray-700">
-                        Automatically identify intra-container process structures and optimise pod instances for maximum performance and SLA delivery.
-                    </p>
-                </div>
-                <!-- Feature 6: Cross-Platform & Explainable -->
-                <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
-                    <div class="text-verticular-green mb-4">
-                        <img class="w-10 h-10" src="imgs/6.svg"/>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Cross-Platform & Cross-Distribution</h3>
-                    <p class="text-gray-700">
-                        Cross-platform and cross-Linux/K8S distribution, with explainable behaviors for full transparency.
-                    </p>
-                </div> 
-            </div>
-        </div>
-    </section>
-
-    <!-- Trusted By Section -->
-    <section id="trusted-by" class="pt-1 pb-12 bg-white">
-        <div class="container mx-auto max-w-6xl text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-center pb-12 text-gray-900">Partnering with</h2>
-            <div class="scroller relative w-full overflow-hidden">
-                <div class="scroller-inner">
-                    <!-- First set of logos -->
-                    <img src="imgs/nvidia-inception-program-badge-rgb-for-screen.png" alt="NVIDIA Inception Logo" class="h-19 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/nokia.jpg" alt="Nokia Logo" class="h-15 mx-10 pt-4 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/mk.png" alt="MK Stadium Logo" class="h-15 mx-10 pt-4 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/rw.webp" alt="Real Wireless Logo" class="h-15 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/madevo.png" alt="Madevo Logo" class="h-15 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/ukri.png" alt="UKRI Logo" class="h-15 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/wl.png" alt="Weaver Labs Logo" class="h-15 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/hiro.png" alt="Hiro Logo" class="h-15 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/uob.png" alt="University of Bristol Logo" class="h-15 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <!-- Duplicate set for seamless scrolling -->
-                    <img src="imgs/nvidia-inception-program-badge-rgb-for-screen.png" alt="NVIDIA Inception Logo" class="h-19 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/nokia.jpg" alt="Nokia Logo" class="h-15 mx-10 pt-4 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/mk.png" alt="MK Stadium Logo" class="h-15 mx-10 pt-4 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/rw.webp" alt="Real Wireless Logo" class="h-15 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/madevo.png" alt="Madevo Logo" class="h-15 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/ukri.png" alt="UKRI Logo" class="h-15 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/wl.png" alt="Weaver Labs Logo" class="h-15 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/hiro.png" alt="Hiro Logo" class="h-15 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="imgs/uob.png" alt="University of Bristol Logo" class="h-15 mx-10 filter grayscale hover:grayscale-0 transition-all duration-300">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="about" class="bg-gray-100 py-14 px-6 md:py-16 md:px-12">
-        <div class="container mx-auto max-w-4xl text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gray-900">
-                About Verticular
-            </h2>
-            <div class="bg-white p-8 md:p-12 rounded-xl shadow-lg">
-                <p class="text-xl md:text-2xl italic text-gray-700 mb-6 leading-relaxed">
-                    "Our mission is to solve the dual problem of rising cloud costs and the massive energy footprint of AI. We build deep, actionable, AI-driven software that optimizes your cloud-native infrastructure at the chip level. For CTOs and CFOs, this means lowering OpEx, maximising hardware ROI, and achieving sustainability goals, all while rigorously protecting your SLAs."
-                </p>
-                <div class="flex items-center justify-center">
-                    <img src="imgs/Verticular_v1-24.png" alt="Verticular Logo" class="h-9 mr-5 object-cover">
+            <!-- Methodology callout -->
+            <div class="methodology-box scrolly-reveal delay-4" style="margin-top:2.5rem;">
+                <div class="method-item">
+                    <svg class="method-icon" width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>
                     <div>
-                        <p class="font-semibold text-gray-900 text-lg">The Verticular Team</p>
-                        <p class="text-gray-600 text-sm">Innovators in Cloud Optimisation</p>
+                        <div class="method-title">Measured at Wall-Socket</div>
+                        <div class="method-desc">All Watt-second readings taken at the server wall-socket using a state-of-the-art power analyser — not estimated from TDP or software counters.</div>
+                    </div>
+                </div>
+                <div class="method-item">
+                    <svg class="method-icon" width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>
+                    <div>
+                        <div class="method-title">Out-of-Band Validation</div>
+                        <div class="method-desc">Independent telemetry path verifies results separate from the vert-suite control plane — no self-reported figures.</div>
+                    </div>
+                </div>
+                <div class="method-item">
+                    <svg class="method-icon" width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>
+                    <div>
+                        <div class="method-title">Like-for-Like Baselines</div>
+                        <div class="method-desc">Every result compared against an unoptimised, state-of-the-art baseline on identical hardware under identical load.</div>
+                    </div>
+                </div>
+                <div class="method-item">
+                    <svg class="method-icon" width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>
+                    <div>
+                        <div class="method-title">Live Toggle Verification</div>
+                        <div class="method-desc">Savings confirmed by enabling/disabling vert-suite mid-run and observing real-time power and throughput transitions.</div>
                     </div>
                 </div>
             </div>
+
+            <!-- Open-source transparency -->
+            <a href="https://github.com/verticular/ute9811-mqtt-bridge" target="_blank" rel="noopener" class="scrolly-reveal delay-5" style="display:flex;align-items:center;gap:1rem;margin-top:1rem;padding:1rem 1.5rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:12px;text-decoration:none;transition:border-color 0.2s,background 0.2s;" onmouseover="this.style.borderColor='rgba(0,147,115,0.4)';this.style.background='rgba(0,147,115,0.05)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)';this.style.background='rgba(255,255,255,0.02)'">
+                <svg width="22" height="22" fill="rgba(255,255,255,0.5)" viewBox="0 0 24 24" style="flex-shrink:0;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.929.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                <div>
+                    <div style="font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.75);">Open-source data collection · <span style="color:#9ef8a2;">verticular/ute9811-mqtt-bridge</span></div>
+                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">The software used to sample power readings from the analyser is publicly available — full transparency on how data was collected.</div>
+                </div>
+                <svg width="14" height="14" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-left:auto;"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
         </div>
-    </section>
+    </div>
 
+    <div class="section-divider"></div>
 
-    <!-- Call to Action / Contact Form Section -->
-    <section id="contact" class="bg-verticular-green-dark py-16 px-6 md:py-10 md:px-12 text-white text-center rounded-t-3xl shadow-lg">
-        <div class="container mx-auto max-w-2xl">
-            <h2 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
-                Ready to Optimise Your Cloud and Cut Your AI Cloud Costs?
-            </h2>
-            <p class="text-lg md:text-xl mb-10 opacity-90">
-                Whether it's CPU or our new GPU optimisation, let's talk. Have a question or want a demo of our solution? Fill out the form below and we'll get back to you.
-            </p>
-            
-            <form action="https://api.web3forms.com/submit" method="POST" class="text-left" id="contact_us">
-                <!-- IMPORTANT: Replace with your Access Key -->
-                <input type="hidden" name="access_key" value="04aae826-131f-4c1e-8c46-ca4955d26829">
-
-                <!-- Form Fields -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label for="name" class="block mb-2 text-sm font-medium">Full Name</label>
-                        <input type="text" name="name" id="name" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green" required>
-                    </div>
-                    <div>
-                        <label for="email" class="block mb-2 text-sm font-medium">Email Address</label>
-                        <input type="email" name="email" id="email" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green" required>
-                    </div>
-                </div>
-                <div class="mb-6">
-                     <label for="phone" class="block mb-2 text-sm font-medium">Phone Number</label>
-                     <input type="tel" name="phone" id="phone" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green">
-                </div>
-                <div class="mb-6">
-                    <label for="message" class="block mb-2 text-sm font-medium">Message</label>
-                    <textarea name="message" id="message" rows="4" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green" required></textarea>
-                </div>
-
-                <!-- h-captcha - Optional, but recommended -->
-                <div class="h-captcha mb-5" data-captcha="true"></div>
-
-                <!-- Submit Button -->
-                <div class="text-center">
-                    <button type="submit" class="bg-white text-verticular-green hover:bg-gray-100 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-                        Send Message
-                    </button>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-5 px-12 lg:px-12">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-            <!-- Company Info -->
-            <div class="mx-auto">
-                <a href="#" class="block mb-2">
-                    <img class="h-10 w-auto" src="imgs/Verticular_v1-25.png" alt="Verticular">
-                </a>
-                <p class="text-sm font-semibold text-verticular-green text-justify">
-                    Your Cloud, Optimised
+    <!-- Chapter 01: The Challenge -->
+    <div class="py-24 px-6 relative">
+        <div class="chapter-number scrolly-reveal">01</div>
+        <div class="container mx-auto max-w-5xl">
+            <div class="mb-12">
+                <span class="chapter-badge scrolly-reveal">The Challenge</span>
+                <div class="chapter-sep scrolly-reveal delay-1"></div>
+                <h3 class="text-3xl md:text-4xl font-bold mb-4 scrolly-reveal delay-1">
+                    AI Inference Is Energy-Hungry
+                </h3>
+                <p class="scrolly-reveal delay-2" style="color:rgba(255,255,255,0.65);line-height:1.8;max-width:680px;">
+                    On a cutting-edge workstation GPU, each generated token carries a significant energy cost. With millions of tokens processed daily, that adds up fast. And without active optimisation, both CPU and GPU hardware are left running at full speed regardless of actual workload demand.
                 </p>
             </div>
-            <!-- Quick Links -->
-            <div class="mx-auto">
-                <h3 class="text-white font-semibold mb-1">Quick Links</h3>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="#solution" class="hover:text-white transition duration-200">Our Solution</a></li>
-                    <li><a href="#about" class="hover:text-white transition duration-200">About Us</a></li>
-                    <li><a href="#contact" class="hover:text-white transition duration-200">Contact</a></li>
-                </ul>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 scrolly-reveal delay-2">
+                <div class="challenge-model-card">
+                    <div class="card-header">
+                        <div style="font-weight:700;color:#fff;">Qwen3 32B</div>
+                        <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">RTX Pro 6000 Blackwell · vLLM</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="col-before">
+                            <div class="col-label">Without vert-suite</div>
+                            <div class="metric-val">37.38</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.06);">
+                                <div class="metric-val" style="font-size:1.1rem;">24.0 tps</div>
+                                <div class="metric-sub">throughput</div>
+                            </div>
+                        </div>
+                        <div class="col-after">
+                            <div class="col-label">With vert-suite</div>
+                            <div class="metric-val">25.74</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">−31.2% energy per token</div>
+                            <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(0,147,115,0.15);">
+                                <div class="metric-val" style="font-size:1.1rem;">21.64 tps</div>
+                                <div class="metric-sub">throughput</div>
+                                <div class="metric-delta">−9.8% throughput</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="challenge-model-card">
+                    <div class="card-header">
+                        <div style="font-weight:700;color:#fff;">Gemma 4 31B</div>
+                        <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">RTX Pro 6000 Blackwell · vLLM</div>
+                    </div>
+                    <div class="card-row">
+                        <div class="col-before">
+                            <div class="col-label">Without vert-suite</div>
+                            <div class="metric-val">37.03</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.06);">
+                                <div class="metric-val" style="font-size:1.1rem;">24.5 tps</div>
+                                <div class="metric-sub">throughput</div>
+                            </div>
+                        </div>
+                        <div class="col-after">
+                            <div class="col-label">With vert-suite</div>
+                            <div class="metric-val">25.33</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">−31.6% energy per token</div>
+                            <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(0,147,115,0.15);">
+                                <div class="metric-val" style="font-size:1.1rem;">22.36 tps</div>
+                                <div class="metric-sub">throughput</div>
+                                <div class="metric-delta">−8.7% throughput</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Contact Info -->
-            <div class="mx-auto">
-                <h3 class="text-white font-semibold mb-1">Contact</h3>
-                <ul class="space-y-2 text-sm">
-                    <li>Email: <a href="mailto:info@verticular.uk" class="hover:text-white transition duration-200">info@verticular.uk</a></li>
-                    <li>Address: The Old Bakehouse Downs Park East, Westbury Park, Bristol, UK, BS6 7QD</li>
-                </ul>
+            <p class="scrolly-reveal delay-3" style="margin-top:1.25rem;font-size:0.72rem;color:rgba(255,255,255,0.65);line-height:1.6;">
+                * All Watt-second readings measured at the server wall-socket. Test system: NVIDIA RTX Pro 6000 Blackwell (96 GB VRAM), 24-core workstation, 128 GB RAM, 2,050 W PSU.
+            </p>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- Chapter 02: The Solution -->
+    <div id="solution" class="py-24 px-6 relative">
+        <div class="chapter-number scrolly-reveal">02</div>
+        <div class="container mx-auto max-w-5xl">
+            <div class="mb-16">
+                <span class="chapter-badge scrolly-reveal">The Solution</span>
+                <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem 0;"></div>
+                <h3 class="text-3xl md:text-4xl font-bold scrolly-reveal delay-1">vert-suite</h3>
+                <!-- Production-ready badges -->
+                <div class="scrolly-reveal delay-2" style="display:flex;flex-wrap:wrap;gap:0.6rem;margin:1.1rem 0 1.25rem;">
+                    <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(0,147,115,0.12);border:1px solid rgba(0,147,115,0.35);border-radius:9999px;padding:0.28rem 0.85rem;font-size:0.7rem;font-weight:600;color:#9ef8a2;letter-spacing:0.08em;text-transform:uppercase;">
+                        <span class="pulse-dot" style="width:6px;height:6px;background:#9ef8a2;border-radius:50%;flex-shrink:0;"></span>
+                        Production Ready
+                    </span>
+                    <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:0.28rem 0.85rem;font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.65);letter-spacing:0.08em;text-transform:uppercase;">Deployable in Minutes</span>
+                    <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:0.28rem 0.85rem;font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.65);letter-spacing:0.08em;text-transform:uppercase;">No Code Changes</span>
+                    <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:0.28rem 0.85rem;font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.6)5;letter-spacing:0.08em;text-transform:uppercase;">Engine Agnostic</span>
+                </div>
+                <p class="scrolly-reveal delay-2" style="color:rgba(255,255,255,0.65);max-width:640px;">
+                    A production-ready software platform for autonomous GPU/CPU efficiency orchestration — inference engine agnostic, with no hardware changes, no application modifications, and no manual tuning required.
+                </p>
             </div>
-            <!-- Socials -->
-            <div class="mx-auto">
-                <h3 class="text-white font-semibold mb-1">Socials</h3>
-                <div class="space-y-2">
-                    <div><a href="https://www.linkedin.com/company/verticular" target="_blank"><img class="h-5 w-auto" src="imgs/linkedin-128.png" alt="LinkedIn"></a></div>
-                    <div><a href="https://x.com/VerticularLtd" target="_blank"><img class="h-5 w-auto" src="imgs/twitter-x-128.png" alt="X"></a></div>
-                    <div><a href="https://www.reddit.com/r/Verticular_Ltd" target="_blank"><img class="h-5 w-auto" src="imgs/reddit-128.png" alt="ReddIt"></a></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="dark-card scrolly-reveal delay-1">
+                    <div style="width:44px;height:44px;background:rgba(0,147,115,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+                        <img class="w-6 h-6" src="imgs/1.svg" style="filter:brightness(0) invert(1);"/>
+                    </div>
+                    <h4 style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:#fff;">Autonomous CPU/GPU Optimisation</h4>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Autonomous bare-metal GPU and CPU management for AI/LLM workloads. Empirically validated energy savings of over 30% per token — with no changes to your application or inference stack.</p>
+                </div>
+                <div class="dark-card scrolly-reveal delay-2">
+                    <div style="width:44px;height:44px;background:rgba(0,147,115,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+                        <img class="w-6 h-6" src="imgs/2.svg" style="filter:brightness(0) invert(1);"/>
+                    </div>
+                    <h4 style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:#fff;">Continuous SLA Spectrum</h4>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Specify your maximum acceptable throughput reduction. vert-suite automatically scans the GPU/CPU operating envelope and locks in the profile delivering the deepest energy savings within your constraint.</p>
+                </div>
+                <div class="dark-card scrolly-reveal delay-3">
+                    <div style="width:44px;height:44px;background:rgba(0,147,115,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+                        <img class="w-6 h-6" src="imgs/3.svg" style="filter:brightness(0) invert(1);"/>
+                    </div>
+                    <h4 style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:#fff;">Green &amp; Cost-Efficient</h4>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Reduce OpEx, extend platform lifespan, and lower your infrastructure's carbon footprint — without replacing or upgrading hardware.</p>
+                </div>
+                <div class="dark-card scrolly-reveal delay-1">
+                    <div style="width:44px;height:44px;background:rgba(0,147,115,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+                        <img class="w-6 h-6" src="imgs/4.svg" style="filter:brightness(0) invert(1);"/>
+                    </div>
+                    <h4 style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:#fff;">Deep Monitoring with eBPF</h4>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Leverage eBPF for deep system observability with minimal operational disruption — complemented by physical out-of-band telemetry for independent power validation.</p>
+                </div>
+                <div class="dark-card scrolly-reveal delay-2">
+                    <div style="width:44px;height:44px;background:rgba(0,147,115,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+                        <img class="w-6 h-6" src="imgs/5.svg" style="filter:brightness(0) invert(1);"/>
+                    </div>
+                    <h4 style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:#fff;">Zero-Trust, Kubernetes-Native</h4>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Least-privilege agents, just-in-time capabilities, and mTLS-secured control-plane traffic. Transparent telemetry with out-of-band validation for full auditability.</p>
+                </div>
+                <div class="dark-card scrolly-reveal delay-3">
+                    <div style="width:44px;height:44px;background:rgba(0,147,115,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+                        <img class="w-6 h-6" src="imgs/6.svg" style="filter:brightness(0) invert(1);"/>
+                    </div>
+                    <h4 style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:#fff;">Seamless Integration</h4>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Inference engine agnostic — validated on vLLM and llama.cpp, and compatible with other leading engines. One inclusive library, cross-platform, cross-Linux/K8S distribution, deployable in minutes with no operators, scheduler extensions, or YAML modifications.</p>
+                </div>
+            </div>
+
+            <!-- Security Architecture -->
+            <div style="margin-top:2rem;">
+
+                <!-- Problem callout -->
+                <div class="scrolly-reveal" style="background:rgba(251,146,60,0.06);border:1px solid rgba(251,146,60,0.2);border-radius:14px;padding:1.5rem 2rem;margin-bottom:2.5rem;display:flex;gap:1rem;align-items:flex-start;">
+                    <svg style="color:#fb923c;flex-shrink:0;margin-top:3px;" width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
+                    <div>
+                        <div style="font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.5rem;">Most bare-metal optimisers demand root access. We don't.</div>
+                        <p style="font-size:0.875rem;color:rgba(255,255,255,0.6);line-height:1.75;max-width:720px;">The industry standard is to hand over the keys to the kingdom — permanent, unconditional root access to your kernel, drivers, and hardware. You shouldn't have to compromise your cluster's security just to run your compute efficiently.</p>
+                    </div>
+                </div>
+
+                <!-- Section title -->
+                <div class="scrolly-reveal delay-1" style="margin-bottom:1.75rem;">
+                    <h4 style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.35rem;">Zero-Compromise Security Architecture</h4>
+                    <p style="font-size:16px;color:rgba(255,255,255,0.65);max-width:680px;line-height:1.75;margin-top:0.5rem;">vert-suite is built on a strict principle of minimal authority. Instead of deploying a privileged monolith, the architecture is physically split — a standard unprivileged worker that requests just-in-time access only when needed, and only for the exact duration required.</p>
+                    <div class="chapter-sep" style="margin:1rem 0 0;"></div>
+                </div>
+
+                <!-- Architecture image -->
+                <div class="scrolly-reveal delay-2" style="border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:1.5rem;background:rgba(255,255,255,0.02);">
+                    <img src="imgs/security-arch.jpg" alt="vert-suite zero-trust security architecture" style="width:100%;display:block;">
+                </div>
+
+                <!-- 5 principles from the diagram -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-3 scrolly-reveal delay-3" style="margin-bottom:2rem;">
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1rem;">
+                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(0,147,115,0.8);margin-bottom:0.5rem;">① Secure Entry</div>
+                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">Public key at a terminal — signature verification before any agent is admitted.</p>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1rem;">
+                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(0,147,115,0.8);margin-bottom:0.5rem;">② Restricted Access</div>
+                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">Main agent operates as a standard worker within an unprivileged boundary — <code style="font-size:0.82rem;color:rgba(255,255,255,0.75);">CAP_SYS_RAWIO</code> and <code style="font-size:0.82rem;color:rgba(255,255,255,0.75);">CAP_SYS_ADMIN</code> never granted permanently.</p>
+                    </div>
+                    <div style="background:rgba(0,147,115,0.07);border:1px solid rgba(0,147,115,0.25);border-radius:12px;padding:1rem;">
+                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#9ef8a2;margin-bottom:0.5rem;">③ Just-in-Time</div>
+                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">A Security Escort briefly unlocks the required resource, completes the exact task, and immediately relocks — no standing privileges.</p>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1rem;">
+                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(0,147,115,0.8);margin-bottom:0.5rem;">④ Secure Comms</div>
+                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">All control-plane traffic is encrypted via mTLS tunnels — no plaintext communication between components.</p>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1rem;">
+                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(0,147,115,0.8);margin-bottom:0.5rem;">⑤ Minimal Authority</div>
+                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">Digital identity verification prevents any component from operating outside its authorised scope.</p>
+                    </div>
+                </div>
+
+                
+            </div>
+
+            <!-- How it works -->
+            <div style="margin-top:4rem;">
+                <div class="mb-10 scrolly-reveal">
+                    <span style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.35rem;">How it works</span>
+                    <div class="chapter-sep" style="margin:0.75rem 0 0;"></div>
+                </div>
+                <div class="how-steps-grid scrolly-reveal delay-1">
+                    <div class="how-step">
+                        <div class="how-step-num">1</div>
+                        <h4 style="font-weight:700;font-size:1rem;color:#fff;margin-bottom:0.5rem;">Install vert-suite</h4>
+                        <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;line-height:1.7;">No YAML changes, no Kubernetes operators, no code modifications to your inference stack.</p>
+                    </div>
+                    <div class="how-step">
+                        <div class="how-step-num">2</div>
+                        <h4 style="font-weight:700;font-size:1rem;color:#fff;margin-bottom:0.5rem;">Set Your SLA</h4>
+                        <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;line-height:1.7;">Tell vert-suite your maximum acceptable throughput reduction. It autonomously scans the full GPU/CPU operating envelope.</p>
+                    </div>
+                    <div class="how-step">
+                        <div class="how-step-num">3</div>
+                        <h4 style="font-weight:700;font-size:1rem;color:#fff;margin-bottom:0.5rem;">Savings Start Immediately</h4>
+                        <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;line-height:1.7;">Real-time CPU/GPU co-optimisation locks in the deepest energy savings within your constraint.</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="border-t border-gray-700 mt-1 pt-5 text-center text-sm">
-            Copyright &copy; 2025 Verticular Ltd. All rights reserved. &copy; 2025 NVIDIA, the NVIDIA logo are trademarks and/or registered trademarks of NVIDIA Corporation in the U.S. and other countries.
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- Chapter 03: SLA Spectrum -->
+    <div class="py-24 px-6 relative">
+        <div class="chapter-number scrolly-reveal">03</div>
+        <div class="container mx-auto max-w-5xl">
+            <div class="mb-6">
+                <span class="chapter-badge scrolly-reveal">Performance SLA Spectrum</span>
+                <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem 0;"></div>
+                <h3 class="text-3xl md:text-4xl font-bold scrolly-reveal delay-1">You Set the Constraint.<br>We Find the Optimum.</h3>
+                <p class="mt-4 scrolly-reveal delay-2" style="color:rgba(255,255,255,0.65);max-width:640px;line-height:1.8;">
+                    vert-suite does not offer a fixed menu of profiles. It offers a <strong style="color:#9ef8a2;">continuous spectrum</strong>. Simply tell the software the maximum throughput reduction you can accept — say, no more than 10%, 15%, or 20% — and it automatically identifies the optimal GPU/CPU operational mode to deliver the deepest possible energy savings within that constraint.
+                </p>
+            </div>
+            <div class="scrolly-reveal delay-3" style="max-width:580px;margin:3rem auto 1rem;padding:0 1.5rem;">
+                <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">
+                    <span>Less energy saved</span><span>More energy saved</span>
+                </div>
+                <div class="spectrum-bar">
+                    <span class="spectrum-tick" style="left:25%;background:#60a5fa;"></span>
+                    <span class="spectrum-tick-label" style="left:25%;">≤10% TPS<br>impact</span>
+                    <span class="spectrum-tick" style="left:55%;background:#009373;"></span>
+                    <span class="spectrum-tick-label" style="left:55%;">≤15% TPS<br>impact</span>
+                    <span class="spectrum-tick" style="left:85%;background:#fb923c;"></span>
+                    <span class="spectrum-tick-label" style="left:85%;">≤20% TPS<br>impact</span>
+                </div>
+                <p style="font-size:0.72rem;color:rgba(255,255,255,0.65);text-align:center;margin-top:3rem;">Three example datapoints — any point on the spectrum is achievable</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
+                <div class="dark-card scrolly-reveal delay-1">
+                    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.85rem;">
+                        <div style="width:10px;height:10px;background:#60a5fa;border-radius:50%;flex-shrink:0;"></div>
+                        <span style="font-size:0.7rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.1em;">≤10% TPS reduction</span>
+                    </div>
+                    <h4 style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.6rem;">Minimal Impact</h4>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;line-height:1.7;margin-bottom:1rem;">The software identifies the energy-saving profile that keeps throughput within 10% of baseline. Deep savings with near-transparent operational impact.</p>
+                    <div style="font-size:1.3rem;font-weight:800;color:#9ef8a2;">~28–30%<span style="font-size:0.8rem;font-weight:400;color:rgba(255,255,255,0.65);margin-left:0.4rem;">energy per token saved</span></div>
+                </div>
+                <div class="dark-card accent scrolly-reveal delay-2">
+                    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.85rem;">
+                        <div style="width:10px;height:10px;background:#9ef8a2;border-radius:50%;flex-shrink:0;"></div>
+                        <span style="font-size:0.7rem;color:#9ef8a2;text-transform:uppercase;letter-spacing:0.1em;">≤15% TPS reduction ★</span>
+                    </div>
+                    <h4 style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.6rem;">Sweet Spot</h4>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;line-height:1.7;margin-bottom:1rem;">A marginal additional throughput budget unlocks significantly deeper energy reductions. Consistently the highest-value point on the spectrum across all tested models.</p>
+                    <div style="font-size:1.3rem;font-weight:800;color:#9ef8a2;">~33–34%<span style="font-size:0.8rem;font-weight:400;color:rgba(255,255,255,0.65);margin-left:0.4rem;">energy per token saved</span></div>
+                </div>
+                <div class="dark-card scrolly-reveal delay-3">
+                    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.85rem;">
+                        <div style="width:10px;height:10px;background:#fb923c;border-radius:50%;flex-shrink:0;"></div>
+                        <span style="font-size:0.7rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.1em;">≤20% TPS reduction</span>
+                    </div>
+                    <h4 style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.6rem;">Maximum Efficiency</h4>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;line-height:1.7;margin-bottom:1rem;">Accepts a larger throughput trade-off to push energy savings to their maximum. Ideal for cost-capped batch workloads where latency is not time-critical.</p>
+                    <div style="font-size:1.3rem;font-weight:800;color:#9ef8a2;">~34–37%<span style="font-size:0.8rem;font-weight:400;color:rgba(255,255,255,0.64);margin-left:0.4rem;">energy per token saved</span></div>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
 
-    <!-- JavaScript for Mobile Menu Toggle -->
-    <script>
-        // Get the button and the mobile menu element
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+    <div class="section-divider"></div>
 
-        // Add a click event listener to the button
-        mobileMenuButton.addEventListener('click', () => {
-            // Toggle the 'hidden' class on the mobile menu
-            mobileMenu.classList.toggle('hidden');
-        });
-    </script>
+    <!-- Chapter 04: Benchmark Results -->
+    <div class="py-24 px-6 relative">
+        <div class="chapter-number scrolly-reveal">04</div>
+        <div class="container mx-auto max-w-5xl">
+            <div class="mb-14">
+                <span class="chapter-badge scrolly-reveal">Benchmark Results</span>
+                <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem 0;"></div>
+                <h3 class="text-3xl md:text-4xl font-bold scrolly-reveal delay-1">Comprehensive Model Benchmarks</h3>
+                <p class="mt-4 scrolly-reveal delay-2" style="color:rgba(255,255,255,0.65);max-width:600px;">
+                    Five leading open-weight models. Three SLA profiles. All energy independently verified at the server wall-socket using a state-of-the-art power analyser — against unoptimised SotA baselines.
+                </p>
+             </div>    
+            <div class="scrolly-reveal delay-2" style="margin-bottom:2.5rem;">
+                <div style="font-size:0.72rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.85rem;">Technology Stack</div>
+                <div>
+                    <span class="stack-pill">RTX Pro 6000 Blackwell</span>
+                    <span class="stack-pill">Llama.cpp</span>
+                    <span class="stack-pill">vert-suite</span>
+                </div>
+            </div>
 
-    <script src="https://web3forms.com/client/script.js" async defer></script>
-    <script>
-        const form = document.getElementById('contact_us');
 
-        form.addEventListener('submit', function (e) {
+           
+            <div class="scrolly-reveal delay-2" style="display:flex;gap:1.5rem;margin-bottom:1.75rem;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:rgba(255,255,255,0.65);">
+                    <div style="width:32px;height:8px;border-radius:4px;background:linear-gradient(90deg,#009373,#9ef8a2);"></div>Energy per token (Ws/token) reduction (energy saved — higher is better)
+                </div>
+                <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:rgba(255,255,255,0.65);">
+                    <div style="width:14px;height:14px;border-radius:50%;background:#60a5fa;"></div>≤10%&nbsp;
+                    <div style="width:14px;height:14px;border-radius:50%;background:#009373;"></div>≤15%&nbsp;
+                    <div style="width:14px;height:14px;border-radius:50%;background:#fb923c;"></div>≤20% TPS impact
+                </div>
+            </div>
 
-            const hCaptcha = form.querySelector('textarea[name=h-captcha-response]').value;
+            <!-- Model filter toggles -->
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.75rem;">
+                <span style="font-size:0.7rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0;">Model</span>
+                <button class="bench-filter-btn active" data-group="model" data-filter="all" onclick="setBenchFilter('model','all')">All</button>
+                <button class="bench-filter-btn" data-group="model" data-filter="llama" onclick="setBenchFilter('model','llama')">Llama</button>
+                <button class="bench-filter-btn" data-group="model" data-filter="qwen" onclick="setBenchFilter('model','qwen')">Qwen</button>
+                <div style="width:1px;height:20px;background:rgba(255,255,255,0.12);margin:0 0.75rem;flex-shrink:0;"></div>
+                <span style="font-size:0.7rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0;">Quantisation</span>
+                <button class="bench-filter-btn active" data-group="quant" data-filter="all" onclick="setBenchFilter('quant','all')">All</button>
+                <button class="bench-filter-btn" data-group="quant" data-filter="q8_0" onclick="setBenchFilter('quant','q8_0')">Q8_0</button>
+                <button class="bench-filter-btn" data-group="quant" data-filter="bf16" onclick="setBenchFilter('quant','bf16')">BF16</button>
+            </div>
 
-            if (!hCaptcha) {
-                e.preventDefault();
-                alert("Please fill out captcha field")
-                return
-            }
-        });
-    </script>
-    <!-- JavaScript for Terminal Animation -->
-    <script>
-        const terminalCode = document.getElementById('terminal-code');
-        const commands = [
-            { text: '$ vert-expert --enable-gpu-optimisation', delay: 500 },
-            { text: 'INFO: CPU and GPU modules activated.', delay: 500 },
-            { text: 'INFO: Monitoring CPU and GPU power-performance profiles...', delay: 1000 },
-            { text: 'INFO: Matching CPU and GPU power to real-time AI workload...', delay: 1000 },
-            { text: 'SUCCESS: Power consumption reduced by 30%. All SLAs met.', delay: 5000 }
-        ];
+            <!-- Llama-3-70B -->
+            <div class="model-bench scrolly-reveal delay-1" data-model="llama" data-quant="q8_0">
+                <div class="model-bench-header">
+                    <div>
+                        <div style="font-size:1.1rem;font-weight:700;color:#fff;">Llama-3-70B-Instruct</div>
+                        <div class="model-bench-baseline">Baseline: 39.15 Ws/token · 20.56 tps · Q8_0 · 75 GB</div>
+                    </div>
+                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);">70B params</span>
+                </div>
+                <div class="bench-profile-row p10">
+                    <div class="bench-profile-label">≤10% TPS<small>Conservative</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−28.83%</span>
+                            <span class="bench-ws-opt">27.87 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="28.83%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">19.97 tps</div>
+                        <div class="bench-tps-delta">−2.87% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p15">
+                    <div class="bench-profile-label">≤15% TPS<small>Balanced ★</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−33.84%</span>
+                            <span class="bench-ws-opt">25.90 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="33.84%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">19.50 tps</div>
+                        <div class="bench-tps-delta">−5.17% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p20">
+                    <div class="bench-profile-label">≤20% TPS<small>Aggressive</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−35.99%</span>
+                            <span class="bench-ws-opt">25.06 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="35.99%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">18.02 tps</div>
+                        <div class="bench-tps-delta">−12.34% throughput</div>
+                    </div>
+                </div>
+            </div>
 
-        let commandIndex = 0;
-        let charIndex = 0;
+            <!-- Qwen2.5-72B -->
+            <div class="model-bench scrolly-reveal delay-2" data-model="qwen" data-quant="q8_0">
+                <div class="model-bench-header">
+                    <div>
+                        <div style="font-size:1.1rem;font-weight:700;color:#fff;">Qwen2.5-72B-Instruct</div>
+                        <div class="model-bench-baseline">Baseline: 40.84 Ws/token · 19.96 tps · Q8_0 · 77.5 GB</div>
+                    </div>
+                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);">72B params</span>
+                </div>
+                <div class="bench-profile-row p10">
+                    <div class="bench-profile-label">≤10% TPS<small>Conservative</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−29.60%</span>
+                            <span class="bench-ws-opt">28.75 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="29.60%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">19.39 tps</div>
+                        <div class="bench-tps-delta">−2.86% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p15">
+                    <div class="bench-profile-label">≤15% TPS<small>Balanced ★</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−34.30%</span>
+                            <span class="bench-ws-opt">26.83 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="34.30%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">18.94 tps</div>
+                        <div class="bench-tps-delta">−5.11% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p20">
+                    <div class="bench-profile-label">≤20% TPS<small>Aggressive</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−36.52%</span>
+                            <span class="bench-ws-opt">25.93 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="36.52%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">17.48 tps</div>
+                        <div class="bench-tps-delta">−12.42% throughput</div>
+                    </div>
+                </div>
+            </div>
 
-        function typeCommand() {
-            if (commandIndex >= commands.length) {
-                // Optional: Loop the animation
-                commandIndex = 0;
-                terminalCode.innerHTML = '';
-                setTimeout(typeCommand, 1000);
-                return;
-            }
+            <!-- Qwen3-32B -->
+            <div class="model-bench scrolly-reveal delay-3" data-model="qwen" data-quant="q8_0">
+                <div class="model-bench-header">
+                    <div>
+                        <div style="font-size:1.1rem;font-weight:700;color:#fff;">Qwen3-32B</div>
+                        <div class="model-bench-baseline">Baseline: 18.52 Ws/token · 42.04 tps · Q8_0 · 34.8 GB</div>
+                    </div>
+                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);">32B params</span>
+                </div>
+                <div class="bench-profile-row p10">
+                    <div class="bench-profile-label">≤10% TPS<small>Conservative</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−28.07%</span>
+                            <span class="bench-ws-opt">13.32 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="28.07%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">39.86 tps</div>
+                        <div class="bench-tps-delta">−5.17% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p15">
+                    <div class="bench-profile-label">≤15% TPS<small>Balanced ★</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−32.58%</span>
+                            <span class="bench-ws-opt">12.49 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="32.58%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">38.38 tps</div>
+                        <div class="bench-tps-delta">−8.72% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p20">
+                    <div class="bench-profile-label">≤20% TPS<small>Aggressive</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−33.75%</span>
+                            <span class="bench-ws-opt">12.27 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="33.75%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">34.18 tps</div>
+                        <div class="bench-tps-delta">−18.70% throughput</div>
+                    </div>
+                </div>
+            </div>
 
-            const currentCommand = commands[commandIndex];
-            if (charIndex < currentCommand.text.length) {
-                terminalCode.innerHTML += currentCommand.text.charAt(charIndex);
-                charIndex++;
-                setTimeout(typeCommand, 25); // Typing speed
-            } else {
-                terminalCode.innerHTML += '\n';
-                charIndex = 0;
-                commandIndex++;
-                setTimeout(typeCommand, currentCommand.delay); // Delay before next command
-            }
+            <!-- Qwen3.5-27B -->
+            <div class="model-bench scrolly-reveal delay-4" data-model="qwen" data-quant="bf16">
+                <div class="model-bench-header">
+                    <div>
+                        <div style="font-size:1.1rem;font-weight:700;color:#fff;">Qwen3.5-27B</div>
+                        <div class="model-bench-baseline">Baseline: 26.99 Ws/token · 27.76 tps · BF16 · 50.7 GB</div>
+                    </div>
+                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);">27B params</span>
+                </div>
+                <div class="bench-profile-row p10">
+                    <div class="bench-profile-label">≤10% TPS<small>Conservative</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−26.59%</span>
+                            <span class="bench-ws-opt">19.82 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="26.59%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">26.13 tps</div>
+                        <div class="bench-tps-delta">−5.88% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p15">
+                    <div class="bench-profile-label">≤15% TPS<small>Balanced ★</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−31.16%</span>
+                            <span class="bench-ws-opt">18.58 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="31.16%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">25.32 tps</div>
+                        <div class="bench-tps-delta">−8.80% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p20">
+                    <div class="bench-profile-label">≤20% TPS<small>Aggressive</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−31.49%</span>
+                            <span class="bench-ws-opt">18.50 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="31.49%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">22.82 tps</div>
+                        <div class="bench-tps-delta">−17.81% throughput</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Qwen3.5-35B-A3B -->
+            <div class="model-bench scrolly-reveal delay-4" data-model="qwen" data-quant="bf16">
+                <div class="model-bench-header">
+                    <div>
+                        <div style="font-size:1.1rem;font-weight:700;color:#fff;">Qwen3.5-35B-A3B</div>
+                        <div class="model-bench-baseline">Baseline: 5.23 Ws/token · 114.58 tps · BF16 · 69.4 GB</div>
+                    </div>
+                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);">35B MoE params</span>
+                </div>
+                <div class="bench-profile-row p10">
+                    <div class="bench-profile-label">≤10% TPS<small>Conservative</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−19.25%</span>
+                            <span class="bench-ws-opt">4.22 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="19.25%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">103.11 tps</div>
+                        <div class="bench-tps-delta">−10.01% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p15">
+                    <div class="bench-profile-label">≤15% TPS<small>Balanced ★</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−20.16%</span>
+                            <span class="bench-ws-opt">4.18 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="20.16%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">99.28 tps</div>
+                        <div class="bench-tps-delta">−13.36% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p20">
+                    <div class="bench-profile-label">≤20% TPS<small>Aggressive</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−20.65%</span>
+                            <span class="bench-ws-opt">4.15 Ws/token</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="20.65%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">94.82 tps</div>
+                        <div class="bench-tps-delta">−17.25% throughput</div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="scrolly-reveal delay-4" style="margin-top:1rem;font-size:0.72rem;color:rgba(255,255,255,0.65);line-height:1.6;">
+                * All Watt-second readings measured at the server wall-socket on a single NVIDIA RTX Pro 6000 Blackwell GPU server.
+            </p>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- Chapter 05: Case Study -->
+    <div class="py-24 px-6 relative">
+        <div class="chapter-number scrolly-reveal">05</div>
+        <div class="container mx-auto max-w-5xl">
+            <div class="mb-14">
+                <span class="chapter-badge scrolly-reveal">Case Study</span>
+                <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem 0;"></div>
+                <h3 class="text-3xl md:text-4xl font-bold scrolly-reveal delay-1">Optimising Autonomous AI Agents</h3>
+                <p class="mt-4 scrolly-reveal delay-2" style="color:rgba(255,255,255,0.65);max-width:640px;line-height:1.8;">
+                    Continuous, zero-intervention AI agent loops create a sustained, demanding inference load. We validated vert-suite in exactly this scenario — using Claude Code acting as an autonomous coding agent running non-stop research iterations on a dedicated GPU server.
+                </p>
+            </div>
+            <div class="scrolly-reveal delay-2" style="margin-bottom:2.5rem;">
+                <div style="font-size:0.72rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.85rem;">Technology Stack</div>
+                <div>
+                    <span class="stack-pill">Claude Code</span>
+                    <span class="stack-pill">RTX Pro 6000 Blackwell</span>
+                    <span class="stack-pill">vLLM</span>
+                    <span class="stack-pill">Gemma 4 · 31B</span>
+                    <span class="stack-pill">vert-suite</span>
+                </div>
+            </div>
+            <div class="scrolly-reveal delay-3" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:2rem;margin-bottom:2rem;">
+                <div style="font-size:0.72rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1.25rem;">Average Server Power (measured at server wall-socket)</div>
+                <div style="margin-bottom:1.25rem;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                        <span style="font-size:0.85rem;color:rgba(255,255,255,0.65);">Without vert-suite</span>
+                        <span style="font-size:1rem;font-weight:700;color:#f87171;">781 W</span>
+                    </div>
+                    <div class="ws-meter-track"><div class="ws-meter-fill before" data-width="100%">781 W</div></div>
+                </div>
+                <div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                        <span style="font-size:0.85rem;color:rgba(255,255,255,0.65);">With vert-suite</span>
+                        <span style="font-size:1rem;font-weight:700;color:#9ef8a2;">459 W</span>
+                    </div>
+                    <div class="ws-meter-track"><div class="ws-meter-fill after" data-width="59%">459 W</div></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 scrolly-reveal delay-4">
+                <div class="stat-card accent">
+                    <div class="stat-val">~32%</div>
+                    <div class="stat-lbl">Energy per token saved</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">~41%</div>
+                    <div class="stat-lbl">Power Reduction with vert-suite on our testing server</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">~12%</div>
+                    <div class="stat-lbl">Throughput reduction</div>
+                </div>
+            </div>
+            <!-- Video + What you're watching -->
+            <div class="scrolly-reveal delay-4" style="margin-top:2.5rem;margin-bottom:2rem;">
+
+                <!-- Vimeo embed -->
+                <div style="padding:62.6% 0 0 0;position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);margin-bottom:1.25rem;">
+                    <iframe id="vimeo-case-study" src="https://player.vimeo.com/video/1187733563?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Optimising Autonomous AI Agents"></iframe>
+                </div>
+
+                <!-- Info panel -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <!-- Left: narrative -->
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.5rem;">
+                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);margin-bottom:1.1rem;">What's happening</div>
+                        <div style="display:flex;flex-direction:column;gap:1rem;">
+                            <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+                                <div style="width:7px;height:7px;background:#60a5fa;border-radius:50%;flex-shrink:0;margin-top:4px;"></div>
+                                <div>
+                                    <div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:0.2rem;">The Local Agent</div>
+                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.6;">Claude Code running locally, pointing to a GPU server — RTX Pro 6000 Blackwell running vLLM and Gemma 4 (31B).</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+                                <div style="width:7px;height:7px;background:#f87171;border-radius:50%;flex-shrink:0;margin-top:4px;"></div>
+                                <div>
+                                    <div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:0.2rem;">The Problem</div>
+                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.6;">Running an autonomous coding agent is power-hungry. The server was drawing 800 W+ to keep Gemma running at 19–22 tokens/sec.</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+                                <div style="width:7px;height:7px;background:#9ef8a2;border-radius:50%;flex-shrink:0;margin-top:4px;"></div>
+                                <div>
+                                    <div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:0.2rem;">The Fix</div>
+                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.6;">vert-suite applied. Power dropped to ~450 W — a ~41% reduction. Throughput only fell by 10–14%.</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+                                <div style="width:7px;height:7px;background:#fb923c;border-radius:50%;flex-shrink:0;margin-top:4px;"></div>
+                                <div>
+                                    <div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:0.2rem;">The Agent Loop</div>
+                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.6;">An extension of Karpathy's Autoresearch pattern: modify → evaluate → measure → keep or revert → repeat. Zero human intervention.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: timestamps + screen layout -->
+                    <div style="display:flex;flex-direction:column;gap:1rem;">
+
+                        <!-- Key moments -->
+                        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.5rem;">
+                            <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);margin-bottom:1rem;">Click to Play Key moments</div>
+                            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                                <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+                                    <button class="vimeo-seek" data-seconds="125" style="font-size:0.72rem;font-weight:700;color:#9ef8a2;background:rgba(0,147,115,0.65);border:1px solid rgba(0,147,115,0.3);border-radius:6px;padding:0.15rem 0.55rem;flex-shrink:0;font-family:monospace;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='rgba(0,147,115,0.3)'" onmouseout="this.style.background='rgba(0,147,115,0.15)'">02:05 ▶</button>
+                                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.5;">Optimisation ON — power usage drops sharply</span>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+                                    <button class="vimeo-seek" data-seconds="216" style="font-size:0.72rem;font-weight:700;color:#f87171;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.65);border-radius:6px;padding:0.15rem 0.55rem;flex-shrink:0;font-family:monospace;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='rgba(248,113,113,0.25)'" onmouseout="this.style.background='rgba(248,113,113,0.1)'">03:36 ▶</button>
+                                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.5;">Optimisation OFF — power climbs back to baseline</span>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:0.75rem;">
+                                    <button class="vimeo-seek" data-seconds="326" style="font-size:0.72rem;font-weight:700;color:#9ef8a2;background:rgba(0,147,115,0.15);border:1px solid rgba(0,147,115,0.65);border-radius:6px;padding:0.15rem 0.55rem;flex-shrink:0;font-family:monospace;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='rgba(0,147,115,0.3)'" onmouseout="this.style.background='rgba(0,147,115,0.15)'">05:26 ▶</button>
+                                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.5;">Optimisation ON again — confirms repeatability</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Screen layout key -->
+                        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.5rem;">
+                            <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);margin-bottom:1rem;">What's on screen</div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.72rem;">
+                                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.6rem 0.75rem;">
+                                    <div style="color:rgba(255,255,255,0.65);margin-bottom:0.2rem;font-size:0.65rem;">Top Left</div>
+                                    <div style="color:rgba(255,255,255,0.7);font-weight:600;">vLLM Logs</div>
+                                </div>
+                                <div style="background:rgba(0,147,115,0.06);border:1px solid rgba(0,147,115,0.2);border-radius:8px;padding:0.6rem 0.75rem;">
+                                    <div style="color:rgba(255,255,255,0.65);margin-bottom:0.2rem;font-size:0.65rem;">Right Half</div>
+                                    <div style="color:#9ef8a2;font-weight:600;">Claude Code</div>
+                                </div>
+                                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.6rem 0.75rem;">
+                                    <div style="color:rgba(255,255,255,0.65);margin-bottom:0.2rem;font-size:0.65rem;">Bottom Left</div>
+                                    <div style="color:rgba(255,255,255,0.7);font-weight:600;">Agent Loop</div>
+                                </div>
+                                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.6rem 0.75rem;">
+                                    <div style="color:rgba(255,255,255,0.65);margin-bottom:0.2rem;font-size:0.65rem;">Bottom Right</div>
+                                    <div style="color:rgba(255,255,255,0.7);font-weight:600;">Power Trace</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROI context -->
+            <div class="scrolly-reveal delay-4" style="margin-top:1.5rem;">
+                <div style="margin-bottom:1.5rem;">
+                    <h4 style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.35rem;">What 30% energy savings means in practice</h4>
+                    <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);">Average UK commercial electricity rate: 25.5p/kWh · 24/7 continuous operation · Savings scale linearly with fleet size</p>
+                </div>
+                <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:2rem 2rem 1.5rem;">
+
+                    <!-- Scale header -->
+                    <div style="display:flex;gap:1rem;margin-bottom:0.6rem;">
+                        <div style="width:148px;flex-shrink:0;"></div>
+                        <div style="flex:1;position:relative;height:1.1rem;">
+                            <span style="position:absolute;left:0;font-size:0.62rem;color:rgba(255,255,255,0.65);">£0</span>
+                            <span style="position:absolute;left:20%;transform:translateX(-50%);font-size:0.62rem;color:rgba(255,255,255,0.65);">£5K</span>
+                            <span style="position:absolute;left:40%;transform:translateX(-50%);font-size:0.62rem;color:rgba(255,255,255,0.65);">£10K</span>
+                            <span style="position:absolute;left:60%;transform:translateX(-50%);font-size:0.62rem;color:rgba(255,255,255,0.65);">£15K</span>
+                            <span style="position:absolute;left:80%;transform:translateX(-50%);font-size:0.62rem;color:rgba(255,255,255,0.65);">£20K</span>
+                            <span style="position:absolute;right:0;font-size:0.62rem;color:rgba(255,255,255,0.65);">£23K</span>
+                        </div>
+                        <div style="width:110px;flex-shrink:0;"></div>
+                    </div>
+
+                    <!-- Entry-Level GPU: £5,585/yr, bar = 24.28% of £23K -->
+                    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;">
+                        <div style="width:148px;flex-shrink:0;">
+                            <div style="font-size:0.8rem;font-weight:600;color:#fff;">Workstation</div>
+                            <div style="font-size:0.67rem;color:rgba(255,255,255,0.65);">2.5 kW · £5,585/yr</div>
+                        </div>
+                        <div style="flex:1;position:relative;height:32px;">
+                            <!-- grid lines -->
+                            <div style="position:absolute;inset:0;display:flex;pointer-events:none;">
+                                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
+                                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
+                                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
+                                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
+                                <div style="flex:1;"></div>
+                            </div>
+                            <div class="result-bar-fill" data-width="24.28%" style="position:absolute;top:0;left:0;height:100%;border-radius:0 5px 5px 0;background:linear-gradient(90deg,rgba(248,113,113,0.2) 0%,rgba(248,113,113,0.2) 70%,#009373 70%,#9ef8a2 100%);"></div>
+                        </div>
+                        <div style="width:110px;flex-shrink:0;text-align:right;">
+                            <div style="font-size:0.88rem;font-weight:700;color:#9ef8a2;">saves £1,675</div>
+                            <div style="font-size:0.65rem;color:rgba(255,255,255,0.65);">per year</div>
+                        </div>
+                    </div>
+
+                    <!-- Mid-Range GPU: £13,961/yr, bar = 60.70% of £23K -->
+                    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;">
+                        <div style="width:148px;flex-shrink:0;">
+                            <div style="font-size:0.8rem;font-weight:600;color:#fff;">Mid-Range Server</div>
+                            <div style="font-size:0.67rem;color:rgba(255,255,255,0.65);">6.25 kW · £13,961/yr</div>
+                        </div>
+                        <div style="flex:1;position:relative;height:32px;">
+                            <div style="position:absolute;inset:0;display:flex;pointer-events:none;">
+                                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
+                                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
+                                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
+                                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
+                                <div style="flex:1;"></div>
+                            </div>
+                            <div class="result-bar-fill" data-width="60.70%" style="position:absolute;top:0;left:0;height:100%;border-radius:0 5px 5px 0;background:linear-gradient(90deg,rgba(248,113,113,0.2) 0%,rgba(248,113,113,0.2) 70%,#009373 70%,#9ef8a2 100%);"></div>
+                        </div>
+                        <div style="width:110px;flex-shrink:0;text-align:right;">
+                            <div style="font-size:0.88rem;font-weight:700;color:#9ef8a2;">saves £4,188</div>
+                            <div style="font-size:0.65rem;color:rgba(255,255,255,0.65);">per year</div>
+                        </div>
+                    </div>
+
+                    <!-- Enterprise GPU: £22,338/yr, bar = 97.12% of £23K -->
+                    <div style="display:flex;align-items:center;gap:1rem;">
+                        <div style="width:148px;flex-shrink:0;">
+                            <div style="font-size:0.8rem;font-weight:600;color:#fff;">Enterprise Server</div>
+                            <div style="font-size:0.67rem;color:rgba(255,255,255,0.65);">10 kW · £22,338/yr</div>
+                        </div>
+                        <div style="flex:1;position:relative;height:32px;">
+                            <div style="position:absolute;inset:0;display:flex;pointer-events:none;">
+                                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
+                                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
+                                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
+                                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.15);"></div>
+                                <div style="flex:1;"></div>
+                            </div>
+                            <div class="result-bar-fill" data-width="97.12%" style="position:absolute;top:0;left:0;height:100%;border-radius:0 5px 5px 0;background:linear-gradient(90deg,rgba(248,113,113,0.2) 0%,rgba(248,113,113,0.2) 70%,#009373 70%,#9ef8a2 100%);"></div>
+                        </div>
+                        <div style="width:110px;flex-shrink:0;text-align:right;">
+                            <div style="font-size:0.88rem;font-weight:700;color:#9ef8a2;">saves £6,701</div>
+                            <div style="font-size:0.65rem;color:rgba(255,255,255,0.65);">per year</div>
+                        </div>
+                    </div>
+
+                    <!-- Legend -->
+                    <div style="display:flex;gap:1.5rem;margin-top:1.4rem;padding-left:164px;flex-wrap:wrap;">
+                        <div style="display:flex;align-items:center;gap:0.4rem;">
+                            <div style="width:14px;height:10px;border-radius:2px;background:rgba(248,113,113,0.2);border:1px solid rgba(248,113,113,0.35);"></div>
+                            <span style="font-size:0.82rem;color:rgba(255,255,255,0.65);">Annual cost after savings</span>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:0.4rem;">
+                            <div style="width:14px;height:10px;border-radius:2px;background:linear-gradient(90deg,#009373,#9ef8a2);"></div>
+                            <span style="font-size:0.82rem;color:rgba(255,255,255,0.65);">Saved with vert-suite (30%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── News & Recognition ─────────────────────────────── -->
+<section id="milestones" class="py-24 px-6 relative">
+    <div class="chapter-number scrolly-reveal">06</div>
+    <div class="container mx-auto max-w-5xl">
+        <div class="mb-14">
+            <span class="chapter-badge scrolly-reveal">News &amp; Recognition</span>
+            <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem 0;"></div>
+            <h2 class="text-3xl md:text-4xl font-bold scrolly-reveal delay-1">Recognised by Industry Leaders</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="dark-card scrolly-reveal delay-1" style="display:flex;flex-direction:column;">
+                <img class="h-10 mb-6 opacity-90" style="object-fit:contain;object-position:left;" src="imgs/ukri_bw.png" alt="UKRI Logo">
+                <h3 class="text-xl font-semibold mb-3" style="color:#fff;">Innovate UK 'New Innovators' Grant</h3>
+                <p style="color:rgba(255,255,255,0.65);line-height:1.8;flex:1;">
+                    Verticular has secured the 'Growth Catalyst Early Stage' grant to advance <strong style="color:#fff;">EPIC (Energy-efficient Processing for Intensive Computing)</strong> — using AI to dynamically manage both CPU and GPU power and cut energy costs for AI data centres without performance trade-offs.
+                </p>
+            </div>
+            <div class="dark-card scrolly-reveal delay-2" style="display:flex;flex-direction:column;">
+                <img class="h-14 mb-5 opacity-90" style="object-fit:contain;object-position:left;" src="imgs/nvidia-inception-program-badge-rgb-for-screen.png" alt="NVIDIA Inception Logo">
+                <h3 class="text-xl font-semibold mb-3" style="color:#fff;">Member of NVIDIA Inception</h3>
+                <p style="color:rgba(255,255,255,0.65);line-height:1.8;flex:1;">
+                    We are proud members of the NVIDIA Inception program, giving us early access to the latest GPU ecosystem and enabling us to optimise AI workloads at the deepest hardware level.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── Partnering With ────────────────────────────────── -->
+<section id="trusted-by" class="pt-12 pb-16 px-6">
+    <div class="container mx-auto max-w-6xl text-center">
+        <h2 class="text-3xl md:text-4xl font-bold pb-12" style="color:#fff;">Partnering with</h2>
+        <div class="scroller relative w-full overflow-hidden">
+            <div class="scroller-inner">
+                <img src="imgs/nvidia-inception-program-badge-rgb-for-screen.png" alt="NVIDIA Inception" class="h-19 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/nokia.jpg"   alt="Nokia"              class="h-15 mx-10 bg-white rounded-lg p-2 pt-4 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/mk.png"      alt="MK Stadium"         class="h-15 mx-10 bg-white rounded-lg p-2 pt-4 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/rw.webp"     alt="Real Wireless"      class="h-15 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/madevo.png"  alt="Madevo"             class="h-15 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/ukri.png"    alt="UKRI"               class="h-15 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/wl.png"      alt="Weaver Labs"        class="h-15 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/hiro.png"    alt="Hiro"               class="h-15 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/uob.png"     alt="University of Bristol" class="h-15 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <!-- duplicate for seamless scroll -->
+                <img src="imgs/nvidia-inception-program-badge-rgb-for-screen.png" alt="NVIDIA Inception" class="h-19 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/nokia.jpg"   alt="Nokia"              class="h-15 mx-10 bg-white rounded-lg p-2 pt-4 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/mk.png"      alt="MK Stadium"         class="h-15 mx-10 bg-white rounded-lg p-2 pt-4 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/rw.webp"     alt="Real Wireless"      class="h-15 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/madevo.png"  alt="Madevo"             class="h-15 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/ukri.png"    alt="UKRI"               class="h-15 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/wl.png"      alt="Weaver Labs"        class="h-15 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/hiro.png"    alt="Hiro"               class="h-15 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+                <img src="imgs/uob.png"     alt="University of Bristol" class="h-15 mx-10 bg-white rounded-lg p-2 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── About / Team ────────────────────────────────────── -->
+<section id="about" class="py-24 px-6 relative">
+    <div class="chapter-number scrolly-reveal">07</div>
+    <div class="container mx-auto max-w-5xl">
+        <div class="mb-14">
+            <span class="chapter-badge scrolly-reveal">The Team</span>
+            <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem 0;"></div>
+            <h2 class="text-3xl md:text-4xl font-bold scrolly-reveal delay-1">Built by Industry Experts</h2>
+            <p class="scrolly-reveal delay-2" style="color:rgba(255,255,255,0.6);max-width:620px;line-height:1.8;">
+                Verticular was founded by two tech leaders who spent careers engineering at the frontier of wireless networks and AI systems — and who saw first-hand the cost and energy problem coming.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <!-- Dan Warren -->
+            <div class="dark-card scrolly-reveal delay-1">
+                <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem;">
+                    <div style="width:88px;height:88px;border-radius:50%;border:2px solid rgba(0,147,115,0.4);overflow:hidden;flex-shrink:0;">
+                        <img src="imgs/Dan.png" alt="Dr Dan Warren" style="width:100%;height:100%;object-fit:cover;object-position:center top;transform:scale(1.3) translateY(9px) translateX(1px);">
+                    </div>
+                    <div>
+                        <div style="font-size:1.1rem;font-weight:700;color:#fff;">Dr Dan Warren</div>
+                        <div style="font-size:0.8rem;color:#9ef8a2;font-weight:600;margin-top:0.15rem;">Chief Executive Officer</div>
+                    </div>
+                </div>
+                <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.9rem;">
+                    <li style="display:flex;gap:0.75rem;align-items:flex-start;">
+                        <svg style="color:#009373;flex-shrink:0;margin-top:3px;" width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                        <span style="color:rgba(255,255,255,0.7);font-size:0.88rem;line-height:1.65;">Former Director of Advanced Network Research at Samsung Research UK</span>
+                    </li>
+                    <li style="display:flex;gap:0.75rem;align-items:flex-start;">
+                        <svg style="color:#009373;flex-shrink:0;margin-top:3px;" width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                        <span style="color:rgba(255,255,255,0.7);font-size:0.88rem;line-height:1.65;">Creator of the VoLTE standard at GSMA</span>
+                    </li>
+                    <li style="display:flex;gap:0.75rem;align-items:center;padding-top:0.5rem;border-top:1px solid rgba(255,255,255,0.06);">
+                        <svg style="color:rgba(0,147,115,0.7);flex-shrink:0;" width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg>
+                        <a href="mailto:dan@verticular.uk" style="color:rgba(255,255,255,0.65);font-size:0.82rem;transition:color 0.2s;" onmouseover="this.style.color='#9ef8a2'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">dan@verticular.uk</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Andrea Tassi -->
+            <div class="dark-card scrolly-reveal delay-2">
+                <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem;">
+                    <div style="width:88px;height:88px;border-radius:50%;border:2px solid rgba(0,147,115,0.4);overflow:hidden;flex-shrink:0;">
+                        <img src="imgs/Andrea.png" alt="Dr Andrea Tassi" style="width:100%;height:100%;object-fit:cover;object-position:center top;transform:scale(1.3) translateY(9px) translateX(-1px);">
+                    </div>
+                    <div>
+                        <div style="font-size:1.1rem;font-weight:700;color:#fff;">Dr Andrea Tassi</div>
+                        <div style="font-size:0.8rem;color:#9ef8a2;font-weight:600;margin-top:0.15rem;">Chief Technology Officer</div>
+                    </div>
+                </div>
+                <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.9rem;">
+                    <li style="display:flex;gap:0.75rem;align-items:flex-start;">
+                        <svg style="color:#009373;flex-shrink:0;margin-top:3px;" width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                        <span style="color:rgba(255,255,255,0.7);font-size:0.88rem;line-height:1.65;">Former Chief Engineer at Samsung Research UK</span>
+                    </li>
+                    <li style="display:flex;gap:0.75rem;align-items:flex-start;">
+                        <svg style="color:#009373;flex-shrink:0;margin-top:3px;" width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                        <span style="color:rgba(255,255,255,0.7);font-size:0.88rem;line-height:1.65;">IEEE Senior Member · 50+ publications · Multiple Best Paper Awards. Specialist in System Design/Simulation</span>
+                    </li>
+                    <li style="display:flex;gap:0.75rem;align-items:center;padding-top:0.5rem;border-top:1px solid rgba(255,255,255,0.06);">
+                        <svg style="color:rgba(0,147,115,0.7);flex-shrink:0;" width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z"/><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z"/></svg>
+                        <a href="mailto:andrea@verticular.uk" style="color:rgba(255,255,255,0.65);font-size:0.82rem;transition:color 0.2s;" onmouseover="this.style.color='#9ef8a2'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">andrea@verticular.uk</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Mission statement -->
+        <div class="dark-card scrolly-reveal delay-3" style="text-align:center;padding:1.5rem 2rem;">
+            <div style="font-size:2.5rem;color:#009373;line-height:0.8;margin-bottom:0.5rem;opacity:0.4;">"</div>
+            <p class="text-lg md:text-xl leading-relaxed mb-5" style="font-style:italic;color:rgba(255,255,255,0.8);margin-left:auto;margin-right:auto;">
+                Our mission is to solve the dual problem of rising cloud costs and the massive energy footprint of AI — building deep, chip-level software that lowers OpEx, maximises hardware ROI, and meets sustainability goals without compromising SLAs.
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── Contact ────────────────────────────────────────── -->
+<section id="contact" class="py-24 px-6 relative text-white">
+    <div class="chapter-number scrolly-reveal">08</div>
+    <div class="container mx-auto max-w-5xl">
+        <div class="text-center mb-14">
+            <span class="chapter-badge scrolly-reveal">Contact Us</span>
+            <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem auto;"></div>
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight scrolly-reveal delay-1">
+                See Your Savings.<br>Live. On Your Hardware.
+            </h2>
+            <p class="scrolly-reveal delay-2" style="color:rgba(255,255,255,0.65);text-align:center;max-width:600px;margin:1rem auto 0;line-height:1.8;font-size:1.05rem;">
+                Request a demo and we'll show you wall-Socket power measurements on a real GPU server — before and after vert-suite — so you can see the savings for yourself, not just take our word for it.
+            </p>
+        </div>
+        <form action="https://api.web3forms.com/submit" method="POST" class="scrolly-reveal delay-3" style="max-width:800px; margin:0 auto;" id="contact_us">
+            <input type="hidden" name="access_key" value="04aae826-131f-4c1e-8c46-ca4955d26829">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label for="name" class="block mb-2 text-sm font-medium">Full Name</label>
+                    <input type="text" name="name" id="name" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green" required>
+                </div>
+                <div>
+                    <label for="email" class="block mb-2 text-sm font-medium">Email Address</label>
+                    <input type="email" name="email" id="email" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green" required>
+                </div>
+            </div>
+            <div class="mb-6">
+                <label for="phone" class="block mb-2 text-sm font-medium">Phone Number</label>
+                <input type="tel" name="phone" id="phone" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green">
+            </div>
+            <div class="mb-6">
+                <label for="message" class="block mb-2 text-sm font-medium">Message</label>
+                <textarea name="message" id="message" rows="4" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green" required></textarea>
+            </div>
+            <div class="h-captcha mb-5" data-captcha="true"></div>
+            <div class="text-center">
+                <button type="submit" style="background:#9ef8a2;color:#003d33;" class="font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 hover:opacity-90 hover:scale-105 transform">
+                    Send Message
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────── -->
+<footer style="background:#030a09;border-top:1px solid rgba(255,255,255,0.07);" class="text-gray-400 pt-14 pb-10">
+    <div class="container mx-auto px-6 md:px-12 max-w-5xl">
+
+        <!-- Top row: brand + nav + contact -->
+        <div class="flex flex-col md:flex-row justify-between gap-10 mb-10">
+
+            <!-- Brand -->
+            <div class="flex flex-col gap-3" style="min-width:180px;">
+                <a href="#">
+                    <img class="h-8 w-auto opacity-90 hover:opacity-100 transition-opacity" src="imgs/Verticular_v1-25.png" alt="Verticular">
+                </a>
+                <p style="font-size:0.78rem;color:rgba(255,255,255,0.65);line-height:1.6;max-width:220px;">
+                    Your Cloud, Optimised.
+                </p>
+            </div>
+
+            <!-- Navigation -->
+            <div class="flex flex-col gap-3">
+                <span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);">Navigate</span>
+                <a href="#results"    style="font-size:0.85rem;color:rgba(255,255,255,0.65);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Results</a>
+                <a href="#solution"   style="font-size:0.85rem;color:rgba(255,255,255,0.65);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">The Solution</a>
+                <a href="#milestones" style="font-size:0.85rem;color:rgba(255,255,255,0.65);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">News</a>
+                <a href="#about"      style="font-size:0.85rem;color:rgba(255,255,255,0.65);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">The Team</a>
+            </div>
+
+            <!-- Contact CTA -->
+            <div class="flex flex-col gap-3">
+                <span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);">Get in Touch</span>
+                <div style="display:inline-flex;align-items:center;gap:0.75rem;">
+                    <a href="mailto:info@verticular.uk" style="font-size:0.85rem;color:rgba(255,255,255,0.65);transition:color 0.2s;" onmouseover="this.style.color='#9ef8a2'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">info@verticular.uk</a>
+                    <a href="https://www.linkedin.com/company/verticular" target="_blank" style="display:inline-flex;align-items:center;color:rgba(255,255,255,0.4);transition:color 0.2s;" onmouseover="this.style.color='#9ef8a2'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+                        <img src="imgs/linkedin-128.png" alt="LinkedIn" style="height:14px;width:auto;opacity:0.6;position:relative;top:-3px;">
+                    </a>
+                </div>
+                <a href="#contact" style="display:inline-block;margin-top:0.25rem;background:#9ef8a2;color:#003d33;font-size:0.8rem;font-weight:700;padding:0.5rem 1.25rem;border-radius:9999px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Request Demo →</a>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div style="height:1px;background:linear-gradient(90deg,rgba(0,147,115,0.2),rgba(255,255,255,0.06),transparent);margin-bottom:1.5rem;"></div>
+
+        <!-- Bottom: copyright -->
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.5rem;font-size:0.72rem;color:rgba(255,255,255,0.2);">
+            <span>&copy; 2026 Verticular Ltd. All rights reserved.</span>
+            <span>NVIDIA and the NVIDIA logo are trademarks of NVIDIA Corporation.</span>
+        </div>
+    </div>
+</footer>
+
+<!-- ── Scripts ────────────────────────────────────────── -->
+<script>
+    document.getElementById('mobile-menu-button').addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+</script>
+
+<script src="https://web3forms.com/client/script.js" async defer></script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+    (function () {
+        function initVimeoSeek() {
+            var iframe = document.getElementById('vimeo-case-study');
+            if (!iframe || typeof Vimeo === 'undefined') return;
+            var player = new Vimeo.Player(iframe);
+            document.querySelectorAll('.vimeo-seek').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var t = parseFloat(btn.dataset.seconds);
+                    player.setCurrentTime(t).then(function () { player.play(); });
+                    iframe.closest('div').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
         }
+        // Vimeo player.js is sync so this runs after it loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initVimeoSeek);
+        } else {
+            initVimeoSeek();
+        }
+    })();
+</script>
+<script>
+    document.getElementById('contact_us').addEventListener('submit', function(e) {
+        const hCaptcha = this.querySelector('textarea[name=h-captcha-response]').value;
+        if (!hCaptcha) { e.preventDefault(); alert("Please fill out captcha field"); }
+    });
+</script>
 
-        window.addEventListener('load', () => {
-             setTimeout(typeCommand, 1000); // Initial delay
+<!-- Scrollytelling engine -->
+<script>
+    // Progress bar
+    const progressBar = document.getElementById('scroll-progress-bar');
+    window.addEventListener('scroll', () => {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        progressBar.style.width = (window.scrollY / total * 100) + '%';
+    }, { passive: true });
+
+    // Counter animation
+    function animateCounter(el) {
+        if (el.dataset.animated) return;
+        el.dataset.animated = '1';
+        const target = parseFloat(el.dataset.target);
+        const decimals = parseInt(el.dataset.decimals || '0');
+        const suffix = el.dataset.suffix || '';
+        const duration = 1600;
+        const t0 = performance.now();
+        (function tick(now) {
+            const p = Math.min((now - t0) / duration, 1);
+            const e = 1 - Math.pow(1 - p, 3);
+            el.textContent = (target * e).toFixed(decimals) + suffix;
+            if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+    }
+
+    // Reveal + animate bars/counters on scroll
+    const revealObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            el.classList.add('visible');
+            el.querySelectorAll('.result-bar-fill').forEach(bar => {
+                if (!bar.dataset.animated) {
+                    bar.dataset.animated = '1';
+                    setTimeout(() => { bar.style.width = bar.dataset.width; }, 250);
+                }
+            });
+            el.querySelectorAll('.ws-meter-fill').forEach(bar => {
+                if (!bar.dataset.animated) {
+                    bar.dataset.animated = '1';
+                    setTimeout(() => { bar.style.width = bar.dataset.width; }, 350);
+                }
+            });
+            el.querySelectorAll('.counter').forEach(animateCounter);
+            revealObs.unobserve(el);
         });
-    </script>
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.scrolly-reveal').forEach(el => revealObs.observe(el));
+
+    // Trigger bars/counters inside bench rows
+    const rowObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.querySelectorAll('.result-bar-fill').forEach(bar => {
+                if (!bar.dataset.animated) {
+                    bar.dataset.animated = '1';
+                    setTimeout(() => { bar.style.width = bar.dataset.width; }, 250);
+                }
+            });
+            entry.target.querySelectorAll('.ws-meter-fill').forEach(bar => {
+                if (!bar.dataset.animated) {
+                    bar.dataset.animated = '1';
+                    setTimeout(() => { bar.style.width = bar.dataset.width; }, 350);
+                }
+            });
+            entry.target.querySelectorAll('.counter').forEach(animateCounter);
+            rowObs.unobserve(entry.target);
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.model-bench, .stat-card, .challenge-model-card').forEach(el => rowObs.observe(el));
+
+    var _benchFilters = { model: 'all', quant: 'all' };
+    function setBenchFilter(group, filter) {
+        _benchFilters[group] = filter;
+        document.querySelectorAll('.bench-filter-btn[data-group="' + group + '"]').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.filter === filter);
+        });
+        document.querySelectorAll('.model-bench[data-model]').forEach(card => {
+            var modelMatch = _benchFilters.model === 'all' || card.dataset.model === _benchFilters.model;
+            var quantMatch = _benchFilters.quant === 'all' || card.dataset.quant === _benchFilters.quant;
+            card.classList.toggle('bench-hidden', !(modelMatch && quantMatch));
+        });
+    }
+</script>
 
 </body>
 </html>
