@@ -425,6 +425,9 @@
             display: none;
         }
 
+        /* ── Print-only elements (hidden on screen) ── */
+        .print-only { display: none; }
+
         /* ── ROI bar chart ── */
         .roi-scale-header { display: flex; gap: 1rem; margin-bottom: 0.6rem; }
         .roi-scale-header .roi-label-col { width: 148px; flex-shrink: 0; }
@@ -444,6 +447,138 @@
             .roi-bar-col   { order: 3; flex: 0 0 100%; height: 28px; }
             .roi-val-col   { width: auto; flex-shrink: 0; text-align: right; }
             .roi-legend    { padding-left: 0; }
+        }
+
+        /* ════════════════════════════════════════════════
+           PRINT / READER-MODE STYLES
+           ════════════════════════════════════════════════ */
+        @media print {
+            /* ── Reset dark theme ── */
+            html, body {
+                background: #fff !important;
+                color: #111 !important;
+            }
+
+            /* ── Force ALL text dark — overrides every inline rgba(255,255,255,x) ── */
+            * { color: #222 !important; }
+
+            /* ── Hide screen-only chrome ── */
+            #scroll-progress-bar,
+            header,
+            .scroller,
+            .pulse-dot,
+            #vimeo-case-study,
+            .vimeo-seek,
+            .bench-filter-btn,
+            .how-steps-grid::before,
+            .spectrum-bar,
+            .section-divider {
+                display: none !important;
+            }
+
+            /* ── Show print-only content ── */
+            .print-only { display: block !important; }
+
+            /* ── Fix scroll-reveal (JS not run) ── */
+            .scrolly-reveal {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+
+            /* ── Cards & containers ── */
+            .dark-card, .stat-card, .challenge-model-card,
+            .model-bench, .methodology-box, .proof-strip,
+            .ws-meter-track {
+                background: #f7f7f7 !important;
+                border: 1px solid #ccc !important;
+                break-inside: avoid;
+            }
+            .stat-card.accent, .dark-card.accent {
+                background: #eaf6f2 !important;
+                border-color: #006b55 !important;
+            }
+            .challenge-model-card .col-after {
+                background: #eaf6f2 !important;
+            }
+            .challenge-model-card .card-header,
+            .model-bench-header {
+                background: #eee !important;
+                border-color: #ccc !important;
+            }
+            .bench-profile-row { border-color: #e0e0e0 !important; }
+            .bench-profile-row.p15 { background: #eaf6f2 !important; }
+
+            /* ── Restore intentional accent colours ── */
+            .bench-ws-reduction, .stat-val, .proof-strip-val,
+            .col-after .metric-val, .col-after .metric-delta,
+            .print-table .saved { color: #006b55 !important; }
+            .col-before .metric-val { color: #bb0000 !important; }
+            .col-before .col-label  { color: #bb0000 !important; }
+            .col-after  .col-label  { color: #006b55 !important; }
+            h1, h2, h3, h4, h5, h6 { color: #000 !important; }
+
+            /* ── Badges & decorative ── */
+            .chapter-badge {
+                background: #eaf6f2 !important;
+                border-color: #006b55 !important;
+                color: #006b55 !important;
+            }
+            .chapter-number { color: rgba(0,0,0,0.07) !important; }
+            .chapter-sep    { background: #006b55 !important; }
+            .stack-pill {
+                background: #eaf6f2 !important;
+                border-color: #006b55 !important;
+                color: #006b55 !important;
+            }
+            .method-icon { color: #006b55 !important; }
+
+            /* ── Bars (filled via beforeprint JS) ── */
+            .result-bar-track { background: #ddd !important; }
+            .result-bar-fill  { background: #006b55 !important; min-width: 4px; }
+            .ws-meter-fill.before { background: #bb0000 !important; color: #fff !important; }
+            .ws-meter-fill.after  { background: #006b55 !important; color: #fff !important; }
+
+            /* ── How-it-works ── */
+            .how-step-num {
+                background: #f7f7f7 !important;
+                border-color: #006b55 !important;
+                color: #006b55 !important;
+                box-shadow: 0 0 0 4px #fff !important;
+            }
+
+            /* ── ROI section ── */
+            .roi-scale-header { display: none !important; }
+
+            /* ── Print tables ── */
+            .print-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 0.82rem;
+                margin: 1rem 0;
+            }
+            .print-table th {
+                background: #006b55 !important;
+                color: #fff !important;
+                padding: 0.45rem 0.75rem;
+                text-align: left;
+                font-weight: 600;
+            }
+            .print-table td {
+                padding: 0.4rem 0.75rem;
+                border-bottom: 1px solid #ddd;
+                color: #111 !important;
+            }
+            .print-table tr:nth-child(even) td { background: #f7f7f7; }
+            .print-table tr.row-p15 td { background: #eaf6f2; font-weight: 600; }
+            .print-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+            /* ── Page layout ── */
+            section { break-inside: auto; }
+            h2, h3, h4 { break-after: avoid; }
+
+            /* ── Links ── */
+            a { text-decoration: none; }
         }
     </style>
 </head>
@@ -559,11 +694,11 @@
             </p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 scrolly-reveal delay-3">
                 <div class="stat-card">
-                    <div class="stat-val"><span class="counter" data-target="41" data-suffix="%" data-decimals="0">0%</span></div>
+                    <div class="stat-val"><span class="counter" data-target="41" data-suffix="%" data-decimals="0">41%</span></div>
                     <div class="stat-lbl">Peak Server Power Reduction (case study, measured at wall-socket)</div>
                 </div>
                 <div class="stat-card accent">
-                    <div class="stat-val"><span class="counter" data-target="31" data-suffix="%" data-decimals="0">0%</span></div>
+                    <div class="stat-val"><span class="counter" data-target="31" data-suffix="%" data-decimals="0">31%</span></div>
                     <div class="stat-lbl">Typical Energy per Token Reduction · NVIDIA Blackwell</div>
                 </div>
                 <div class="stat-card">
@@ -669,7 +804,7 @@
                     <div class="card-row">
                         <div class="col-before">
                             <div class="col-label">Without vert-suite</div>
-                            <div class="metric-val">37.03</div>
+                            <div class="metric-val">33.7</div>
                             <div class="metric-sub">Ws / token</div>
                             <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.06);">
                                 <div class="metric-val" style="font-size:1.1rem;">24.5 tps</div>
@@ -678,20 +813,71 @@
                         </div>
                         <div class="col-after">
                             <div class="col-label">With vert-suite</div>
-                            <div class="metric-val">25.33</div>
+                            <div class="metric-val">22.58</div>
                             <div class="metric-sub">Ws / token</div>
-                            <div class="metric-delta">−31.6% energy per token</div>
+                            <div class="metric-delta">−33.06% energy per token</div>
                             <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(0,147,115,0.15);">
-                                <div class="metric-val" style="font-size:1.1rem;">22.36 tps</div>
+                                <div class="metric-val" style="font-size:1.1rem;">23.4 tps</div>
                                 <div class="metric-sub">throughput</div>
-                                <div class="metric-delta">−8.7% throughput</div>
+                                <div class="metric-delta">−4.5% throughput</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Parallel scaling chart -->
+            <div class="scrolly-reveal delay-3" style="margin-top:2.5rem;">
+                <div style="margin-bottom:1.25rem;">
+                    <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.65);margin-bottom:0.35rem;">Scaling Under Load</div>
+                    <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:0.5rem;">Throughput &amp; Energy Efficiency vs. Parallel Requests</div>
+                    <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);line-height:1.7;max-width:680px;margin-bottom:1rem;">
+                        vLLM serving Gemma 4 31B was targeted with 1–60 concurrent requests.<sup style="font-size:0.65em;">†</sup> Every data point is the average of 20 independent runs. vert-suite operates under a self-imposed SLA of no more than 10% throughput reduction vs. the unmanaged baseline.
+                    </p>
+                    <!-- Key stat pills -->
+                    <div style="display:flex;flex-wrap:wrap;gap:0.6rem;">
+                        <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,147,115,0.12);border:1px solid rgba(0,147,115,0.3);border-radius:9999px;padding:0.3rem 0.9rem;font-size:0.72rem;font-weight:700;color:#9ef8a2;">
+                            <svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#9ef8a2"/></svg>
+                            27–33% energy saved per token
+                        </div>
+                        <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,147,115,0.12);border:1px solid rgba(0,147,115,0.3);border-radius:9999px;padding:0.3rem 0.9rem;font-size:0.72rem;font-weight:700;color:#9ef8a2;">
+                            <svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#9ef8a2"/></svg>
+                            ≤10% throughput SLA under saturated load level
+                        </div>
+                        <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:0.3rem 0.9rem;font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.65);">
+                            avg. of 20 runs per data point
+                        </div>
+                    </div>
+                </div>
+                <!-- % reduction chart — full width -->
+                <div style="background:rgba(0,147,115,0.05);border:1px solid rgba(0,147,115,0.18);border-radius:0.75rem;padding:1.1rem 1rem 0.65rem;margin-bottom:1.5rem;">
+                    <div style="font-size:0.68rem;font-weight:600;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.55rem;">% Reduction: With vert-suite vs. Without vert-suite</div>
+                    <canvas id="chartScalePct"></canvas>
+                </div>
+                <!-- legend for the two charts below -->
+                <div style="display:flex;gap:1.75rem;margin-bottom:0.85rem;justify-content:center;">
+                    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;color:rgba(255,255,255,0.65);">
+                        <svg width="22" height="10" style="flex-shrink:0;"><line x1="0" y1="5" x2="22" y2="5" stroke="#ef4444" stroke-width="2"/><circle cx="11" cy="5" r="3" fill="#ef4444"/></svg>
+                        Without vert-suite
+                    </div>
+                    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;color:rgba(255,255,255,0.65);">
+                        <svg width="22" height="10" style="flex-shrink:0;"><line x1="0" y1="5" x2="22" y2="5" stroke="#9ef8a2" stroke-width="2"/><circle cx="11" cy="5" r="3" fill="#9ef8a2"/></svg>
+                        With vert-suite
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:0.75rem;padding:1.25rem 1rem 0.75rem;">
+                        <div style="font-size:0.68rem;font-weight:600;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.65rem;">Throughput per Session (tokens / sec)</div>
+                        <canvas id="chartScaleTps"></canvas>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:0.75rem;padding:1.25rem 1rem 0.75rem;">
+                        <div style="font-size:0.68rem;font-weight:600;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.65rem;">Energy per Token (Watt-seconds / token)</div>
+                        <canvas id="chartScaleWs"></canvas>
+                    </div>
+                </div>
+            </div>
             <p class="scrolly-reveal delay-3" style="margin-top:1.25rem;font-size:0.72rem;color:rgba(255,255,255,0.65);line-height:1.6;">
-                * All Watt-second readings measured at the server wall-socket. Test system: NVIDIA RTX Pro 6000 Blackwell (96 GB VRAM), 24-core workstation, 128 GB RAM, 2,050 W PSU.
+                * All Watt-second readings measured at the server wall-socket. Test system: NVIDIA RTX Pro 6000 Blackwell (96 GB VRAM), 24-core workstation, 128 GB RAM, 2,050 W PSU.<br>
+                † Results generates employing vLLM version 0.20.1 (CUDA 13.0), request's max_tokens set to 500 to prevent queuing -- thus focussing on the specifics of the GPU scaling behaviour.
             </p>
         </div>
     </div>
@@ -1220,6 +1406,41 @@
             <p class="scrolly-reveal delay-4" style="margin-top:1rem;font-size:0.72rem;color:rgba(255,255,255,0.65);line-height:1.6;">
                 * All Watt-second readings measured at the server wall-socket on a single NVIDIA RTX Pro 6000 Blackwell GPU server.
             </p>
+
+            <!-- Print-only summary table for Chapter 04 benchmarks -->
+            <div class="print-only" style="margin-top:1.5rem;">
+                <table class="print-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Params</th>
+                            <th>SLA Profile</th>
+                            <th class="num">Energy Saved</th>
+                            <th class="num">Ws/token (opt.)</th>
+                            <th class="num">Throughput</th>
+                            <th class="num">TPS Δ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Llama-3-70B-Instruct · Q8_0</td><td>70B</td><td>≤10% TPS</td><td class="num saved">−28.83%</td><td class="num">27.87 Ws/t</td><td class="num">19.97 tps</td><td class="num">−2.87%</td></tr>
+                        <tr class="row-p15"><td>Llama-3-70B-Instruct · Q8_0</td><td>70B</td><td>≤15% TPS ★</td><td class="num saved">−33.84%</td><td class="num">25.90 Ws/t</td><td class="num">19.50 tps</td><td class="num">−5.17%</td></tr>
+                        <tr><td>Llama-3-70B-Instruct · Q8_0</td><td>70B</td><td>≤20% TPS</td><td class="num saved">−35.99%</td><td class="num">25.06 Ws/t</td><td class="num">18.02 tps</td><td class="num">−12.34%</td></tr>
+                        <tr><td>Qwen2.5-72B-Instruct · Q8_0</td><td>72B</td><td>≤10% TPS</td><td class="num saved">−29.60%</td><td class="num">28.75 Ws/t</td><td class="num">19.39 tps</td><td class="num">−2.86%</td></tr>
+                        <tr class="row-p15"><td>Qwen2.5-72B-Instruct · Q8_0</td><td>72B</td><td>≤15% TPS ★</td><td class="num saved">−34.30%</td><td class="num">26.83 Ws/t</td><td class="num">18.94 tps</td><td class="num">−5.11%</td></tr>
+                        <tr><td>Qwen2.5-72B-Instruct · Q8_0</td><td>72B</td><td>≤20% TPS</td><td class="num saved">−36.52%</td><td class="num">25.93 Ws/t</td><td class="num">17.48 tps</td><td class="num">−12.42%</td></tr>
+                        <tr><td>Qwen3-32B · Q8_0</td><td>32B</td><td>≤10% TPS</td><td class="num saved">−28.07%</td><td class="num">13.32 Ws/t</td><td class="num">39.86 tps</td><td class="num">−5.17%</td></tr>
+                        <tr class="row-p15"><td>Qwen3-32B · Q8_0</td><td>32B</td><td>≤15% TPS ★</td><td class="num saved">−32.58%</td><td class="num">12.49 Ws/t</td><td class="num">38.38 tps</td><td class="num">−8.72%</td></tr>
+                        <tr><td>Qwen3-32B · Q8_0</td><td>32B</td><td>≤20% TPS</td><td class="num saved">−33.75%</td><td class="num">12.27 Ws/t</td><td class="num">34.18 tps</td><td class="num">−18.70%</td></tr>
+                        <tr><td>Qwen3.5-27B · BF16</td><td>27B</td><td>≤10% TPS</td><td class="num saved">−26.59%</td><td class="num">19.82 Ws/t</td><td class="num">26.13 tps</td><td class="num">−5.88%</td></tr>
+                        <tr class="row-p15"><td>Qwen3.5-27B · BF16</td><td>27B</td><td>≤15% TPS ★</td><td class="num saved">−31.16%</td><td class="num">18.58 Ws/t</td><td class="num">25.32 tps</td><td class="num">−8.80%</td></tr>
+                        <tr><td>Qwen3.5-27B · BF16</td><td>27B</td><td>≤20% TPS</td><td class="num saved">−31.49%</td><td class="num">18.50 Ws/t</td><td class="num">22.82 tps</td><td class="num">−17.81%</td></tr>
+                        <tr><td>Qwen3.5-35B-A3B · BF16</td><td>35B MoE</td><td>≤10% TPS</td><td class="num saved">−19.25%</td><td class="num">4.22 Ws/t</td><td class="num">103.11 tps</td><td class="num">−10.01%</td></tr>
+                        <tr class="row-p15"><td>Qwen3.5-35B-A3B · BF16</td><td>35B MoE</td><td>≤15% TPS ★</td><td class="num saved">−20.16%</td><td class="num">4.18 Ws/t</td><td class="num">99.28 tps</td><td class="num">−13.36%</td></tr>
+                        <tr><td>Qwen3.5-35B-A3B · BF16</td><td>35B MoE</td><td>≤20% TPS</td><td class="num saved">−20.65%</td><td class="num">4.15 Ws/t</td><td class="num">94.82 tps</td><td class="num">−17.25%</td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.72rem;color:#555;margin-top:0.4rem;">Baseline: NVIDIA RTX Pro 6000 Blackwell · llama.cpp · ★ = recommended "sweet spot" profile. All readings at wall-socket.</p>
+            </div>
         </div>
     </div>
 
@@ -1277,6 +1498,26 @@
                     <div class="stat-val">~12%</div>
                     <div class="stat-lbl">Throughput reduction</div>
                 </div>
+            </div>
+
+            <!-- Print-only summary table for Case Study -->
+            <div class="print-only" style="margin-top:1.5rem;">
+                <table class="print-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th class="num">Without vert-suite</th>
+                            <th class="num">With vert-suite</th>
+                            <th class="num">Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Avg. server power (wall-socket)</td><td class="num">781 W</td><td class="num saved">459 W</td><td class="num saved">−41%</td></tr>
+                        <tr class="row-p15"><td>Energy per token</td><td class="num">—</td><td class="num saved">—</td><td class="num saved">~−32%</td></tr>
+                        <tr><td>Throughput impact</td><td class="num">baseline</td><td class="num">reduced</td><td class="num">~−12%</td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.72rem;color:#555;margin-top:0.4rem;">Stack: Claude Code · RTX Pro 6000 Blackwell · vLLM · Gemma 4 31B · vert-suite. Power measured at server wall-socket.</p>
             </div>
             <!-- Video + What you're watching -->
             <div class="scrolly-reveal delay-4" style="margin-top:2.5rem;margin-bottom:2rem;">
@@ -1471,6 +1712,27 @@
                             <span style="font-size:0.82rem;color:rgba(255,255,255,0.65);">Saved with vert-suite (30%)</span>
                         </div>
                     </div>
+                </div>
+
+                <!-- Print-only ROI table -->
+                <div class="print-only" style="margin-top:1.5rem;">
+                    <table class="print-table">
+                        <thead>
+                            <tr>
+                                <th>Server tier</th>
+                                <th class="num">Peak draw</th>
+                                <th class="num">Annual energy cost</th>
+                                <th class="num">Annual saving (30%)</th>
+                                <th class="num">Cost after saving</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Workstation</td><td class="num">2.5 kW</td><td class="num">£5,585</td><td class="num saved">£1,675</td><td class="num">£3,910</td></tr>
+                            <tr class="row-p15"><td>Mid-Range Server</td><td class="num">6.25 kW</td><td class="num">£13,961</td><td class="num saved">£4,188</td><td class="num">£9,773</td></tr>
+                            <tr><td>Enterprise Server</td><td class="num">10 kW</td><td class="num">£22,338</td><td class="num saved">£6,701</td><td class="num">£15,637</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size:0.72rem;color:#555;margin-top:0.4rem;">Based on UK commercial electricity rate of 25.5p/kWh · 24/7 continuous operation · savings scale linearly with fleet size.</p>
                 </div>
             </div>
 
@@ -1725,6 +1987,199 @@
     });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+    var labels  = ['1','5','10','20','30','40','50','60'];
+    var sotaTps = [24.5397,24.02872,23.56801,21.87201,20.91582,20.085255,19.187792,18.48450667];
+    var vertTps = [23.4161,22.31002,21.52459,20.406315,19.33257667,18.60767,17.877026,17.12253667];
+    var sotaWs  = [33.735,6.923,3.5719,1.9911,1.3925,1.0333,0.8756,0.7645];
+    var vertWs  = [22.5813,4.6956,2.4534,1.3993,0.9988,0.7448,0.6241,0.5422];
+
+    var gridColor  = 'rgba(255,255,255,0.06)';
+    var tickColor  = 'rgba(255,255,255,0.65)';
+    var tooltipBg  = '#0d201e';
+
+    function datasets(sota, vert) {
+        return [
+            { label:'Without vert-suite', data:sota, borderColor:'#ef4444', backgroundColor:'rgba(239,68,68,0.06)', pointBackgroundColor:'#ef4444', pointRadius:3, tension:0.3, borderWidth:2 },
+            { label:'With vert-suite',    data:vert, borderColor:'#9ef8a2', backgroundColor:'rgba(158,248,162,0.06)', pointBackgroundColor:'#9ef8a2', pointRadius:3, tension:0.3, borderWidth:2 }
+        ];
+    }
+
+    function opts(unit, logY) {
+        return {
+            responsive:true, animation:false,
+            plugins:{
+                legend:{ display:false },
+                tooltip:{
+                    backgroundColor:tooltipBg, borderColor:'rgba(255,255,255,0.1)', borderWidth:1,
+                    titleColor:'rgba(255,255,255,0.85)', bodyColor:'rgba(255,255,255,0.6)', padding:10,
+                    callbacks:{ label:function(c){ return c.dataset.label+': '+c.parsed.y.toFixed(2)+' '+unit; } }
+                }
+            },
+            scales:{
+                x:{ grid:{color:gridColor}, ticks:{color:tickColor,font:{size:10}}, title:{display:true,text:'Parallel Requests',color:tickColor,font:{size:10}} },
+                y:{ type:logY?'logarithmic':'linear', grid:{color:gridColor}, ticks:{color:tickColor,font:{size:10}} }
+            }
+        };
+    }
+
+    var wsReduction  = sotaWs.map(function(v,i){ return (v - vertWs[i])  / v * 100; });
+    var tpsReduction = sotaTps.map(function(v,i){ return (v - vertTps[i]) / v * 100; });
+    var tpsSlaFloor  = sotaTps.map(function(v){ return v * 0.9; });
+
+    if (typeof Chart === 'undefined') return;
+    var tpsSlaLabel = {
+        id: 'tpsSlaLabel',
+        afterDatasetsDraw: function(chart) {
+            var ctx = chart.ctx;
+            var meta = chart.getDatasetMeta(2); // SLA floor dataset
+            if (!meta || meta.data.length < 2) return;
+            var pts = meta.data;
+            var yBottom = chart.scales.y.bottom;
+            var xLeft   = chart.scales.x.left;
+            var xRight  = chart.scales.x.right;
+
+            // Hatched forbidden zone below the SLA floor
+            var pc = document.createElement('canvas');
+            pc.width = 8; pc.height = 8;
+            var px = pc.getContext('2d');
+            px.strokeStyle = 'rgba(239,68,68,0.45)';
+            px.lineWidth = 1.5;
+            px.beginPath(); px.moveTo(0, 8); px.lineTo(8, 0); px.stroke();
+            var pattern = ctx.createPattern(pc, 'repeat');
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(pts[0].x, pts[0].y);
+            for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+            ctx.lineTo(xRight, yBottom);
+            ctx.lineTo(xLeft,  yBottom);
+            ctx.closePath();
+            ctx.fillStyle = pattern;
+            ctx.fill();
+
+            // Thin red tint on top of the hatch for depth
+            ctx.beginPath();
+            ctx.moveTo(pts[0].x, pts[0].y);
+            for (var j = 1; j < pts.length; j++) ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.lineTo(xRight, yBottom);
+            ctx.lineTo(xLeft,  yBottom);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(239,68,68,0.07)';
+            ctx.fill();
+            ctx.restore();
+
+            // Angled label centred at parallel=30 (index 4)
+            var p1 = pts[3];
+            var p2 = pts[5];
+            var angle = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+            var lx = pts[4].x;
+            var ly = pts[4].y;
+            ctx.save();
+            ctx.translate(lx, ly);
+            ctx.rotate(angle);
+            ctx.shadowColor = 'rgba(0,0,0,0.6)';
+            ctx.shadowBlur = 4;
+            ctx.font = '700 10px system-ui,sans-serif';
+            ctx.fillStyle = 'rgba(251,191,36,0.9)';
+            ctx.textAlign = 'center';
+            ctx.fillText('10% SLA limit', 0, 16);
+            ctx.shadowBlur = 0;
+            ctx.restore();
+        }
+    };
+
+    new Chart(document.getElementById('chartScaleTps'), {
+        type:'line',
+        plugins:[tpsSlaLabel],
+        data:{
+            labels:labels,
+            datasets: datasets(sotaTps, vertTps).concat([{
+                label:'10% SLA limit',
+                data: tpsSlaFloor,
+                borderColor:'rgba(251,191,36,0.7)',
+                backgroundColor:'transparent',
+                pointRadius:0,
+                borderWidth:1.5,
+                borderDash:[6,4],
+                tension:0.3
+            }])
+        },
+        options: (function(){
+            var o = opts('tps/session', false);
+            o.plugins.tooltip.callbacks.label = function(c){
+                return c.dataset.label+': '+c.parsed.y.toFixed(2)+' tps/session';
+            };
+            return o;
+        })()
+    });
+    new Chart(document.getElementById('chartScaleWs'),  { type:'line', data:{ labels:labels, datasets:datasets(sotaWs, vertWs)  }, options:opts('Ws/token', true) });
+    var pctInlineLabels = {
+        id: 'pctInlineLabels',
+        afterDatasetsDraw: function(chart) {
+            var ctx = chart.ctx;
+            var data = chart.data.datasets[0].data;
+            var meta = chart.getDatasetMeta(0);
+            ctx.save();
+            ctx.font = '600 10px system-ui,sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#9ef8a2';
+            ctx.shadowColor = 'rgba(0,0,0,0.55)';
+            ctx.shadowBlur = 3;
+            data.forEach(function(v, i) {
+                ctx.fillText(v.toFixed(1) + '%', meta.data[i].x, meta.data[i].y - 6);
+            });
+            ctx.shadowBlur = 0;
+            ctx.restore();
+        }
+    };
+
+    var pctBarGradient = {
+        id: 'pctBarGradient',
+        beforeDatasetsUpdate: function(chart) {
+            var ctx = chart.ctx;
+            var yAxis = chart.scales.y;
+            if (!yAxis) return;
+            var grad = ctx.createLinearGradient(0, yAxis.top, 0, yAxis.bottom);
+            grad.addColorStop(0, 'rgba(158,248,162,0.92)');
+            grad.addColorStop(1, 'rgba(0,147,115,0.75)');
+            chart.data.datasets[0].backgroundColor = grad;
+        }
+    };
+
+    new Chart(document.getElementById('chartScalePct'), {
+        type:'bar',
+        plugins:[pctInlineLabels, pctBarGradient],
+        data:{
+            labels:labels,
+            datasets:[
+                { label:'Energy / token reduction', data:wsReduction, backgroundColor:'rgba(158,248,162,0.65)', borderWidth:0, borderRadius:14, borderSkipped:'bottom' }
+            ]
+        },
+        options:{
+            responsive:true, animation:false, aspectRatio:2.5,
+            layout:{ padding:{ top:28, bottom:8 } },
+            plugins:{
+                legend:{ display:false },
+                tooltip:{
+                    backgroundColor:tooltipBg, borderColor:'rgba(255,255,255,0.1)', borderWidth:1,
+                    titleColor:'rgba(255,255,255,0.85)', bodyColor:'rgba(255,255,255,0.6)', padding:10,
+                    callbacks:{ label:function(c){ return 'Energy / token reduction: '+c.parsed.y.toFixed(1)+'%'; } }
+                }
+            },
+            scales:{
+                x:{ grid:{color:gridColor}, ticks:{color:tickColor,font:{size:10}}, title:{display:true,text:'Parallel Requests',color:tickColor,font:{size:10}} },
+                y:{
+                    grid:{color:gridColor}, ticks:{ color:tickColor, font:{size:10}, callback:function(v){ return v.toFixed(0)+'%'; } },
+                    min:0, max:40
+                }
+            }
+        }
+    });
+})();
+</script>
 <script src="https://web3forms.com/client/script.js" async defer></script>
 <script src="https://player.vimeo.com/api/player.js"></script>
 <script>
@@ -1829,6 +2284,24 @@
     }, { threshold: 0.2 });
 
     document.querySelectorAll('.model-bench, .stat-card, .challenge-model-card').forEach(el => rowObs.observe(el));
+
+    // ── Before-print: reveal all animated elements so they render correctly ──
+    function prepareForPrint() {
+        // Reveal scroll-hidden elements
+        document.querySelectorAll('.scrolly-reveal').forEach(el => el.classList.add('visible'));
+        // Fill all bars to their target width
+        document.querySelectorAll('.result-bar-fill, .ws-meter-fill').forEach(bar => {
+            if (bar.dataset.width) bar.style.width = bar.dataset.width;
+        });
+        // Set counters to their final value
+        document.querySelectorAll('.counter').forEach(el => {
+            const target = parseFloat(el.dataset.target);
+            const decimals = parseInt(el.dataset.decimals || '0');
+            const suffix = el.dataset.suffix || '';
+            el.textContent = target.toFixed(decimals) + suffix;
+        });
+    }
+    window.addEventListener('beforeprint', prepareForPrint);
 
     var _benchFilters = { model: 'all', quant: 'all' };
     function setBenchFilter(group, filter) {
