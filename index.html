@@ -864,7 +864,7 @@
                         With vert-suite
                     </div>
                 </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:0.75rem;padding:1.25rem 1rem 0.75rem;">
                         <div style="font-size:0.68rem;font-weight:600;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.65rem;">Throughput per Session (tokens / sec)</div>
                         <canvas id="chartScaleTps"></canvas>
@@ -2155,7 +2155,7 @@
         data:{
             labels:labels,
             datasets:[
-                { label:'Energy / token reduction', data:wsReduction, backgroundColor:'rgba(158,248,162,0.65)', borderWidth:0, borderRadius:14, borderSkipped:'bottom' }
+                { label:'Energy / token reduction', data:wsReduction, backgroundColor:'rgba(158,248,162,0.65)', borderWidth:0, borderRadius:3, borderSkipped:'bottom' }
             ]
         },
         options:{
@@ -2163,10 +2163,7 @@
             layout:{ padding:{ top:28, bottom:8 } },
             plugins:{
                 legend:{ display:false },
-                tooltip:{
-                    backgroundColor:tooltipBg, borderColor:'rgba(255,255,255,0.1)', borderWidth:1,
-                    titleColor:'rgba(255,255,255,0.85)', bodyColor:'rgba(255,255,255,0.6)', padding:10,
-                    callbacks:{ label:function(c){ return 'Energy / token reduction: '+c.parsed.y.toFixed(1)+'%'; } }
+                tooltip:{ enabled:false
                 }
             },
             scales:{
