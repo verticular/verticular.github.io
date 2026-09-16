@@ -17,7 +17,7 @@
     <link rel="shortcut icon" href="imgs/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="imgs/apple-touch-icon.png" />
     <title>Verticular – Your Cloud, Optimised</title>
-    <link rel="stylesheet" href="style_m.css">
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* ── Global dark base ── */
@@ -49,29 +49,13 @@
 
         /* ── Badges ── */
         .chapter-badge {
-            display: inline-block;
-            background: rgba(0,147,115,0.15);
-            border: 1px solid rgba(0,147,115,0.4);
+            display: block;
             color: #9ef8a2;
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            padding: 0.3rem 0.9rem;
-            border-radius: 9999px;
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.5rem;
         }
 
-        .chapter-number {
-            font-size: 5rem;
-            font-weight: 800;
-            line-height: 1;
-            color: rgba(0,147,115,0.12);
-            position: absolute;
-            top: 2rem; right: 2rem;
-            user-select: none;
-            pointer-events: none;
-        }
 
         /* ── Reveal animations ── */
         .scrolly-reveal {
@@ -120,10 +104,8 @@
             margin-bottom: 0.4rem;
         }
         .stat-lbl {
-            font-size: 0.78rem;
+            font-size: 0.85rem;
             color: rgba(255,255,255,0.65);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
         }
 
         /* ── Section divider ── */
@@ -133,14 +115,6 @@
             margin: 0 2rem;
         }
 
-        /* ── Chapter separator bar ── */
-        .chapter-sep {
-            width: 48px;
-            height: 3px;
-            background: #009373;
-            border-radius: 2px;
-            margin: 1.25rem 0;
-        }
 
         /* ── Stat bars ── */
         .result-bar-track {
@@ -182,6 +156,17 @@
         .challenge-model-card .metric-sub   { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
         .challenge-model-card .metric-delta { font-size: 0.75rem; font-weight: 600; margin-top: 0.4rem; }
         .col-after .metric-delta { color: #9ef8a2; }
+        .challenge-model-card .card-row.cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .card-row.cols-3 .col-before, .card-row.cols-3 .col-mid, .card-row.cols-3 .col-after { padding: 1rem 0.75rem; }
+        .card-row.cols-3 .col-mid { border-right: 1px solid rgba(255,255,255,0.06); background: rgba(0,147,115,0.02); }
+        .card-row.cols-3 .metric-val { font-size: 1.3rem; }
+        .card-row.cols-3 .metric-val-sm { font-size: 1rem; }
+        .card-row.cols-3 .metric-sub { font-size: 0.72rem; }
+        .card-row.cols-3 .metric-delta { font-size: 0.72rem; }
+        .challenge-model-card .metric-split { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.06); }
+        .col-mid .col-label { color: rgba(158,248,162,0.55); }
+        .col-mid .metric-val { color: #c9f9cb; }
+        .col-mid .metric-delta { color: #c9f9cb; }
 
         /* ── Benchmark table rows ── */
         .model-bench {
@@ -368,7 +353,7 @@
         }
         .proof-strip-item:last-child { border-right: none; }
         .proof-strip-val { font-size: 1.5rem; font-weight: 800; color: #9ef8a2; line-height: 1.1; margin-bottom: 0.25rem; }
-        .proof-strip-lbl { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.65); }
+        .proof-strip-lbl { font-size: 0.8rem; color: rgba(255,255,255,0.65); }
 
         /* ── Methodology callout ── */
         .methodology-box {
@@ -386,18 +371,11 @@
         .method-title { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
         .method-desc { font-size: 0.75rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
 
-        /* ── Pulse animation ── */
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-        .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
 
         /* ── Responsive ── */
         @media (max-width: 640px) {
             .bench-profile-row { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
             .bench-tps-col { grid-column: 1 / -1; text-align: left; }
-            .chapter-number { font-size: 3rem; }
             .proof-strip-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
             .proof-strip-item:last-child { border-bottom: none; }
         }
@@ -459,14 +437,13 @@
                 color: #111 !important;
             }
 
-            /* ── Force ALL text dark — overrides every inline rgba(255,255,255,x) ── */
+            /* ── Force ALL text dark: overrides every inline rgba(255,255,255,x) ── */
             * { color: #222 !important; }
 
             /* ── Hide screen-only chrome ── */
             #scroll-progress-bar,
             header,
             .scroller,
-            .pulse-dot,
             #vimeo-case-study,
             .vimeo-seek,
             .bench-filter-btn,
@@ -498,7 +475,7 @@
                 background: #eaf6f2 !important;
                 border-color: #006b55 !important;
             }
-            .challenge-model-card .col-after {
+            .challenge-model-card .col-after, .challenge-model-card .col-mid {
                 background: #eaf6f2 !important;
             }
             .challenge-model-card .card-header,
@@ -512,6 +489,7 @@
             /* ── Restore intentional accent colours ── */
             .bench-ws-reduction, .stat-val, .proof-strip-val,
             .col-after .metric-val, .col-after .metric-delta,
+            .col-mid .metric-val, .col-mid .metric-delta, .col-mid .col-label,
             .print-table .saved { color: #006b55 !important; }
             .col-before .metric-val { color: #bb0000 !important; }
             .col-before .col-label  { color: #bb0000 !important; }
@@ -519,13 +497,7 @@
             h1, h2, h3, h4, h5, h6 { color: #000 !important; }
 
             /* ── Badges & decorative ── */
-            .chapter-badge {
-                background: #eaf6f2 !important;
-                border-color: #006b55 !important;
-                color: #006b55 !important;
-            }
-            .chapter-number { color: rgba(0,0,0,0.07) !important; }
-            .chapter-sep    { background: #006b55 !important; }
+            .chapter-badge { color: #006b55 !important; }
             .stack-pill {
                 background: #eaf6f2 !important;
                 border-color: #006b55 !important;
@@ -609,7 +581,7 @@
                 The Team
                 <span style="position:absolute;bottom:-2px;left:0;width:0;height:1px;background:#9ef8a2;transition:width 0.2s;" class="group-hover:w-full"></span>
             </a>
-            <a href="#contact" style="background:#9ef8a2;color:#003d33;font-size:0.875rem;" class="font-bold py-2 px-5 rounded-full shadow transition duration-300 hover:opacity-90 hover:scale-105 transform">
+            <a href="#contact" style="background:#9ef8a2;color:#003d33;font-size:0.875rem;" class="font-bold py-2 px-5 rounded-full shadow transition duration-300 hover:opacity-90">
                 Request Demo
             </a>
         </div>
@@ -618,10 +590,10 @@
         </button>
     </nav>
     <div id="mobile-menu" class="hidden md:hidden px-6 pb-5 space-y-1" style="border-top:1px solid rgba(255,255,255,0.06);">
-        <a href="#results"    style="color:rgba(255,255,255,0.7);" class="block font-medium py-2.5 border-b hover:text-white transition-colors" style="border-color:rgba(255,255,255,0.05);">Results</a>
-        <a href="#solution"   style="color:rgba(255,255,255,0.7);" class="block font-medium py-2.5 border-b hover:text-white transition-colors" style="border-color:rgba(255,255,255,0.05);">The Solution</a>
-        <a href="#milestones" style="color:rgba(255,255,255,0.7);" class="block font-medium py-2.5 border-b hover:text-white transition-colors" style="border-color:rgba(255,255,255,0.05);">News</a>
-        <a href="#about"      style="color:rgba(255,255,255,0.7);" class="block font-medium py-2.5 border-b hover:text-white transition-colors" style="border-color:rgba(255,255,255,0.05);">The Team</a>
+        <a href="#results"    style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.05);" class="block font-medium py-2.5 border-b hover:text-white transition-colors">Results</a>
+        <a href="#solution"   style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.05);" class="block font-medium py-2.5 border-b hover:text-white transition-colors">The Solution</a>
+        <a href="#milestones" style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.05);" class="block font-medium py-2.5 border-b hover:text-white transition-colors">News</a>
+        <a href="#about"      style="color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.05);" class="block font-medium py-2.5 border-b hover:text-white transition-colors">The Team</a>
         <a href="#contact" style="background:#9ef8a2;color:#003d33;" class="block font-bold py-2.5 px-5 rounded-full text-center mt-3 hover:opacity-90 transition-opacity">Request Demo</a>
     </div>
 </header>
@@ -630,32 +602,27 @@
 <section class="text-white px-6 lg:px-12" style="padding-top:4rem;padding-bottom:4.5rem;">
     <div class="container mx-auto max-w-5xl">
 
-        <!-- Production-ready eyebrow -->
-        <div style="display:inline-flex;align-items:center;gap:0.6rem;background:rgba(0,147,115,0.12);border:1px solid rgba(0,147,115,0.3);border-radius:9999px;padding:0.35rem 1rem;margin-bottom:1.75rem;margin-top:1rem;">
-            <span class="pulse-dot" style="width:7px;height:7px;background:#9ef8a2;border-radius:50%;flex-shrink:0;"></span>
-            <span style="font-size:0.72rem;font-weight:600;color:#9ef8a2;letter-spacing:0.12em;text-transform:uppercase;">Production Ready · Deployable in Minutes</span>
-        </div>
 
         <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
-            AI Inference,<br><span style="color:#9ef8a2;">30–36% Greener.</span>
+            AI Inference,<br><span style="color:#9ef8a2;">25–32% Less Energy</span>,<br><span style="color:#9ef8a2;">33% More Capacity.</span>
         </h1>
         <p class="text-lg md:text-xl mb-10" style="color:rgba(255,255,255,0.75);max-width:640px;line-height:1.85;">
-            vert-suite autonomously co-optimises CPU <em>and</em> GPU power on bare-metal AI servers — achieving <strong style="color:#fff;">energy savings</strong> with no changes to your software, inference stack, or hardware.
+            vert-suite autonomously co-optimises CPU <em>and</em> GPU power on bare-metal servers <strong style="color:#fff;">and in the cloud</strong> (validated on AWS EC2), achieving <strong style="color:#fff;">energy savings</strong> without changes to your software or hardware. Every watt saved is either <strong style="color:#fff;">cash back or extra capacity</strong>: fit around a third more GPUs into the power budget you already have.
         </p>
 
         <!-- Proof strip -->
         <div class="proof-strip" style="margin-bottom:2.5rem;">
             <div class="proof-strip-item">
-                <div class="proof-strip-val">30–36%</div>
-                <div class="proof-strip-lbl">Energy per token saved</div>
+                <div class="proof-strip-val">−32%</div>
+                <div class="proof-strip-lbl">Energy per token, CPU+GPU (bare metal)</div>
             </div>
             <div class="proof-strip-item">
-                <div class="proof-strip-val">Over 40%</div>
-                <div class="proof-strip-lbl">GPU server power reduction</div>
+                <div class="proof-strip-val">+33%</div>
+                <div class="proof-strip-lbl">GPUs on the same power budget (bare metal)</div>
             </div>
             <div class="proof-strip-item">
-                <div class="proof-strip-val">Wall-Socket</div>
-                <div class="proof-strip-lbl">Auditable measurement</div>
+                <div class="proof-strip-val">−25%</div>
+                <div class="proof-strip-lbl">GPU energy per year on AWS EC2</div>
             </div>
             <div class="proof-strip-item">
                 <div class="proof-strip-val">Zero</div>
@@ -664,10 +631,10 @@
         </div>
 
         <div class="flex flex-col sm:flex-row gap-4">
-            <a href="#contact" style="background:#9ef8a2;color:#003d33;" class="font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 hover:opacity-90 hover:scale-105 transform text-center">
+            <a href="#contact" style="background:#9ef8a2;color:#003d33;" class="font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 hover:opacity-90 text-center">
                 Request a Demo
             </a>
-            <a href="#results" class="border-2 border-white text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 hover:scale-105 transform text-center" style="border-color:rgba(255,255,255,0.5);">
+            <a href="#results" class="border-2 border-white text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 text-center" style="border-color:rgba(255,255,255,0.5);">
                 View Benchmark Data
             </a>
         </div>
@@ -690,7 +657,7 @@
                 Proven Savings<br><span style="color:#9ef8a2;">at Scale</span>
             </h2>
             <p class="text-lg md:text-xl mb-16 scrolly-reveal delay-2" style="color:rgba(255,255,255,0.6);max-width:680px;">
-                Every number below is verified at the server plug using a state-of-the-art power analyser — not estimated, not simulated.
+                Bare-metal results are measured at the server wall-socket with a UNI-T UTE9811+ power analyser. Cloud results (AWS EC2) come from GPU power readings via nvidia-smi and cover the GPUs only.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 scrolly-reveal delay-3">
                 <div class="stat-card">
@@ -698,12 +665,12 @@
                     <div class="stat-lbl">Peak Server Power Reduction (case study, measured at wall-socket)</div>
                 </div>
                 <div class="stat-card accent">
-                    <div class="stat-val"><span class="counter" data-target="31" data-suffix="%" data-decimals="0">31%</span></div>
-                    <div class="stat-lbl">Typical Energy per Token Reduction · NVIDIA Blackwell</div>
+                    <div class="stat-val">2,418<span style="font-size:0.45em;font-weight:600;"> kWh</span></div>
+                    <div class="stat-lbl">Saved per GPU per Year · CPU+GPU, Eager profile · NVIDIA Blackwell</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-val" style="font-size:1.1rem;line-height:1.5;">vLLM<br>llama.cpp</div>
-                    <div class="stat-lbl">Validated inference engines</div>
+                    <div class="stat-val" style="font-size:1.1rem;line-height:1.5;">Bare Metal<br>AWS EC2 g7e</div>
+                    <div class="stat-lbl">Validated on-premises and in the cloud · vLLM 0.26 · llama.cpp</div>
                 </div>
             </div>
 
@@ -713,14 +680,14 @@
                     <svg class="method-icon" width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>
                     <div>
                         <div class="method-title">Measured at Wall-Socket</div>
-                        <div class="method-desc">All Watt-second readings taken at the server wall-socket using a state-of-the-art power analyser — not estimated from TDP or software counters.</div>
+                        <div class="method-desc">On bare metal, whole-server Watt-second readings are taken at the wall-socket with a power analyser, not estimated from TDP. On AWS, where the plug is out of reach, GPU energy is sampled 10× per second via nvidia-smi.</div>
                     </div>
                 </div>
                 <div class="method-item">
                     <svg class="method-icon" width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>
                     <div>
                         <div class="method-title">Out-of-Band Validation</div>
-                        <div class="method-desc">Independent telemetry path verifies results separate from the vert-suite control plane — no self-reported figures.</div>
+                        <div class="method-desc">Independent telemetry path verifies results separate from the vert-suite control plane, so no figures are self-reported.</div>
                     </div>
                 </div>
                 <div class="method-item">
@@ -744,7 +711,7 @@
                 <svg width="22" height="22" fill="rgba(255,255,255,0.5)" viewBox="0 0 24 24" style="flex-shrink:0;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.929.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
                 <div>
                     <div style="font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.75);">Open-source data collection · <span style="color:#9ef8a2;">verticular/ute9811-mqtt-bridge</span></div>
-                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">The software used to sample power readings from the analyser is publicly available — full transparency on how data was collected.</div>
+                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">The software used to sample power readings from the analyser is publicly available, giving full transparency on how the data was collected.</div>
                 </div>
                 <svg width="14" height="14" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-left:auto;"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
             </a>
@@ -755,71 +722,269 @@
 
     <!-- Chapter 01: The Challenge -->
     <div class="py-24 px-6 relative">
-        <div class="chapter-number scrolly-reveal">01</div>
         <div class="container mx-auto max-w-5xl">
             <div class="mb-12">
                 <span class="chapter-badge scrolly-reveal">The Challenge</span>
-                <div class="chapter-sep scrolly-reveal delay-1"></div>
                 <h3 class="text-3xl md:text-4xl font-bold mb-4 scrolly-reveal delay-1">
                     AI Inference Is Energy-Hungry
                 </h3>
                 <p class="scrolly-reveal delay-2" style="color:rgba(255,255,255,0.65);line-height:1.8;max-width:680px;">
-                    On a cutting-edge workstation GPU, each generated token carries a significant energy cost. With millions of tokens processed daily, that adds up fast. And without active optimisation, both CPU and GPU hardware are left running at full speed regardless of actual workload demand.
+                    On cutting-edge Blackwell GPUs, each generated token carries a significant energy cost. With millions of tokens processed daily, that adds up fast. And without active optimisation, both CPU and GPU hardware are left running at full speed regardless of actual workload demand. Below: three production models on two GPUs, at 30 concurrent sessions per GPU, with and without vert-suite.
                 </p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 scrolly-reveal delay-2">
+                        <div class="scrolly-reveal delay-2" style="margin-bottom:1rem;">
+                <div style="font-size:0.82rem;color:rgba(255,255,255,0.65);margin-bottom:0.35rem;">Bare Metal · CPU + GPU · Measured at Wall-Socket</div>
+                <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);line-height:1.7;max-width:680px;">2× RTX Pro 6000 Blackwell Workstation Edition with an Intel Xeon w7-3455 host, vLLM 0.26. Whole-server energy per generated token, without vert-suite (SotA) and under the Base and Eager profiles.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 scrolly-reveal delay-2" style="margin-bottom:2.5rem;">
                 <div class="challenge-model-card">
                     <div class="card-header">
-                        <div style="font-weight:700;color:#fff;">Qwen3 32B</div>
-                        <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">RTX Pro 6000 Blackwell · vLLM</div>
+                        <div style="font-weight:700;color:#fff;">Gemma 4 31B</div>
+                        <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">DP 2 · TP 1 · 30 sessions per GPU</div>
                     </div>
-                    <div class="card-row">
+                    <div class="card-row cols-3">
                         <div class="col-before">
-                            <div class="col-label">Without vert-suite</div>
-                            <div class="metric-val">37.38</div>
+                            <div class="col-label">SotA</div>
+                            <div class="metric-val">1.27</div>
                             <div class="metric-sub">Ws / token</div>
-                            <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.06);">
-                                <div class="metric-val" style="font-size:1.1rem;">24.0 tps</div>
-                                <div class="metric-sub">throughput</div>
+                            <div class="metric-delta">&nbsp;</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">20.80</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="col-mid">
+                            <div class="col-label">Base</div>
+                            <div class="metric-val">0.97</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">−23.1%</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">20.25</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">−2.7%</div>
                             </div>
                         </div>
                         <div class="col-after">
-                            <div class="col-label">With vert-suite</div>
-                            <div class="metric-val">25.74</div>
+                            <div class="col-label">Eager</div>
+                            <div class="metric-val">0.86</div>
                             <div class="metric-sub">Ws / token</div>
-                            <div class="metric-delta">−31.2% energy per token</div>
-                            <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(0,147,115,0.15);">
-                                <div class="metric-val" style="font-size:1.1rem;">21.64 tps</div>
-                                <div class="metric-sub">throughput</div>
-                                <div class="metric-delta">−9.8% throughput</div>
+                            <div class="metric-delta">−31.8%</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">18.56</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">−10.8%</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="challenge-model-card">
                     <div class="card-header">
-                        <div style="font-weight:700;color:#fff;">Gemma 4 31B</div>
-                        <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">RTX Pro 6000 Blackwell · vLLM</div>
+                        <div style="font-weight:700;color:#fff;">Qwen 3.6 27B</div>
+                        <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">DP 2 · TP 1 · 30 sessions per GPU</div>
                     </div>
-                    <div class="card-row">
+                    <div class="card-row cols-3">
                         <div class="col-before">
-                            <div class="col-label">Without vert-suite</div>
-                            <div class="metric-val">33.7</div>
+                            <div class="col-label">SotA</div>
+                            <div class="metric-val">1.11</div>
                             <div class="metric-sub">Ws / token</div>
-                            <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.06);">
-                                <div class="metric-val" style="font-size:1.1rem;">24.5 tps</div>
-                                <div class="metric-sub">throughput</div>
+                            <div class="metric-delta">&nbsp;</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">23.67</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="col-mid">
+                            <div class="col-label">Base</div>
+                            <div class="metric-val">0.81</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">−26.8%</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">23.15</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">−2.2%</div>
                             </div>
                         </div>
                         <div class="col-after">
-                            <div class="col-label">With vert-suite</div>
-                            <div class="metric-val">22.58</div>
+                            <div class="col-label">Eager</div>
+                            <div class="metric-val">0.76</div>
                             <div class="metric-sub">Ws / token</div>
-                            <div class="metric-delta">−33.06% energy per token</div>
-                            <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(0,147,115,0.15);">
-                                <div class="metric-val" style="font-size:1.1rem;">23.4 tps</div>
-                                <div class="metric-sub">throughput</div>
-                                <div class="metric-delta">−4.5% throughput</div>
+                            <div class="metric-delta">−31.9%</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">21.44</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">−9.4%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="challenge-model-card">
+                    <div class="card-header">
+                        <div style="font-weight:700;color:#fff;">Laguna S 2.1 NVFP4</div>
+                        <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">DP 1 · TP 2 · DFlash speculative · 60 sessions · CPU left at default</div>
+                    </div>
+                    <div class="card-row cols-3">
+                        <div class="col-before">
+                            <div class="col-label">SotA</div>
+                            <div class="metric-val">0.37</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">&nbsp;</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">76.01</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="col-mid">
+                            <div class="col-label">Base</div>
+                            <div class="metric-val">0.31</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">−17.3%</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">71.52</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">−5.9%</div>
+                            </div>
+                        </div>
+                        <div class="col-after">
+                            <div class="col-label">Eager</div>
+                            <div class="metric-val">0.30</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">−18.6%</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">69.72</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">−8.3%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scrolly-reveal delay-3" style="margin-bottom:1rem;">
+                <div style="font-size:0.82rem;color:rgba(255,255,255,0.65);margin-bottom:0.35rem;">Cloud · AWS EC2 g7e.12xlarge · GPU Only</div>
+                <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);line-height:1.7;max-width:680px;">2× RTX Pro 6000 Blackwell Server Edition, vLLM 0.26. On AWS only the GPUs are optimised and measured (nvidia-smi); host and cooling savings are not included.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 scrolly-reveal delay-3" style="margin-bottom:2.5rem;">
+                <div class="challenge-model-card">
+                    <div class="card-header">
+                        <div style="font-weight:700;color:#fff;">Gemma 4 31B</div>
+                        <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">DP 2 · TP 1 · 30 sessions per GPU</div>
+                    </div>
+                    <div class="card-row cols-3">
+                        <div class="col-before">
+                            <div class="col-label">SotA</div>
+                            <div class="metric-val">0.73</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">&nbsp;</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">19.30</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="col-mid">
+                            <div class="col-label">Base</div>
+                            <div class="metric-val">0.57</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">−21.1%</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">18.68</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">−3.2%</div>
+                            </div>
+                        </div>
+                        <div class="col-after">
+                            <div class="col-label">Eager</div>
+                            <div class="metric-val">0.55</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">−24.5%</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">18.32</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">−5.1%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="challenge-model-card">
+                    <div class="card-header">
+                        <div style="font-weight:700;color:#fff;">Qwen 3.6 27B</div>
+                        <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">DP 2 · TP 1 · 30 sessions per GPU</div>
+                    </div>
+                    <div class="card-row cols-3">
+                        <div class="col-before">
+                            <div class="col-label">SotA</div>
+                            <div class="metric-val">0.64</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">&nbsp;</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">21.54</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="col-mid">
+                            <div class="col-label">Base</div>
+                            <div class="metric-val">0.50</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">−21.2%</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">20.98</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">−2.6%</div>
+                            </div>
+                        </div>
+                        <div class="col-after">
+                            <div class="col-label">Eager</div>
+                            <div class="metric-val">0.48</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">−25.1%</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">20.54</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">−4.6%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="challenge-model-card">
+                    <div class="card-header">
+                        <div style="font-weight:700;color:#fff;">Laguna S 2.1 NVFP4</div>
+                        <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.15rem;">DP 1 · TP 2 · DFlash speculative · 60 sessions</div>
+                    </div>
+                    <div class="card-row cols-3">
+                        <div class="col-before">
+                            <div class="col-label">SotA</div>
+                            <div class="metric-val">0.23</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">&nbsp;</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">64.33</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="col-mid">
+                            <div class="col-label">Base</div>
+                            <div class="metric-val">0.19</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">−17.3%</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">61.03</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">−5.1%</div>
+                            </div>
+                        </div>
+                        <div class="col-after">
+                            <div class="col-label">Eager</div>
+                            <div class="metric-val">0.18</div>
+                            <div class="metric-sub">Ws / token</div>
+                            <div class="metric-delta">−21.1%</div>
+                            <div class="metric-split">
+                                <div class="metric-val metric-val-sm">59.34</div>
+                                <div class="metric-sub">tps / user</div>
+                                <div class="metric-delta">−7.8%</div>
                             </div>
                         </div>
                     </div>
@@ -828,29 +993,15 @@
             <!-- Parallel scaling chart -->
             <div class="scrolly-reveal delay-3" style="margin-top:2.5rem;">
                 <div style="margin-bottom:1.25rem;">
-                    <div style="font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.65);margin-bottom:0.35rem;">Scaling Under Load</div>
+                    <div style="font-size:0.82rem;color:rgba(255,255,255,0.65);margin-bottom:0.35rem;">Scaling Under Load · Earlier Single-GPU Study</div>
                     <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:0.5rem;">Throughput &amp; Energy Efficiency vs. Parallel Requests</div>
                     <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);line-height:1.7;max-width:680px;margin-bottom:1rem;">
-                        vLLM serving Gemma 4 31B was targeted with 1–60 concurrent requests.<sup style="font-size:0.65em;">†</sup> Every data point is the average of 20 independent runs. vert-suite operates under a self-imposed SLA of no more than 10% throughput reduction vs. the unmanaged baseline.
+                        In an earlier study on a single GPU, vLLM serving Gemma 4 31B was targeted with 1–60 concurrent requests.<sup style="font-size:0.65em;">†</sup> Every data point is the average of 20 independent runs, and energy per token fell by 27–33%. vert-suite operates under a self-imposed SLA of no more than 10% throughput reduction vs. the unmanaged baseline.
                     </p>
-                    <!-- Key stat pills -->
-                    <div style="display:flex;flex-wrap:wrap;gap:0.6rem;">
-                        <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,147,115,0.12);border:1px solid rgba(0,147,115,0.3);border-radius:9999px;padding:0.3rem 0.9rem;font-size:0.72rem;font-weight:700;color:#9ef8a2;">
-                            <svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#9ef8a2"/></svg>
-                            27–33% energy saved per token
-                        </div>
-                        <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,147,115,0.12);border:1px solid rgba(0,147,115,0.3);border-radius:9999px;padding:0.3rem 0.9rem;font-size:0.72rem;font-weight:700;color:#9ef8a2;">
-                            <svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#9ef8a2"/></svg>
-                            ≤10% throughput SLA under saturated load level
-                        </div>
-                        <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:0.3rem 0.9rem;font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.65);">
-                            avg. of 20 runs per data point
-                        </div>
-                    </div>
                 </div>
-                <!-- % reduction chart — full width -->
+                <!-- % reduction chart, full width -->
                 <div style="background:rgba(0,147,115,0.05);border:1px solid rgba(0,147,115,0.18);border-radius:0.75rem;padding:1.1rem 1rem 0.65rem;margin-bottom:1.5rem;">
-                    <div style="font-size:0.68rem;font-weight:600;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.55rem;">% Reduction: With vert-suite vs. Without vert-suite</div>
+                    <div style="font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.65);margin-bottom:0.55rem;">% Reduction: With vert-suite vs. Without vert-suite</div>
                     <canvas id="chartScalePct"></canvas>
                 </div>
                 <!-- legend for the two charts below -->
@@ -866,18 +1017,19 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:0.75rem;padding:1.25rem 1rem 0.75rem;">
-                        <div style="font-size:0.68rem;font-weight:600;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.65rem;">Throughput per Session (tokens / sec)</div>
+                        <div style="font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.65);margin-bottom:0.65rem;">Throughput per Session (tokens / sec)</div>
                         <canvas id="chartScaleTps"></canvas>
                     </div>
                     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:0.75rem;padding:1.25rem 1rem 0.75rem;">
-                        <div style="font-size:0.68rem;font-weight:600;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.65rem;">Energy per Token (Watt-seconds / token)</div>
+                        <div style="font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.65);margin-bottom:0.65rem;">Energy per Token (Watt-seconds / token)</div>
                         <canvas id="chartScaleWs"></canvas>
                     </div>
                 </div>
             </div>
             <p class="scrolly-reveal delay-3" style="margin-top:1.25rem;font-size:0.72rem;color:rgba(255,255,255,0.65);line-height:1.6;">
-                * All Watt-second readings measured at the server wall-socket. Test system: NVIDIA RTX Pro 6000 Blackwell (96 GB VRAM), 24-core workstation, 128 GB RAM, 2,050 W PSU.<br>
-                † Results generates employing vLLM version 0.20.1 (CUDA 13.0), request's max_tokens set to 500 to prevent queuing -- thus focussing on the specifics of the GPU scaling behaviour.
+                * Model cards: vLLM 0.26, open-ended coding prompts, max_tokens 500; figures are means, percentages against the SotA default on identical hardware (AWS: means over 100 runs). Bare metal: whole-server energy at the wall-socket, attributed per GPU. AWS: GPU-only energy via nvidia-smi. Laguna uses tensor parallelism over a non-NVLink interconnect, so vert-suite deliberately leaves the host CPU at its default setting.<br>
+                † Scaling chart test system: NVIDIA RTX Pro 6000 Blackwell (96 GB VRAM), 24-core workstation, 128 GB RAM, 2,050 W PSU; all Watt-second readings at the server wall-socket.<br>
+                &nbsp;&nbsp;Results generated with vLLM version 0.20.1 (CUDA 13.0), request's max_tokens set to 500 to prevent queuing, thus focusing on the specifics of the GPU scaling behaviour.
             </p>
         </div>
     </div>
@@ -886,24 +1038,12 @@
 
     <!-- Chapter 02: The Solution -->
     <div id="solution" class="py-24 px-6 relative">
-        <div class="chapter-number scrolly-reveal">02</div>
         <div class="container mx-auto max-w-5xl">
             <div class="mb-16">
                 <span class="chapter-badge scrolly-reveal">The Solution</span>
-                <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem 0;"></div>
                 <h3 class="text-3xl md:text-4xl font-bold scrolly-reveal delay-1">vert-suite</h3>
-                <!-- Production-ready badges -->
-                <div class="scrolly-reveal delay-2" style="display:flex;flex-wrap:wrap;gap:0.6rem;margin:1.1rem 0 1.25rem;">
-                    <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(0,147,115,0.12);border:1px solid rgba(0,147,115,0.35);border-radius:9999px;padding:0.28rem 0.85rem;font-size:0.7rem;font-weight:600;color:#9ef8a2;letter-spacing:0.08em;text-transform:uppercase;">
-                        <span class="pulse-dot" style="width:6px;height:6px;background:#9ef8a2;border-radius:50%;flex-shrink:0;"></span>
-                        Production Ready
-                    </span>
-                    <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:0.28rem 0.85rem;font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.65);letter-spacing:0.08em;text-transform:uppercase;">Deployable in Minutes</span>
-                    <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:0.28rem 0.85rem;font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.65);letter-spacing:0.08em;text-transform:uppercase;">No Code Changes</span>
-                    <span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:0.28rem 0.85rem;font-size:0.7rem;font-weight:600;color:rgba(255,255,255,0.6)5;letter-spacing:0.08em;text-transform:uppercase;">Engine Agnostic</span>
-                </div>
                 <p class="scrolly-reveal delay-2" style="color:rgba(255,255,255,0.65);max-width:640px;">
-                    A production-ready software platform for autonomous GPU/CPU efficiency orchestration — inference engine agnostic, with no hardware changes, no application modifications, and no manual tuning required.
+                    A production-ready software platform for autonomous GPU/CPU efficiency orchestration. It is inference engine agnostic and needs no hardware changes, application changes or manual tuning.
                 </p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -912,7 +1052,7 @@
                         <img class="w-6 h-6" src="imgs/1.svg" style="filter:brightness(0) invert(1);"/>
                     </div>
                     <h4 style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:#fff;">Autonomous CPU/GPU Optimisation</h4>
-                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Autonomous bare-metal GPU and CPU management for AI/LLM workloads. Empirically validated energy savings of over 30% per token — with no changes to your application or inference stack.</p>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Autonomous bare-metal GPU and CPU management for AI/LLM workloads. Empirically validated energy savings of over 30% per token, with no changes to your application or inference stack.</p>
                 </div>
                 <div class="dark-card scrolly-reveal delay-2">
                     <div style="width:44px;height:44px;background:rgba(0,147,115,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
@@ -926,14 +1066,14 @@
                         <img class="w-6 h-6" src="imgs/3.svg" style="filter:brightness(0) invert(1);"/>
                     </div>
                     <h4 style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:#fff;">Green &amp; Cost-Efficient</h4>
-                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Reduce OpEx, extend platform lifespan, and lower your infrastructure's carbon footprint — without replacing or upgrading hardware.</p>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Reduce OpEx, extend platform lifespan, and lower your infrastructure's carbon footprint, without replacing or upgrading hardware.</p>
                 </div>
                 <div class="dark-card scrolly-reveal delay-1">
                     <div style="width:44px;height:44px;background:rgba(0,147,115,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
                         <img class="w-6 h-6" src="imgs/4.svg" style="filter:brightness(0) invert(1);"/>
                     </div>
                     <h4 style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:#fff;">Deep Monitoring with eBPF</h4>
-                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Leverage eBPF for deep system observability with minimal operational disruption — complemented by physical out-of-band telemetry for independent power validation.</p>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Leverage eBPF for deep system observability with minimal operational disruption, complemented by physical out-of-band telemetry for independent power validation.</p>
                 </div>
                 <div class="dark-card scrolly-reveal delay-2">
                     <div style="width:44px;height:44px;background:rgba(0,147,115,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
@@ -947,7 +1087,7 @@
                         <img class="w-6 h-6" src="imgs/6.svg" style="filter:brightness(0) invert(1);"/>
                     </div>
                     <h4 style="font-weight:700;font-size:1.05rem;margin-bottom:0.5rem;color:#fff;">Seamless Integration</h4>
-                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Inference engine agnostic — validated on vLLM and llama.cpp, and compatible with other leading engines. One inclusive library, cross-platform, cross-Linux/K8S distribution, deployable in minutes with no operators, scheduler extensions, or YAML modifications.</p>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.88rem;line-height:1.7;">Inference engine agnostic: validated on vLLM and llama.cpp, and compatible with other leading engines. One inclusive library, cross-platform, cross-Linux/K8S distribution, deployable in minutes with no operators, scheduler extensions, or YAML modifications.</p>
                 </div>
             </div>
 
@@ -958,16 +1098,15 @@
                 <div class="scrolly-reveal" style="background:rgba(251,146,60,0.06);border:1px solid rgba(251,146,60,0.2);border-radius:14px;padding:1.5rem 2rem;margin-bottom:2.5rem;display:flex;gap:1rem;align-items:flex-start;">
                     <svg style="color:#fb923c;flex-shrink:0;margin-top:3px;" width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
                     <div>
-                        <div style="font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.5rem;">Most bare-metal optimisers demand root access. We don't.</div>
-                        <p style="font-size:0.875rem;color:rgba(255,255,255,0.6);line-height:1.75;max-width:720px;">The industry standard is to hand over the keys to the kingdom — permanent, unconditional root access to your kernel, drivers, and hardware. You shouldn't have to compromise your cluster's security just to run your compute efficiently.</p>
+                        <div style="font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.5rem;">vert-suite does not need permanent root access</div>
+                        <p style="font-size:0.875rem;color:rgba(255,255,255,0.6);line-height:1.75;max-width:720px;">Tools that tune hardware settings usually run with permanent root access to the kernel, drivers and hardware. vert-suite runs its everyday components unprivileged and grants elevated access only briefly, for a fixed set of tasks.</p>
                     </div>
                 </div>
 
                 <!-- Section title -->
                 <div class="scrolly-reveal delay-1" style="margin-bottom:1.75rem;">
                     <h4 style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.35rem;">Zero-Compromise Security Architecture</h4>
-                    <p style="font-size:16px;color:rgba(255,255,255,0.65);max-width:680px;line-height:1.75;margin-top:0.5rem;">vert-suite is built on a strict principle of minimal authority. Instead of deploying a privileged monolith, the architecture is physically split — a standard unprivileged worker that requests just-in-time access only when needed, and only for the exact duration required.</p>
-                    <div class="chapter-sep" style="margin:1rem 0 0;"></div>
+                    <p style="font-size:16px;color:rgba(255,255,255,0.65);max-width:680px;line-height:1.75;margin-top:0.5rem;">vert-suite is built on a strict principle of minimal authority. Instead of deploying a privileged monolith, the architecture is physically split: a standard unprivileged worker that requests just-in-time access only when needed, and only for the exact duration required.</p>
                 </div>
 
                 <!-- Architecture image -->
@@ -978,23 +1117,23 @@
                 <!-- 5 principles from the diagram -->
                 <div class="grid grid-cols-1 md:grid-cols-5 gap-3 scrolly-reveal delay-3" style="margin-bottom:2rem;">
                     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1rem;">
-                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(0,147,115,0.8);margin-bottom:0.5rem;">① Secure Entry</div>
-                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">Public key at a terminal — signature verification before any agent is admitted.</p>
+                        <div style="font-size:0.82rem;font-weight:700;color:rgba(0,147,115,0.8);margin-bottom:0.5rem;">Secure Entry</div>
+                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">Public key at a terminal: signature verification before any agent is admitted.</p>
                     </div>
                     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1rem;">
-                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(0,147,115,0.8);margin-bottom:0.5rem;">② Restricted Access</div>
-                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">Main agent operates as a standard worker within an unprivileged boundary — <code style="font-size:0.82rem;color:rgba(255,255,255,0.75);">CAP_SYS_RAWIO</code> and <code style="font-size:0.82rem;color:rgba(255,255,255,0.75);">CAP_SYS_ADMIN</code> never granted permanently.</p>
+                        <div style="font-size:0.82rem;font-weight:700;color:rgba(0,147,115,0.8);margin-bottom:0.5rem;">Restricted Access</div>
+                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">Main agent operates as a standard worker within an unprivileged boundary; <code style="font-size:0.82rem;color:rgba(255,255,255,0.75);">CAP_SYS_RAWIO</code> and <code style="font-size:0.82rem;color:rgba(255,255,255,0.75);">CAP_SYS_ADMIN</code> never granted permanently.</p>
                     </div>
                     <div style="background:rgba(0,147,115,0.07);border:1px solid rgba(0,147,115,0.25);border-radius:12px;padding:1rem;">
-                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#9ef8a2;margin-bottom:0.5rem;">③ Just-in-Time</div>
-                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">A Security Escort briefly unlocks the required resource, completes the exact task, and immediately relocks — no standing privileges.</p>
+                        <div style="font-size:0.82rem;font-weight:700;color:#9ef8a2;margin-bottom:0.5rem;">Just-in-Time</div>
+                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">A Security Escort briefly unlocks the required resource, completes the exact task, and immediately relocks, leaving no standing privileges.</p>
                     </div>
                     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1rem;">
-                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(0,147,115,0.8);margin-bottom:0.5rem;">④ Secure Comms</div>
-                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">All control-plane traffic is encrypted via mTLS tunnels — no plaintext communication between components.</p>
+                        <div style="font-size:0.82rem;font-weight:700;color:rgba(0,147,115,0.8);margin-bottom:0.5rem;">Secure Comms</div>
+                        <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">All control-plane traffic is encrypted via mTLS tunnels, with no plaintext communication between components.</p>
                     </div>
                     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1rem;">
-                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(0,147,115,0.8);margin-bottom:0.5rem;">⑤ Minimal Authority</div>
+                        <div style="font-size:0.82rem;font-weight:700;color:rgba(0,147,115,0.8);margin-bottom:0.5rem;">Minimal Authority</div>
                         <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7;">Digital identity verification prevents any component from operating outside its authorised scope.</p>
                     </div>
                 </div>
@@ -1006,7 +1145,6 @@
             <div style="margin-top:4rem;">
                 <div class="mb-10 scrolly-reveal">
                     <span style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.35rem;">How it works</span>
-                    <div class="chapter-sep" style="margin:0.75rem 0 0;"></div>
                 </div>
                 <div class="how-steps-grid scrolly-reveal delay-1">
                     <div class="how-step">
@@ -1033,59 +1171,51 @@
 
     <!-- Chapter 03: SLA Spectrum -->
     <div class="py-24 px-6 relative">
-        <div class="chapter-number scrolly-reveal">03</div>
         <div class="container mx-auto max-w-5xl">
             <div class="mb-6">
                 <span class="chapter-badge scrolly-reveal">Performance SLA Spectrum</span>
-                <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem 0;"></div>
                 <h3 class="text-3xl md:text-4xl font-bold scrolly-reveal delay-1">You Set the Constraint.<br>We Find the Optimum.</h3>
                 <p class="mt-4 scrolly-reveal delay-2" style="color:rgba(255,255,255,0.65);max-width:640px;line-height:1.8;">
-                    vert-suite does not offer a fixed menu of profiles. It offers a <strong style="color:#9ef8a2;">continuous spectrum</strong>. Simply tell the software the maximum throughput reduction you can accept — say, no more than 10%, 15%, or 20% — and it automatically identifies the optimal GPU/CPU operational mode to deliver the deepest possible energy savings within that constraint.
+                    vert-suite does not offer a fixed menu of profiles. It offers a <strong style="color:#9ef8a2;">continuous spectrum</strong>. Simply tell the software the maximum throughput reduction you can accept (say, no more than 5% or 10%) and it automatically identifies the optimal GPU/CPU operational mode to deliver the deepest possible energy savings within that constraint.
                 </p>
             </div>
             <div class="scrolly-reveal delay-3" style="max-width:580px;margin:3rem auto 1rem;padding:0 1.5rem;">
-                <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">
+                <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:rgba(255,255,255,0.65);margin-bottom:0.5rem;">
                     <span>Less energy saved</span><span>More energy saved</span>
                 </div>
                 <div class="spectrum-bar">
-                    <span class="spectrum-tick" style="left:25%;background:#60a5fa;"></span>
-                    <span class="spectrum-tick-label" style="left:25%;">≤10% TPS<br>impact</span>
-                    <span class="spectrum-tick" style="left:55%;background:#009373;"></span>
-                    <span class="spectrum-tick-label" style="left:55%;">≤15% TPS<br>impact</span>
-                    <span class="spectrum-tick" style="left:85%;background:#fb923c;"></span>
-                    <span class="spectrum-tick-label" style="left:85%;">≤20% TPS<br>impact</span>
+                    <span class="spectrum-tick" style="left:30%;background:#60a5fa;"></span>
+                    <span class="spectrum-tick-label" style="left:30%;">Base<br>~5% TPS impact</span>
+                    <span class="spectrum-tick" style="left:65%;background:#009373;"></span>
+                    <span class="spectrum-tick-label" style="left:65%;">Eager<br>~10% TPS impact</span>
                 </div>
-                <p style="font-size:0.72rem;color:rgba(255,255,255,0.65);text-align:center;margin-top:3rem;">Three example datapoints — any point on the spectrum is achievable</p>
+                <p style="font-size:0.72rem;color:rgba(255,255,255,0.65);text-align:center;margin-top:3rem;">Two benchmarked profiles; any point on the spectrum is achievable</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
                 <div class="dark-card scrolly-reveal delay-1">
                     <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.85rem;">
                         <div style="width:10px;height:10px;background:#60a5fa;border-radius:50%;flex-shrink:0;"></div>
-                        <span style="font-size:0.7rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.1em;">≤10% TPS reduction</span>
+                        <span style="font-size:0.82rem;color:rgba(255,255,255,0.65);">Base · 5 ± 2% TPS target</span>
                     </div>
                     <h4 style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.6rem;">Minimal Impact</h4>
-                    <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;line-height:1.7;margin-bottom:1rem;">The software identifies the energy-saving profile that keeps throughput within 10% of baseline. Deep savings with near-transparent operational impact.</p>
-                    <div style="font-size:1.3rem;font-weight:800;color:#9ef8a2;">~28–30%<span style="font-size:0.8rem;font-weight:400;color:rgba(255,255,255,0.65);margin-left:0.4rem;">energy per token saved</span></div>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;line-height:1.7;margin-bottom:1rem;">Keeps throughput within a few percent of baseline. Measured cost across three models on bare metal and AWS: 2–6% of tokens per second.</p>
+                    <div style="font-size:1.3rem;font-weight:800;color:#9ef8a2;">22–28%<span style="font-size:0.8rem;font-weight:400;color:rgba(255,255,255,0.65);margin-left:0.4rem;">CPU+GPU energy saved per year · bare metal</span></div>
+                    <div style="font-size:1rem;font-weight:700;color:#9ef8a2;margin-top:0.4rem;">22–24%<span style="font-size:0.8rem;font-weight:400;color:rgba(255,255,255,0.65);margin-left:0.4rem;">GPU energy saved per year · AWS EC2</span></div>
                 </div>
                 <div class="dark-card accent scrolly-reveal delay-2">
                     <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.85rem;">
                         <div style="width:10px;height:10px;background:#9ef8a2;border-radius:50%;flex-shrink:0;"></div>
-                        <span style="font-size:0.7rem;color:#9ef8a2;text-transform:uppercase;letter-spacing:0.1em;">≤15% TPS reduction ★</span>
+                        <span style="font-size:0.82rem;color:#9ef8a2;">Eager · 10 ± 2% TPS target</span>
                     </div>
-                    <h4 style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.6rem;">Sweet Spot</h4>
-                    <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;line-height:1.7;margin-bottom:1rem;">A marginal additional throughput budget unlocks significantly deeper energy reductions. Consistently the highest-value point on the spectrum across all tested models.</p>
-                    <div style="font-size:1.3rem;font-weight:800;color:#9ef8a2;">~33–34%<span style="font-size:0.8rem;font-weight:400;color:rgba(255,255,255,0.65);margin-left:0.4rem;">energy per token saved</span></div>
-                </div>
-                <div class="dark-card scrolly-reveal delay-3">
-                    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.85rem;">
-                        <div style="width:10px;height:10px;background:#fb923c;border-radius:50%;flex-shrink:0;"></div>
-                        <span style="font-size:0.7rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.1em;">≤20% TPS reduction</span>
-                    </div>
-                    <h4 style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.6rem;">Maximum Efficiency</h4>
-                    <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;line-height:1.7;margin-bottom:1rem;">Accepts a larger throughput trade-off to push energy savings to their maximum. Ideal for cost-capped batch workloads where latency is not time-critical.</p>
-                    <div style="font-size:1.3rem;font-weight:800;color:#9ef8a2;">~34–37%<span style="font-size:0.8rem;font-weight:400;color:rgba(255,255,255,0.64);margin-left:0.4rem;">energy per token saved</span></div>
+                    <h4 style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.6rem;">Deeper Savings</h4>
+                    <p style="color:rgba(255,255,255,0.65);font-size:0.85rem;line-height:1.7;margin-bottom:1rem;">A slightly larger throughput budget unlocks markedly deeper reductions. Measured cost: 5–11% of tokens per second.</p>
+                    <div style="font-size:1.3rem;font-weight:800;color:#9ef8a2;">25–39%<span style="font-size:0.8rem;font-weight:400;color:rgba(255,255,255,0.65);margin-left:0.4rem;">CPU+GPU energy saved per year · bare metal</span></div>
+                    <div style="font-size:1rem;font-weight:700;color:#9ef8a2;margin-top:0.4rem;">27–29%<span style="font-size:0.8rem;font-weight:400;color:rgba(255,255,255,0.65);margin-left:0.4rem;">GPU energy saved per year · AWS EC2</span></div>
                 </div>
             </div>
+            <p class="scrolly-reveal delay-3" style="margin-top:1.25rem;font-size:0.72rem;color:rgba(255,255,255,0.65);line-height:1.6;">
+                Ranges span Gemma 4 31B, Qwen 3.6 27B and Laguna S 2.1 NVFP4 at 30 concurrent sessions per GPU, vLLM 0.26. Looser constraints push savings further (see the single-GPU llama.cpp benchmarks below).
+            </p>
         </div>
     </div>
 
@@ -1093,30 +1223,246 @@
 
     <!-- Chapter 04: Benchmark Results -->
     <div class="py-24 px-6 relative">
-        <div class="chapter-number scrolly-reveal">04</div>
         <div class="container mx-auto max-w-5xl">
             <div class="mb-14">
                 <span class="chapter-badge scrolly-reveal">Benchmark Results</span>
-                <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem 0;"></div>
                 <h3 class="text-3xl md:text-4xl font-bold scrolly-reveal delay-1">Comprehensive Model Benchmarks</h3>
                 <p class="mt-4 scrolly-reveal delay-2" style="color:rgba(255,255,255,0.65);max-width:600px;">
-                    Five leading open-weight models. Three SLA profiles. All energy independently verified at the server wall-socket using a state-of-the-art power analyser — against unoptimised SotA baselines.
+                    Multi-GPU vLLM benchmarks on bare metal and AWS EC2, plus single-GPU llama.cpp benchmarks across five open-weight models. Every result is compared against an unoptimised SotA baseline on identical hardware.
                 </p>
              </div>    
             <div class="scrolly-reveal delay-2" style="margin-bottom:2.5rem;">
-                <div style="font-size:0.72rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.85rem;">Technology Stack</div>
+                <div style="font-size:0.82rem;color:rgba(255,255,255,0.65);margin-bottom:0.85rem;">Technology Stack</div>
                 <div>
                     <span class="stack-pill">RTX Pro 6000 Blackwell</span>
+                    <span class="stack-pill">Intel Xeon w7-3455</span>
+                    <span class="stack-pill">AWS EC2 g7e.12xlarge</span>
+                    <span class="stack-pill">vLLM 0.26</span>
                     <span class="stack-pill">Llama.cpp</span>
                     <span class="stack-pill">vert-suite</span>
                 </div>
             </div>
 
 
+            <div class="scrolly-reveal delay-2" style="margin-bottom:1rem;">
+                <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:0.35rem;">Multi-GPU · vLLM 0.26 · Energy per GPU per Year</div>
+                <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);line-height:1.7;max-width:680px;">2× RTX Pro 6000 Blackwell at 30 concurrent sessions per GPU. Annual energy is what a GPU draws when left running for a year, including its share of the host CPU on bare metal.</p>
+            </div>
+            <div class="scrolly-reveal delay-2" style="display:flex;gap:1.5rem;margin-bottom:1.75rem;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:rgba(255,255,255,0.65);">
+                    <div style="width:32px;height:8px;border-radius:4px;background:linear-gradient(90deg,#009373,#9ef8a2);"></div>Annual energy reduction (higher is better)
+                </div>
+                <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:rgba(255,255,255,0.65);">
+                    <div style="width:14px;height:14px;border-radius:50%;background:#60a5fa;"></div>Base&nbsp;
+                    <div style="width:14px;height:14px;border-radius:50%;background:#009373;"></div>Eager
+                </div>
+            </div>
+            <div class="model-bench scrolly-reveal delay-1">
+                <div class="model-bench-header">
+                    <div>
+                        <div style="font-size:1.1rem;font-weight:700;color:#fff;">Gemma 4 31B</div>
+                        <div class="model-bench-baseline">SotA: 6,925 kWh/yr per GPU (CPU+GPU, bare metal) · 3,690 kWh/yr per GPU (GPU only, AWS)</div>
+                    </div>
+                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);">DP 2 · TP 1</span>
+                </div>
+                <div class="bench-profile-row p10">
+                    <div class="bench-profile-label">Bare metal<small>Base · CPU+GPU</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−25.11%</span>
+                            <span class="bench-ws-opt">5,186 kWh / GPU / yr</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="25.11%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">1,739 kWh saved / yr</div>
+                        <div class="bench-tps-delta">−2.66% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p15">
+                    <div class="bench-profile-label">Bare metal<small>Eager · CPU+GPU</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−39.17%</span>
+                            <span class="bench-ws-opt">4,213 kWh / GPU / yr</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="39.17%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">2,712 kWh saved / yr</div>
+                        <div class="bench-tps-delta">−10.76% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p10">
+                    <div class="bench-profile-label">AWS EC2<small>Base · GPU only</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−23.64%</span>
+                            <span class="bench-ws-opt">2,818 kWh / GPU / yr</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="23.64%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">872 kWh saved / yr</div>
+                        <div class="bench-tps-delta">−3.21% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p15">
+                    <div class="bench-profile-label">AWS EC2<small>Eager · GPU only</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−28.34%</span>
+                            <span class="bench-ws-opt">2,645 kWh / GPU / yr</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="28.34%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">1,046 kWh saved / yr</div>
+                        <div class="bench-tps-delta">−5.12% throughput</div>
+                    </div>
+                </div>
+            </div>
+            <div class="model-bench scrolly-reveal delay-2">
+                <div class="model-bench-header">
+                    <div>
+                        <div style="font-size:1.1rem;font-weight:700;color:#fff;">Qwen 3.6 27B</div>
+                        <div class="model-bench-baseline">SotA: 6,915 kWh/yr per GPU (CPU+GPU, bare metal) · 3,599 kWh/yr per GPU (GPU only, AWS)</div>
+                    </div>
+                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);">DP 2 · TP 1</span>
+                </div>
+                <div class="bench-profile-row p10">
+                    <div class="bench-profile-label">Bare metal<small>Base · CPU+GPU</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−28.37%</span>
+                            <span class="bench-ws-opt">4,953 kWh / GPU / yr</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="28.37%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">1,962 kWh saved / yr</div>
+                        <div class="bench-tps-delta">−2.18% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p15">
+                    <div class="bench-profile-label">Bare metal<small>Eager · CPU+GPU</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−38.33%</span>
+                            <span class="bench-ws-opt">4,264 kWh / GPU / yr</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="38.33%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">2,651 kWh saved / yr</div>
+                        <div class="bench-tps-delta">−9.41% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p10">
+                    <div class="bench-profile-label">AWS EC2<small>Base · GPU only</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−23.24%</span>
+                            <span class="bench-ws-opt">2,763 kWh / GPU / yr</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="23.24%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">836 kWh saved / yr</div>
+                        <div class="bench-tps-delta">−2.60% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p15">
+                    <div class="bench-profile-label">AWS EC2<small>Eager · GPU only</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−28.59%</span>
+                            <span class="bench-ws-opt">2,570 kWh / GPU / yr</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="28.59%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">1,029 kWh saved / yr</div>
+                        <div class="bench-tps-delta">−4.64% throughput</div>
+                    </div>
+                </div>
+            </div>
+            <div class="model-bench scrolly-reveal delay-3">
+                <div class="model-bench-header">
+                    <div>
+                        <div style="font-size:1.1rem;font-weight:700;color:#fff;">Laguna S 2.1 NVFP4 (DFlash)</div>
+                        <div class="model-bench-baseline">SotA: 7,463 kWh/yr per GPU (CPU+GPU, bare metal) · 3,909 kWh/yr per GPU (GPU only, AWS)</div>
+                    </div>
+                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);">DP 1 · TP 2 · speculative, 7 tokens</span>
+                </div>
+                <div class="bench-profile-row p10">
+                    <div class="bench-profile-label">Bare metal<small>Base · CPU+GPU</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−22.21%</span>
+                            <span class="bench-ws-opt">5,805 kWh / GPU / yr</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="22.21%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">1,657 kWh saved / yr</div>
+                        <div class="bench-tps-delta">−5.90% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p15">
+                    <div class="bench-profile-label">Bare metal<small>Eager · CPU+GPU</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−25.35%</span>
+                            <span class="bench-ws-opt">5,571 kWh / GPU / yr</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="25.35%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">1,892 kWh saved / yr</div>
+                        <div class="bench-tps-delta">−8.28% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p10">
+                    <div class="bench-profile-label">AWS EC2<small>Base · GPU only</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−21.58%</span>
+                            <span class="bench-ws-opt">3,065 kWh / GPU / yr</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="21.58%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">844 kWh saved / yr</div>
+                        <div class="bench-tps-delta">−5.13% throughput</div>
+                    </div>
+                </div>
+                <div class="bench-profile-row p15">
+                    <div class="bench-profile-label">AWS EC2<small>Eager · GPU only</small></div>
+                    <div>
+                        <div style="display:flex;align-items:baseline;gap:0.6rem;">
+                            <span class="bench-ws-reduction">−27.22%</span>
+                            <span class="bench-ws-opt">2,844 kWh / GPU / yr</span>
+                        </div>
+                        <div class="result-bar-track"><div class="result-bar-fill energy" data-width="27.22%"></div></div>
+                    </div>
+                    <div class="bench-tps-col">
+                        <div class="bench-tps-val">1,064 kWh saved / yr</div>
+                        <div class="bench-tps-delta">−7.75% throughput</div>
+                    </div>
+                </div>
+            </div>
+            <p class="scrolly-reveal delay-4" style="margin-top:1rem;margin-bottom:3.5rem;font-size:0.72rem;color:rgba(255,255,255,0.65);line-height:1.6;">
+                * Bare metal: 2× RTX Pro 6000 Blackwell Workstation Edition, Intel Xeon w7-3455; whole-server energy at the wall-socket, attributed per GPU. AWS: g7e.12xlarge, 2× RTX Pro 6000 Blackwell Server Edition; GPU-only energy via nvidia-smi, excluding host and cooling. On Laguna (tensor parallelism without NVLink) the host CPU is deliberately left at its default setting.
+            </p>
+
+            <div class="scrolly-reveal delay-2" style="margin-bottom:1rem;">
+                <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:0.35rem;">Single GPU · llama.cpp · Energy per Token</div>
+            </div>
            
             <div class="scrolly-reveal delay-2" style="display:flex;gap:1.5rem;margin-bottom:1.75rem;flex-wrap:wrap;">
                 <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:rgba(255,255,255,0.65);">
-                    <div style="width:32px;height:8px;border-radius:4px;background:linear-gradient(90deg,#009373,#9ef8a2);"></div>Energy per token (Ws/token) reduction (energy saved — higher is better)
+                    <div style="width:32px;height:8px;border-radius:4px;background:linear-gradient(90deg,#009373,#9ef8a2);"></div>Energy per token (Ws/token) reduction (energy saved, higher is better)
                 </div>
                 <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:rgba(255,255,255,0.65);">
                     <div style="width:14px;height:14px;border-radius:50%;background:#60a5fa;"></div>≤10%&nbsp;
@@ -1127,12 +1473,12 @@
 
             <!-- Model filter toggles -->
             <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.75rem;">
-                <span style="font-size:0.7rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0;">Model</span>
+                <span style="font-size:0.82rem;color:rgba(255,255,255,0.65);flex-shrink:0;">Model</span>
                 <button class="bench-filter-btn active" data-group="model" data-filter="all" onclick="setBenchFilter('model','all')">All</button>
                 <button class="bench-filter-btn" data-group="model" data-filter="llama" onclick="setBenchFilter('model','llama')">Llama</button>
                 <button class="bench-filter-btn" data-group="model" data-filter="qwen" onclick="setBenchFilter('model','qwen')">Qwen</button>
                 <div style="width:1px;height:20px;background:rgba(255,255,255,0.12);margin:0 0.75rem;flex-shrink:0;"></div>
-                <span style="font-size:0.7rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.08em;flex-shrink:0;">Quantisation</span>
+                <span style="font-size:0.82rem;color:rgba(255,255,255,0.65);flex-shrink:0;">Quantisation</span>
                 <button class="bench-filter-btn active" data-group="quant" data-filter="all" onclick="setBenchFilter('quant','all')">All</button>
                 <button class="bench-filter-btn" data-group="quant" data-filter="q8_0" onclick="setBenchFilter('quant','q8_0')">Q8_0</button>
                 <button class="bench-filter-btn" data-group="quant" data-filter="bf16" onclick="setBenchFilter('quant','bf16')">BF16</button>
@@ -1162,7 +1508,7 @@
                     </div>
                 </div>
                 <div class="bench-profile-row p15">
-                    <div class="bench-profile-label">≤15% TPS<small>Balanced ★</small></div>
+                    <div class="bench-profile-label">≤15% TPS<small>Balanced</small></div>
                     <div>
                         <div style="display:flex;align-items:baseline;gap:0.6rem;">
                             <span class="bench-ws-reduction">−33.84%</span>
@@ -1215,7 +1561,7 @@
                     </div>
                 </div>
                 <div class="bench-profile-row p15">
-                    <div class="bench-profile-label">≤15% TPS<small>Balanced ★</small></div>
+                    <div class="bench-profile-label">≤15% TPS<small>Balanced</small></div>
                     <div>
                         <div style="display:flex;align-items:baseline;gap:0.6rem;">
                             <span class="bench-ws-reduction">−34.30%</span>
@@ -1268,7 +1614,7 @@
                     </div>
                 </div>
                 <div class="bench-profile-row p15">
-                    <div class="bench-profile-label">≤15% TPS<small>Balanced ★</small></div>
+                    <div class="bench-profile-label">≤15% TPS<small>Balanced</small></div>
                     <div>
                         <div style="display:flex;align-items:baseline;gap:0.6rem;">
                             <span class="bench-ws-reduction">−32.58%</span>
@@ -1321,7 +1667,7 @@
                     </div>
                 </div>
                 <div class="bench-profile-row p15">
-                    <div class="bench-profile-label">≤15% TPS<small>Balanced ★</small></div>
+                    <div class="bench-profile-label">≤15% TPS<small>Balanced</small></div>
                     <div>
                         <div style="display:flex;align-items:baseline;gap:0.6rem;">
                             <span class="bench-ws-reduction">−31.16%</span>
@@ -1374,7 +1720,7 @@
                     </div>
                 </div>
                 <div class="bench-profile-row p15">
-                    <div class="bench-profile-label">≤15% TPS<small>Balanced ★</small></div>
+                    <div class="bench-profile-label">≤15% TPS<small>Balanced</small></div>
                     <div>
                         <div style="display:flex;align-items:baseline;gap:0.6rem;">
                             <span class="bench-ws-reduction">−20.16%</span>
@@ -1413,6 +1759,34 @@
                     <thead>
                         <tr>
                             <th>Model</th>
+                            <th>Platform</th>
+                            <th>Profile</th>
+                            <th class="num">Energy Saved / yr</th>
+                            <th class="num">Energy / GPU / yr</th>
+                            <th class="num">kWh Saved / yr</th>
+                            <th class="num">TPS Δ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Gemma 4 31B</td><td>Bare metal (CPU+GPU)</td><td>Base</td><td class="num saved">−25.11%</td><td class="num">5,186 kWh</td><td class="num">1,739 kWh</td><td class="num">−2.66%</td></tr>
+                        <tr class="row-p15"><td>Gemma 4 31B</td><td>Bare metal (CPU+GPU)</td><td>Eager</td><td class="num saved">−39.17%</td><td class="num">4,213 kWh</td><td class="num">2,712 kWh</td><td class="num">−10.76%</td></tr>
+                        <tr><td>Gemma 4 31B</td><td>AWS EC2 (GPU only)</td><td>Base</td><td class="num saved">−23.64%</td><td class="num">2,818 kWh</td><td class="num">872 kWh</td><td class="num">−3.21%</td></tr>
+                        <tr class="row-p15"><td>Gemma 4 31B</td><td>AWS EC2 (GPU only)</td><td>Eager</td><td class="num saved">−28.34%</td><td class="num">2,645 kWh</td><td class="num">1,046 kWh</td><td class="num">−5.12%</td></tr>
+                        <tr><td>Qwen 3.6 27B</td><td>Bare metal (CPU+GPU)</td><td>Base</td><td class="num saved">−28.37%</td><td class="num">4,953 kWh</td><td class="num">1,962 kWh</td><td class="num">−2.18%</td></tr>
+                        <tr class="row-p15"><td>Qwen 3.6 27B</td><td>Bare metal (CPU+GPU)</td><td>Eager</td><td class="num saved">−38.33%</td><td class="num">4,264 kWh</td><td class="num">2,651 kWh</td><td class="num">−9.41%</td></tr>
+                        <tr><td>Qwen 3.6 27B</td><td>AWS EC2 (GPU only)</td><td>Base</td><td class="num saved">−23.24%</td><td class="num">2,763 kWh</td><td class="num">836 kWh</td><td class="num">−2.60%</td></tr>
+                        <tr class="row-p15"><td>Qwen 3.6 27B</td><td>AWS EC2 (GPU only)</td><td>Eager</td><td class="num saved">−28.59%</td><td class="num">2,570 kWh</td><td class="num">1,029 kWh</td><td class="num">−4.64%</td></tr>
+                        <tr><td>Laguna S 2.1 NVFP4 (DFlash)</td><td>Bare metal (CPU+GPU)</td><td>Base</td><td class="num saved">−22.21%</td><td class="num">5,805 kWh</td><td class="num">1,657 kWh</td><td class="num">−5.90%</td></tr>
+                        <tr class="row-p15"><td>Laguna S 2.1 NVFP4 (DFlash)</td><td>Bare metal (CPU+GPU)</td><td>Eager</td><td class="num saved">−25.35%</td><td class="num">5,571 kWh</td><td class="num">1,892 kWh</td><td class="num">−8.28%</td></tr>
+                        <tr><td>Laguna S 2.1 NVFP4 (DFlash)</td><td>AWS EC2 (GPU only)</td><td>Base</td><td class="num saved">−21.58%</td><td class="num">3,065 kWh</td><td class="num">844 kWh</td><td class="num">−5.13%</td></tr>
+                        <tr class="row-p15"><td>Laguna S 2.1 NVFP4 (DFlash)</td><td>AWS EC2 (GPU only)</td><td>Eager</td><td class="num saved">−27.22%</td><td class="num">2,844 kWh</td><td class="num">1,064 kWh</td><td class="num">−7.75%</td></tr>
+                    </tbody>
+                </table>
+                <p style="font-size:0.72rem;color:#555;margin-top:0.4rem;margin-bottom:1.5rem;">vLLM 0.26 · 2× RTX Pro 6000 Blackwell · 30 concurrent sessions per GPU. Bare metal at wall-socket; AWS GPU-only via nvidia-smi.</p>
+                <table class="print-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
                             <th>Params</th>
                             <th>SLA Profile</th>
                             <th class="num">Energy Saved</th>
@@ -1423,23 +1797,23 @@
                     </thead>
                     <tbody>
                         <tr><td>Llama-3-70B-Instruct · Q8_0</td><td>70B</td><td>≤10% TPS</td><td class="num saved">−28.83%</td><td class="num">27.87 Ws/t</td><td class="num">19.97 tps</td><td class="num">−2.87%</td></tr>
-                        <tr class="row-p15"><td>Llama-3-70B-Instruct · Q8_0</td><td>70B</td><td>≤15% TPS ★</td><td class="num saved">−33.84%</td><td class="num">25.90 Ws/t</td><td class="num">19.50 tps</td><td class="num">−5.17%</td></tr>
+                        <tr class="row-p15"><td>Llama-3-70B-Instruct · Q8_0</td><td>70B</td><td>≤15% TPS</td><td class="num saved">−33.84%</td><td class="num">25.90 Ws/t</td><td class="num">19.50 tps</td><td class="num">−5.17%</td></tr>
                         <tr><td>Llama-3-70B-Instruct · Q8_0</td><td>70B</td><td>≤20% TPS</td><td class="num saved">−35.99%</td><td class="num">25.06 Ws/t</td><td class="num">18.02 tps</td><td class="num">−12.34%</td></tr>
                         <tr><td>Qwen2.5-72B-Instruct · Q8_0</td><td>72B</td><td>≤10% TPS</td><td class="num saved">−29.60%</td><td class="num">28.75 Ws/t</td><td class="num">19.39 tps</td><td class="num">−2.86%</td></tr>
-                        <tr class="row-p15"><td>Qwen2.5-72B-Instruct · Q8_0</td><td>72B</td><td>≤15% TPS ★</td><td class="num saved">−34.30%</td><td class="num">26.83 Ws/t</td><td class="num">18.94 tps</td><td class="num">−5.11%</td></tr>
+                        <tr class="row-p15"><td>Qwen2.5-72B-Instruct · Q8_0</td><td>72B</td><td>≤15% TPS</td><td class="num saved">−34.30%</td><td class="num">26.83 Ws/t</td><td class="num">18.94 tps</td><td class="num">−5.11%</td></tr>
                         <tr><td>Qwen2.5-72B-Instruct · Q8_0</td><td>72B</td><td>≤20% TPS</td><td class="num saved">−36.52%</td><td class="num">25.93 Ws/t</td><td class="num">17.48 tps</td><td class="num">−12.42%</td></tr>
                         <tr><td>Qwen3-32B · Q8_0</td><td>32B</td><td>≤10% TPS</td><td class="num saved">−28.07%</td><td class="num">13.32 Ws/t</td><td class="num">39.86 tps</td><td class="num">−5.17%</td></tr>
-                        <tr class="row-p15"><td>Qwen3-32B · Q8_0</td><td>32B</td><td>≤15% TPS ★</td><td class="num saved">−32.58%</td><td class="num">12.49 Ws/t</td><td class="num">38.38 tps</td><td class="num">−8.72%</td></tr>
+                        <tr class="row-p15"><td>Qwen3-32B · Q8_0</td><td>32B</td><td>≤15% TPS</td><td class="num saved">−32.58%</td><td class="num">12.49 Ws/t</td><td class="num">38.38 tps</td><td class="num">−8.72%</td></tr>
                         <tr><td>Qwen3-32B · Q8_0</td><td>32B</td><td>≤20% TPS</td><td class="num saved">−33.75%</td><td class="num">12.27 Ws/t</td><td class="num">34.18 tps</td><td class="num">−18.70%</td></tr>
                         <tr><td>Qwen3.5-27B · BF16</td><td>27B</td><td>≤10% TPS</td><td class="num saved">−26.59%</td><td class="num">19.82 Ws/t</td><td class="num">26.13 tps</td><td class="num">−5.88%</td></tr>
-                        <tr class="row-p15"><td>Qwen3.5-27B · BF16</td><td>27B</td><td>≤15% TPS ★</td><td class="num saved">−31.16%</td><td class="num">18.58 Ws/t</td><td class="num">25.32 tps</td><td class="num">−8.80%</td></tr>
+                        <tr class="row-p15"><td>Qwen3.5-27B · BF16</td><td>27B</td><td>≤15% TPS</td><td class="num saved">−31.16%</td><td class="num">18.58 Ws/t</td><td class="num">25.32 tps</td><td class="num">−8.80%</td></tr>
                         <tr><td>Qwen3.5-27B · BF16</td><td>27B</td><td>≤20% TPS</td><td class="num saved">−31.49%</td><td class="num">18.50 Ws/t</td><td class="num">22.82 tps</td><td class="num">−17.81%</td></tr>
                         <tr><td>Qwen3.5-35B-A3B · BF16</td><td>35B MoE</td><td>≤10% TPS</td><td class="num saved">−19.25%</td><td class="num">4.22 Ws/t</td><td class="num">103.11 tps</td><td class="num">−10.01%</td></tr>
-                        <tr class="row-p15"><td>Qwen3.5-35B-A3B · BF16</td><td>35B MoE</td><td>≤15% TPS ★</td><td class="num saved">−20.16%</td><td class="num">4.18 Ws/t</td><td class="num">99.28 tps</td><td class="num">−13.36%</td></tr>
+                        <tr class="row-p15"><td>Qwen3.5-35B-A3B · BF16</td><td>35B MoE</td><td>≤15% TPS</td><td class="num saved">−20.16%</td><td class="num">4.18 Ws/t</td><td class="num">99.28 tps</td><td class="num">−13.36%</td></tr>
                         <tr><td>Qwen3.5-35B-A3B · BF16</td><td>35B MoE</td><td>≤20% TPS</td><td class="num saved">−20.65%</td><td class="num">4.15 Ws/t</td><td class="num">94.82 tps</td><td class="num">−17.25%</td></tr>
                     </tbody>
                 </table>
-                <p style="font-size:0.72rem;color:#555;margin-top:0.4rem;">Baseline: NVIDIA RTX Pro 6000 Blackwell · llama.cpp · ★ = recommended "sweet spot" profile. All readings at wall-socket.</p>
+                <p style="font-size:0.72rem;color:#555;margin-top:0.4rem;">Single GPU · NVIDIA RTX Pro 6000 Blackwell · llama.cpp. All readings at wall-socket.</p>
             </div>
         </div>
     </div>
@@ -1448,18 +1822,16 @@
 
     <!-- Chapter 05: Case Study -->
     <div class="py-24 px-6 relative">
-        <div class="chapter-number scrolly-reveal">05</div>
         <div class="container mx-auto max-w-5xl">
             <div class="mb-14">
                 <span class="chapter-badge scrolly-reveal">Case Study</span>
-                <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem 0;"></div>
                 <h3 class="text-3xl md:text-4xl font-bold scrolly-reveal delay-1">Optimising Autonomous AI Agents</h3>
                 <p class="mt-4 scrolly-reveal delay-2" style="color:rgba(255,255,255,0.65);max-width:640px;line-height:1.8;">
-                    Continuous, zero-intervention AI agent loops create a sustained, demanding inference load. We validated vert-suite in exactly this scenario — using Claude Code acting as an autonomous coding agent running non-stop research iterations on a dedicated GPU server.
+                    Continuous, zero-intervention AI agent loops create a sustained, demanding inference load. We validated vert-suite in exactly this scenario, using Claude Code acting as an autonomous coding agent running non-stop research iterations on a dedicated GPU server.
                 </p>
             </div>
             <div class="scrolly-reveal delay-2" style="margin-bottom:2.5rem;">
-                <div style="font-size:0.72rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.85rem;">Technology Stack</div>
+                <div style="font-size:0.82rem;color:rgba(255,255,255,0.65);margin-bottom:0.85rem;">Technology Stack</div>
                 <div>
                     <span class="stack-pill">Claude Code</span>
                     <span class="stack-pill">RTX Pro 6000 Blackwell</span>
@@ -1469,7 +1841,7 @@
                 </div>
             </div>
             <div class="scrolly-reveal delay-3" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:2rem;margin-bottom:2rem;">
-                <div style="font-size:0.72rem;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1.25rem;">Average Server Power (measured at server wall-socket)</div>
+                <div style="font-size:0.82rem;color:rgba(255,255,255,0.65);margin-bottom:1.25rem;">Average Server Power (measured at server wall-socket)</div>
                 <div style="margin-bottom:1.25rem;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
                         <span style="font-size:0.85rem;color:rgba(255,255,255,0.65);">Without vert-suite</span>
@@ -1513,7 +1885,7 @@
                     </thead>
                     <tbody>
                         <tr><td>Avg. server power (wall-socket)</td><td class="num">781 W</td><td class="num saved">459 W</td><td class="num saved">−41%</td></tr>
-                        <tr class="row-p15"><td>Energy per token</td><td class="num">—</td><td class="num saved">—</td><td class="num saved">~−32%</td></tr>
+                        <tr class="row-p15"><td>Energy per token</td><td class="num">n/a</td><td class="num saved">n/a</td><td class="num saved">~−32%</td></tr>
                         <tr><td>Throughput impact</td><td class="num">baseline</td><td class="num">reduced</td><td class="num">~−12%</td></tr>
                     </tbody>
                 </table>
@@ -1532,13 +1904,13 @@
 
                     <!-- Left: narrative -->
                     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.5rem;">
-                        <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);margin-bottom:1.1rem;">What's happening</div>
+                        <div style="font-size:0.82rem;font-weight:700;color:rgba(255,255,255,0.65);margin-bottom:1.1rem;">What's happening</div>
                         <div style="display:flex;flex-direction:column;gap:1rem;">
                             <div style="display:flex;gap:0.75rem;align-items:flex-start;">
                                 <div style="width:7px;height:7px;background:#60a5fa;border-radius:50%;flex-shrink:0;margin-top:4px;"></div>
                                 <div>
                                     <div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:0.2rem;">The Local Agent</div>
-                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.6;">Claude Code running locally, pointing to a GPU server — RTX Pro 6000 Blackwell running vLLM and Gemma 4 (31B).</div>
+                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.6;">Claude Code running locally, pointing to a GPU server: an RTX Pro 6000 Blackwell running vLLM and Gemma 4 (31B).</div>
                                 </div>
                             </div>
                             <div style="display:flex;gap:0.75rem;align-items:flex-start;">
@@ -1552,7 +1924,7 @@
                                 <div style="width:7px;height:7px;background:#9ef8a2;border-radius:50%;flex-shrink:0;margin-top:4px;"></div>
                                 <div>
                                     <div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:0.2rem;">The Fix</div>
-                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.6;">vert-suite applied. Power dropped to ~450 W — a ~41% reduction. Throughput only fell by 10–14%.</div>
+                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.6;">vert-suite applied. Power dropped to ~450 W, a ~41% reduction. Throughput only fell by 10–14%.</div>
                                 </div>
                             </div>
                             <div style="display:flex;gap:0.75rem;align-items:flex-start;">
@@ -1570,26 +1942,26 @@
 
                         <!-- Key moments -->
                         <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.5rem;">
-                            <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);margin-bottom:1rem;">Click to Play Key moments</div>
+                            <div style="font-size:0.82rem;font-weight:700;color:rgba(255,255,255,0.65);margin-bottom:1rem;">Click to Play Key moments</div>
                             <div style="display:flex;flex-direction:column;gap:0.75rem;">
                                 <div style="display:flex;align-items:flex-start;gap:0.75rem;">
                                     <button class="vimeo-seek" data-seconds="125" style="font-size:0.72rem;font-weight:700;color:#9ef8a2;background:rgba(0,147,115,0.65);border:1px solid rgba(0,147,115,0.3);border-radius:6px;padding:0.15rem 0.55rem;flex-shrink:0;font-family:monospace;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='rgba(0,147,115,0.3)'" onmouseout="this.style.background='rgba(0,147,115,0.15)'">02:05 ▶</button>
-                                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.5;">Optimisation ON — power usage drops sharply</span>
+                                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.5;">Optimisation ON: power usage drops sharply</span>
                                 </div>
                                 <div style="display:flex;align-items:flex-start;gap:0.75rem;">
                                     <button class="vimeo-seek" data-seconds="216" style="font-size:0.72rem;font-weight:700;color:#f87171;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.65);border-radius:6px;padding:0.15rem 0.55rem;flex-shrink:0;font-family:monospace;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='rgba(248,113,113,0.25)'" onmouseout="this.style.background='rgba(248,113,113,0.1)'">03:36 ▶</button>
-                                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.5;">Optimisation OFF — power climbs back to baseline</span>
+                                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.5;">Optimisation OFF: power climbs back to baseline</span>
                                 </div>
                                 <div style="display:flex;align-items:flex-start;gap:0.75rem;">
                                     <button class="vimeo-seek" data-seconds="326" style="font-size:0.72rem;font-weight:700;color:#9ef8a2;background:rgba(0,147,115,0.15);border:1px solid rgba(0,147,115,0.65);border-radius:6px;padding:0.15rem 0.55rem;flex-shrink:0;font-family:monospace;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='rgba(0,147,115,0.3)'" onmouseout="this.style.background='rgba(0,147,115,0.15)'">05:26 ▶</button>
-                                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.5;">Optimisation ON again — confirms repeatability</span>
+                                    <span style="font-size:0.75rem;color:rgba(255,255,255,0.65);line-height:1.5;">Optimisation ON again: confirms repeatability</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Screen layout key -->
                         <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.5rem;">
-                            <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);margin-bottom:1rem;">What's on screen</div>
+                            <div style="font-size:0.82rem;font-weight:700;color:rgba(255,255,255,0.65);margin-bottom:1rem;">What's on screen</div>
                             <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.72rem;">
                                 <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.6rem 0.75rem;">
                                     <div style="color:rgba(255,255,255,0.65);margin-bottom:0.2rem;font-size:0.65rem;">Top Left</div>
@@ -1745,11 +2117,9 @@
 
 <!-- ── News & Recognition ─────────────────────────────── -->
 <section id="milestones" class="py-24 px-6 relative">
-    <div class="chapter-number scrolly-reveal">06</div>
     <div class="container mx-auto max-w-5xl">
         <div class="mb-14">
             <span class="chapter-badge scrolly-reveal">News &amp; Recognition</span>
-            <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem 0;"></div>
             <h2 class="text-3xl md:text-4xl font-bold scrolly-reveal delay-1">Recognised by Industry Leaders</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -1757,7 +2127,7 @@
                 <img class="h-10 mb-6 opacity-90" style="object-fit:contain;object-position:left;" src="imgs/ukri_bw.png" alt="UKRI Logo">
                 <h3 class="text-xl font-semibold mb-3" style="color:#fff;">Innovate UK 'New Innovators' Grant</h3>
                 <p style="color:rgba(255,255,255,0.65);line-height:1.8;flex:1;">
-                    Verticular has secured the 'Growth Catalyst Early Stage' grant to advance <strong style="color:#fff;">EPIC (Energy-efficient Processing for Intensive Computing)</strong> — using AI to dynamically manage both CPU and GPU power and cut energy costs for AI data centres without performance trade-offs.
+                    Verticular has secured the 'Growth Catalyst Early Stage' grant to advance <strong style="color:#fff;">EPIC (Energy-efficient Processing for Intensive Computing)</strong>, using AI to dynamically manage both CPU and GPU power and cut energy costs for AI data centres without performance trade-offs.
                 </p>
             </div>
             <div class="dark-card scrolly-reveal delay-2" style="display:flex;flex-direction:column;">
@@ -1807,14 +2177,12 @@
 
 <!-- ── About / Team ────────────────────────────────────── -->
 <section id="about" class="py-24 px-6 relative">
-    <div class="chapter-number scrolly-reveal">07</div>
     <div class="container mx-auto max-w-5xl">
         <div class="mb-14">
             <span class="chapter-badge scrolly-reveal">The Team</span>
-            <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem 0;"></div>
             <h2 class="text-3xl md:text-4xl font-bold scrolly-reveal delay-1">Built by Industry Experts</h2>
             <p class="scrolly-reveal delay-2" style="color:rgba(255,255,255,0.6);max-width:620px;line-height:1.8;">
-                Verticular was founded by two tech leaders who spent careers engineering at the frontier of wireless networks and AI systems — and who saw first-hand the cost and energy problem coming.
+                Verticular was founded by two tech leaders who spent careers engineering at the frontier of wireless networks and AI systems, and who saw first-hand the cost and energy problem coming.
             </p>
         </div>
 
@@ -1878,7 +2246,7 @@
         <div class="dark-card scrolly-reveal delay-3" style="text-align:center;padding:1.5rem 2rem;">
             <div style="font-size:2.5rem;color:#009373;line-height:0.8;margin-bottom:0.5rem;opacity:0.4;">"</div>
             <p class="text-lg md:text-xl leading-relaxed mb-5" style="font-style:italic;color:rgba(255,255,255,0.8);margin-left:auto;margin-right:auto;">
-                Our mission is to solve the dual problem of rising cloud costs and the massive energy footprint of AI — building deep, chip-level software that lowers OpEx, maximises hardware ROI, and meets sustainability goals without compromising SLAs.
+                Our mission is to solve the dual problem of rising cloud costs and the massive energy footprint of AI by building deep, chip-level software that lowers OpEx, maximises hardware ROI, and meets sustainability goals without compromising SLAs.
             </p>
         </div>
     </div>
@@ -1888,45 +2256,23 @@
 
 <!-- ── Contact ────────────────────────────────────────── -->
 <section id="contact" class="py-24 px-6 relative text-white">
-    <div class="chapter-number scrolly-reveal">08</div>
     <div class="container mx-auto max-w-5xl">
         <div class="text-center mb-14">
             <span class="chapter-badge scrolly-reveal">Contact Us</span>
-            <div class="chapter-sep scrolly-reveal delay-1" style="margin:1.25rem auto;"></div>
             <h2 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight scrolly-reveal delay-1">
                 See Your Savings.<br>Live. On Your Hardware.
             </h2>
             <p class="scrolly-reveal delay-2" style="color:rgba(255,255,255,0.65);text-align:center;max-width:600px;margin:1rem auto 0;line-height:1.8;font-size:1.05rem;">
-                Request a demo and we'll show you wall-Socket power measurements on a real GPU server — before and after vert-suite — so you can see the savings for yourself, not just take our word for it.
+                Book a 30-minute call and we'll show you wall-socket power measurements on a real GPU server, before and after vert-suite, so you can see the savings for yourself, not just take our word for it.
             </p>
         </div>
-        <form action="https://api.web3forms.com/submit" method="POST" class="scrolly-reveal delay-3" style="max-width:800px; margin:0 auto;" id="contact_us">
-            <input type="hidden" name="access_key" value="04aae826-131f-4c1e-8c46-ca4955d26829">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div>
-                    <label for="name" class="block mb-2 text-sm font-medium">Full Name</label>
-                    <input type="text" name="name" id="name" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green" required>
-                </div>
-                <div>
-                    <label for="email" class="block mb-2 text-sm font-medium">Email Address</label>
-                    <input type="email" name="email" id="email" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green" required>
-                </div>
-            </div>
-            <div class="mb-6">
-                <label for="phone" class="block mb-2 text-sm font-medium">Phone Number</label>
-                <input type="tel" name="phone" id="phone" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green">
-            </div>
-            <div class="mb-6">
-                <label for="message" class="block mb-2 text-sm font-medium">Message</label>
-                <textarea name="message" id="message" rows="4" class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg focus:ring-verticular-green focus:border-verticular-green" required></textarea>
-            </div>
-            <div class="h-captcha mb-5" data-captcha="true"></div>
-            <div class="text-center">
-                <button type="submit" style="background:#9ef8a2;color:#003d33;" class="font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 hover:opacity-90 hover:scale-105 transform">
-                    Send Message
-                </button>
-            </div>
-        </form>
+        <!-- Cal.com inline booking embed -->
+        <div class="scrolly-reveal delay-3" style="max-width:1000px;margin:0 auto;">
+            <div id="cal-inline-30min" style="width:100%;min-height:450px;overflow:auto;"></div>
+        </div>
+        <p class="scrolly-reveal delay-3" style="text-align:center;margin-top:1rem;font-size:0.78rem;color:rgba(255,255,255,0.65);">
+            Calendar not loading? <a href="https://cal.com/verticularltd/30min" target="_blank" rel="noopener" style="color:#9ef8a2;text-decoration:underline;">Book on cal.com</a>
+        </p>
     </div>
 </section>
 
@@ -2177,7 +2523,16 @@
     });
 })();
 </script>
-<script src="https://web3forms.com/client/script.js" async defer></script>
+<script type="text/javascript">
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", "30min", { origin: "https://app.cal.com" });
+    Cal.ns["30min"]("inline", {
+        elementOrSelector: "#cal-inline-30min",
+        config: { layout: "month_view", theme: "dark" },
+        calLink: "verticularltd/30min"
+    });
+    Cal.ns["30min"]("ui", { theme: "dark", cssVarsPerTheme: { dark: { "cal-brand": "#9ef8a2" } }, hideEventTypeDetails: false, layout: "month_view" });
+</script>
 <script src="https://player.vimeo.com/api/player.js"></script>
 <script>
     (function () {
@@ -2200,12 +2555,6 @@
             initVimeoSeek();
         }
     })();
-</script>
-<script>
-    document.getElementById('contact_us').addEventListener('submit', function(e) {
-        const hCaptcha = this.querySelector('textarea[name=h-captcha-response]').value;
-        if (!hCaptcha) { e.preventDefault(); alert("Please fill out captcha field"); }
-    });
 </script>
 
 <!-- Scrollytelling engine -->
