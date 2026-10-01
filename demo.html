@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="0430179b-d5d7-446d-9dd2-86cd971376ef" type="text/javascript" async></script>
+    <script data-cookieconsent="ignore">    window.dataLayer = window.dataLayer || [];    function gtag() {        dataLayer.push(arguments);    }    gtag("consent", "default", {        ad_personalization: "denied",        ad_storage: "denied",        ad_user_data: "denied",        analytics_storage: "denied",        functionality_storage: "denied",        personalization_storage: "denied",        security_storage: "granted",        wait_for_update: 500,    });    gtag("set", "ads_data_redaction", true);    gtag("set", "url_passthrough", false);</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZ1BQQDCQS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TZ1BQQDCQS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="imgs/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="imgs/favicon.svg" />
+    <link rel="shortcut icon" href="imgs/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="imgs/apple-touch-icon.png" />
+    <title>Verticular – In Action</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html { background-color: #030a09; }
+        html, body { overscroll-behavior: none; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #060e0d;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .chapter-badge {
+            display: block;
+            color: #9ef8a2;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,147,115,0.35), transparent);
+            margin: 0 2rem;
+        }
+
+        /* ── Demo list ── */
+        .demo-toc {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .demo-toc a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.75);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 9999px;
+            padding: 0.45rem 1rem;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .demo-toc a:hover { border-color: #9ef8a2; color: #fff; }
+        .demo-toc .num { color: #9ef8a2; }
+
+        .demo {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+            scroll-margin-top: 90px;
+        }
+        @media (min-width: 900px) {
+            .demo { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 3rem; }
+        }
+        .demo-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #9ef8a2;
+            margin-bottom: 0.6rem;
+        }
+        .demo h2 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+        .demo p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .demo-embed {
+            display: flex;
+            justify-content: center;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: #000;
+        }
+        .demo-embed video {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            background: #000;
+        }
+        .demo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.65);
+            transition: color 0.2s;
+        }
+        .demo-link:hover { color: #9ef8a2; }
+
+        /* ── Caveat / stat callout ── */
+        .caveat {
+            background: rgba(251,191,36,0.06);
+            border: 1px solid rgba(251,191,36,0.3);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+        }
+        .caveat-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(251,191,36,0.9);
+            margin-bottom: 0.5rem;
+        }
+        .caveat p { font-size: 0.9rem; margin-bottom: 0; }
+        .stat-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .stat-pair div {
+            background: rgba(0,147,115,0.1);
+            border: 1px solid rgba(0,147,115,0.4);
+            border-radius: 12px;
+            padding: 0.9rem 1rem;
+        }
+        .stat-pair .v { font-size: 1.5rem; font-weight: 800; color: #9ef8a2; line-height: 1.1; }
+        .stat-pair .l { font-size: 0.75rem; color: rgba(255,255,255,0.65); margin-top: 0.25rem; }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- ── Header ─────────────────────────────────────────── -->
+<header style="background:rgba(6,14,13,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.07);" class="sticky top-0 z-50">
+    <nav class="container mx-auto flex justify-between items-center py-4 px-6 md:px-12">
+        <a href="index.html" class="shrink-0">
+            <img class="h-9 w-auto" src="imgs/Verticular_v1-25.png" alt="Verticular Logo">
+        </a>
+        <a href="index.html#contact" style="background:#9ef8a2;color:#003d33;font-size:0.875rem;" class="font-bold py-2 px-5 rounded-full shadow transition duration-300 hover:opacity-90">
+            Request Demo
+        </a>
+    </nav>
+</header>
+
+<!-- ── Hero ───────────────────────────────────────────── -->
+<section class="text-white px-6 lg:px-12" style="padding-top:4rem;padding-bottom:3.5rem;">
+    <div class="container mx-auto max-w-5xl">
+        <span class="chapter-badge">vert-suite · In Action</span>
+        <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+            See It <span style="color:#9ef8a2;">Running.</span>
+        </h1>
+        <p class="text-lg md:text-xl mb-10" style="color:rgba(255,255,255,0.75);max-width:640px;line-height:1.85;">
+            Short videos of vert-suite on real hardware, on bare metal and in the cloud: live power measurements, a one-command proof of concept on AWS, the R&amp;D behind it, and our talk at Isambard-AI.
+        </p>
+        <div class="demo-toc">
+            <a href="#capacity"><span class="num">01</span> Unlock Trapped GPU Capacity</a>
+            <a href="#agent"><span class="num">02</span> Autonomous AI Agent, 40% Less Power</a>
+            <a href="#poc"><span class="num">03</span> Portable Proof of Concept on AWS</a>
+            <a href="#parallel"><span class="num">04</span> Multiple Parallel Coding Tasks on AWS</a>
+            <a href="#rnd"><span class="num">05</span> Cutting-Edge R&amp;D</a>
+            <a href="#isambard"><span class="num">06</span> Talk at Isambard-AI</a>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── Video 1 ────────────────────────────────────────── -->
+<section class="py-24 px-6">
+    <div class="container mx-auto max-w-5xl">
+        <article id="capacity" class="demo">
+            <div>
+                <div class="demo-num">Video 01</div>
+                <h2>Unlock Trapped GPU Capacity</h2>
+                <p>
+                    At scale, AI compute capacity is a software problem as much as a hardware one. Most servers are tuned for peak performance on day one and never revisited.
+                </p>
+                <p>
+                    vert-suite continuously fits GPU and CPU speeds to the actual workload and reclaims around <strong style="color:#fff;">35% of a server's power budget</strong>. That means <strong style="color:#fff;">33% more GPUs per rack</strong> on your existing electrical connections: roughly one extra GPU for every three already deployed, with no new hardware, no model retraining and no application rewrites.
+                </p>
+            </div>
+            <div>
+                <div class="demo-embed">
+                    <video controls playsinline preload="metadata" poster="videos/gpu-capacity.jpg" title="Unlock Trapped GPU Capacity">
+                        <source src="videos/gpu-capacity.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <a class="demo-link" href="https://www.linkedin.com/posts/andreatassi_nvidiainception-ugcPost-7505282219335389184-7IIo" target="_blank" rel="noopener">View the post on LinkedIn →</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── Video 2 ────────────────────────────────────────── -->
+<section class="py-24 px-6">
+    <div class="container mx-auto max-w-5xl">
+        <article id="agent" class="demo">
+            <div>
+                <div class="demo-num">Video 02</div>
+                <h2>Autonomous AI Agent, 40% Less Power</h2>
+                <p>
+                    Claude Code runs an autonomous self-improvement loop, based on Andrej Karpathy's &ldquo;Autoresearch&rdquo; pattern, against a local GPU server: an RTX Pro 6000 Blackwell running vLLM and Gemma 4 31B. Without optimisation, the server draws <strong style="color:#fff;">800&nbsp;W+</strong> at 19–22 tokens per second.
+                </p>
+                <p>
+                    With vert-suite on, power falls to about <strong style="color:#fff;">450&nbsp;W</strong> for a 10–14% drop in speed. The wall-socket power meter in the bottom right shows it live: optimisation on, off, then on again. Raw vLLM logs run in the top left.
+                </p>
+            </div>
+            <div>
+                <div class="demo-embed">
+                    <video controls playsinline preload="metadata" poster="videos/ai-agent.jpg" title="Autonomous AI Agent, 40% Less Power">
+                        <source src="videos/ai-agent.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <a class="demo-link" href="https://www.linkedin.com/posts/andreatassi_greenai-agenticai-machinelearning-activity-7447649994720886784-c0q6" target="_blank" rel="noopener">View the post on LinkedIn →</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── Video 3 ────────────────────────────────────────── -->
+<section class="py-24 px-6">
+    <div class="container mx-auto max-w-5xl">
+        <article id="poc" class="demo">
+            <div>
+                <div class="demo-num">Video 03</div>
+                <h2>Portable Proof of Concept on AWS</h2>
+                <p>
+                    One command takes a raw, Blackwell-backed AWS EC2 instance and sets up vert-suite from scratch. It installs Helm and the NVIDIA GPU Operator, checks that the GPU is exposed and deploys our core services, then opens k9s to confirm the node is healthy.
+                </p>
+                <p>
+                    The same tool works on virtually any other cloud provider.
+                </p>
+            </div>
+            <div>
+                <div class="demo-embed">
+                    <video controls playsinline preload="metadata" poster="videos/aws-poc.jpg" title="Portable Proof of Concept on AWS">
+                        <source src="videos/aws-poc.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <a class="demo-link" href="https://www.linkedin.com/posts/andreatassi_deeptech-energyefficiency-llm-activity-7478100151111290880-lhWf" target="_blank" rel="noopener">View the post on LinkedIn →</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── Video 4 ────────────────────────────────────────── -->
+<section class="py-24 px-6">
+    <div class="container mx-auto max-w-5xl">
+        <article id="parallel" class="demo">
+            <div>
+                <div class="demo-num">Video 04</div>
+                <h2>Multiple Parallel Coding Tasks on AWS</h2>
+                <p>
+                    Multiple parallel coding tasks running LLM inference on an AWS EC2 instance with a single Blackwell GPU. Without optimisation, the GPU stack draws around <strong style="color:#fff;">375&nbsp;W</strong>. With vert-suite enabled, the draw drops to roughly <strong style="color:#fff;">300&nbsp;W</strong>, as our eBPF framework tunes hardware power in the background.
+                </p>
+                <div class="caveat">
+                    <div class="caveat-title">Note on the figures</div>
+                    <p>
+                        To keep the video short, there was no time for a lengthy statistical analysis, so the video says energy savings are &ldquo;in the region of 16%&rdquo;. Averaged over a longer run (~30&nbsp;min), the same experiment saved more energy for less throughput loss. Screenshots are in the comments of the LinkedIn post.
+                    </p>
+                    <div class="stat-pair">
+                        <div>
+                            <div class="v">−22.6%</div>
+                            <div class="l">Average energy per token (~30 min)</div>
+                        </div>
+                        <div>
+                            <div class="v">&lt;3.2%</div>
+                            <div class="l">Throughput reduction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="demo-embed">
+                    <video controls playsinline preload="metadata" poster="videos/aws-results.jpg" title="Multiple Parallel Coding Tasks on AWS">
+                        <source src="videos/aws-results.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <a class="demo-link" href="https://www.linkedin.com/posts/andreatassi_deeptech-energyefficiency-llm-activity-7480640634039705600-4OEE" target="_blank" rel="noopener">Screenshots of the 30-minute run in the LinkedIn comments →</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── Video 5 ────────────────────────────────────────── -->
+<section class="py-24 px-6">
+    <div class="container mx-auto max-w-5xl">
+        <article id="rnd" class="demo">
+            <div>
+                <div class="demo-num">Video 05</div>
+                <h2>Cutting-Edge R&amp;D</h2>
+                <p>
+                    Verticular started with £300 of second-hand HP Z820 and a single RTX 3060. Today, the work sits at the cutting edge of the Linux kernel and Kubernetes orchestration for LLMs.
+                </p>
+                <p>
+                    The video shows the GPU-to-CPU pressure on our Blackwell server across different performance settings, overlaid with vert-suite's dynamic optimisation. vert-suite detects the operational phases (three back to back here) on its own, with no labelled data.
+                </p>
+            </div>
+            <div>
+                <div class="demo-embed">
+                    <video controls playsinline preload="metadata" poster="videos/rnd.jpg" title="Cutting-Edge R&amp;D">
+                        <source src="videos/rnd.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <a class="demo-link" href="https://www.linkedin.com/posts/andreatassi_deeptech-verticular-llms-activity-7478860574580375556-ryvg" target="_blank" rel="noopener">View the post on LinkedIn →</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── Video 6 ────────────────────────────────────────── -->
+<section class="py-24 px-6">
+    <div class="container mx-auto max-w-5xl">
+        <article id="isambard" class="demo">
+            <div>
+                <div class="demo-num">Video 06</div>
+                <h2>Talk at Isambard-AI</h2>
+                <p>
+                    Our presentation at Isambard-AI, at an event co-hosted by the Bristol Centre for Supercomputing (BriCS) and NVIDIA, on the growing but often silent GPU energy crisis in data centres.
+                </p>
+                <p>
+                    It explains why cloud resource orchestration is not the same as true optimisation, and how vert-suite's lightweight, eBPF-based architecture tunes GPU and CPU frequencies on the fly to cut energy per token by up to <strong style="color:#fff;">33%</strong> without breaking SLAs.
+                </p>
+            </div>
+            <div>
+                <div class="demo-embed">
+                    <video controls playsinline preload="metadata" poster="videos/isambard-talk.jpg" title="Talk at Isambard-AI">
+                        <source src="videos/isambard-talk.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <a class="demo-link" href="https://www.linkedin.com/posts/andreatassi_ai-energyoptimization-ebpf-activity-7483228701095145472-ej8q" target="_blank" rel="noopener">View the post on LinkedIn →</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ── CTA ────────────────────────────────────────────── -->
+<section class="py-24 px-6 text-white">
+    <div class="container mx-auto max-w-5xl" style="text-align:center;">
+        <h2 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
+            See Your Savings.<br>Live. On Your Hardware.
+        </h2>
+        <p style="color:rgba(255,255,255,0.65);max-width:600px;margin:1rem auto 2rem;line-height:1.8;font-size:1.05rem;">
+            Book a 30-minute call and we'll run the same measurements on a real GPU server, before and after vert-suite.
+        </p>
+        <a href="index.html#contact" style="display:inline-block;background:#9ef8a2;color:#003d33;" class="font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 hover:opacity-90">
+            Request a Demo
+        </a>
+    </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────── -->
+<footer style="background:#030a09;border-top:1px solid rgba(255,255,255,0.07);" class="text-gray-400 pt-14 pb-10">
+    <div class="container mx-auto px-6 md:px-12 max-w-5xl">
+
+        <!-- Top row: brand + nav + contact -->
+        <div class="flex flex-col md:flex-row justify-between gap-10 mb-10">
+
+            <!-- Brand -->
+            <div class="flex flex-col gap-3" style="min-width:180px;">
+                <a href="index.html">
+                    <img class="h-8 w-auto opacity-90 hover:opacity-100 transition-opacity" src="imgs/Verticular_v1-25.png" alt="Verticular">
+                </a>
+                <p style="font-size:0.78rem;color:rgba(255,255,255,0.65);line-height:1.6;max-width:220px;">
+                    Your Cloud, Optimised.
+                </p>
+            </div>
+
+            <!-- Navigation -->
+            <div class="flex flex-col gap-3">
+                <span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);">Navigate</span>
+                <a href="demo.html"   style="font-size:0.85rem;color:rgba(255,255,255,0.65);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">In Action</a>
+                <a href="index.html#results"    style="font-size:0.85rem;color:rgba(255,255,255,0.65);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Results</a>
+                <a href="index.html#solution"   style="font-size:0.85rem;color:rgba(255,255,255,0.65);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">The Solution</a>
+                <a href="index.html#milestones" style="font-size:0.85rem;color:rgba(255,255,255,0.65);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">News</a>
+                <a href="index.html#about"      style="font-size:0.85rem;color:rgba(255,255,255,0.65);transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">The Team</a>
+            </div>
+
+            <!-- Contact CTA -->
+            <div class="flex flex-col gap-3">
+                <span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.65);">Get in Touch</span>
+                <div style="display:inline-flex;align-items:center;gap:0.75rem;">
+                    <a href="mailto:info@verticular.uk" style="font-size:0.85rem;color:rgba(255,255,255,0.65);transition:color 0.2s;" onmouseover="this.style.color='#9ef8a2'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">info@verticular.uk</a>
+                    <a href="https://www.linkedin.com/company/verticular" target="_blank" style="display:inline-flex;align-items:center;color:rgba(255,255,255,0.4);transition:color 0.2s;" onmouseover="this.style.color='#9ef8a2'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+                        <img src="imgs/linkedin-128.png" alt="LinkedIn" style="height:14px;width:auto;opacity:0.6;position:relative;top:-3px;">
+                    </a>
+                </div>
+                <a href="index.html#contact" style="display:inline-block;margin-top:0.25rem;background:#9ef8a2;color:#003d33;font-size:0.8rem;font-weight:700;padding:0.5rem 1.25rem;border-radius:9999px;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Request Demo →</a>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div style="height:1px;background:linear-gradient(90deg,rgba(0,147,115,0.2),rgba(255,255,255,0.06),transparent);margin-bottom:1.5rem;"></div>
+
+        <!-- Bottom: copyright -->
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.5rem;font-size:0.72rem;color:rgba(255,255,255,0.2);">
+            <span>&copy; 2026 Verticular Ltd. All rights reserved.</span>
+            <span>NVIDIA and the NVIDIA logo are trademarks of NVIDIA Corporation.</span>
+        </div>
+    </div>
+</footer>
+
+<!-- ── Scripts ────────────────────────────────────────── -->
+<script>
+    // Only one video plays at a time: starting one pauses the others
+    (function () {
+        var videos = document.querySelectorAll('.demo-embed video');
+        videos.forEach(function (v) {
+            v.addEventListener('play', function () {
+                videos.forEach(function (other) {
+                    if (other !== v && !other.paused) other.pause();
+                });
+            });
+        });
+    })();
+</script>
+
+</body>
+</html>
